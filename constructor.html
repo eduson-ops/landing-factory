@@ -272,6 +272,35 @@
       font-weight: var(--fw-medium);
     }
     .ctr-card .flag.dark { background: #2A2A30; color: #fff; }
+    .ctr-card .flag.exact { background: #1E1E20; color: #fff; }
+    .ctr-card .flag.warn { background: #FFF4D6; color: #8A6300; }
+    .ctr-card .order-pill {
+      position: absolute;
+      top: 8px; left: 8px;
+      background: rgba(15,15,18,0.78);
+      color: #fff;
+      font-size: 11px;
+      font-weight: var(--fw-bold);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      z-index: 2;
+      letter-spacing: 0.02em;
+    }
+    .ctr-card .ext-link {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 26px; height: 26px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(15,15,18,0.78);
+      color: #fff;
+      border-radius: 50%;
+      z-index: 2;
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity var(--tr-base);
+    }
+    .ctr-card:hover .ext-link { opacity: 1; }
+    .ctr-card .ext-link:hover { background: var(--color-primary); }
 
     /* ── Правая панель ────────────────────────────────────────────────── */
 
@@ -286,6 +315,14 @@
       overflow-y: auto;
       display: flex; flex-direction: column; gap: 18px;
     }
+    .canonical-toggle {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--color-text-muted);
+      margin: 4px 0 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .canonical-toggle input { width: 14px; height: 14px; accent-color: var(--color-primary); }
     .ctr-aside-section h3 {
       font-size: 12px;
       font-weight: var(--fw-bold);
@@ -519,6 +556,10 @@
 
       <div class="ctr-aside-section">
         <h3>Выбранные блоки <span id="selectedCount" style="color:var(--color-primary); font-weight:var(--fw-bold)"></span></h3>
+        <label class="canonical-toggle" title="При вкл. блоки идут в каноничном порядке Eduson независимо от порядка кликов">
+          <input type="checkbox" id="canonicalOrderToggle" checked>
+          <span>Соблюдать порядок Eduson</span>
+        </label>
         <div class="selected-list" id="selectedList"></div>
       </div>
 
@@ -645,6 +686,77 @@
       'portrait-placeholder.jpg':'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80&auto=format',
     };
 
+    // Метаданные блоков: type, canonicalOrder в типовом лендинге Eduson,
+    // признак brand-плейсхолдеров, источник (для UI-ссылки «оригинал ↗»).
+    // sourceUrl/sourceScreenshot заполняются по ходу gap-analysis (Этап 3+).
+    const BLOCK_META = {
+      // Порядок калиброван по реальной структуре 11 курсов на eduson.academy (Tilda):
+      // hero → CTA-форма #1 → benefits → target → описание/зарплаты → навыки → формат →
+      // программа → проекты → ментор/трудоустройство → диплом → эксперты → отзывы →
+      // CTA-форма #2 → FAQ → рейтинги → партнёры → trust → pricing → employer → sticky.
+
+      // 1. Hero
+      'hero-01': { type: 'universal', canonicalOrder: 1 },
+      'hero-02': { type: 'universal', canonicalOrder: 1 },
+      'hero-03': { type: 'universal', canonicalOrder: 1 },
+      'hero-04': { type: 'universal', canonicalOrder: 1 },
+      // 2. CTA-форма #1 — сразу после hero (часто как mentor-01/cta-01 в исходниках Eduson)
+      // (если выбран hero-02 с формой — этот блок не нужен; иначе ставится здесь)
+      // 3. Ключевые преимущества
+      'benefits-01': { type: 'universal', canonicalOrder: 3 },
+      // 4. Кому подходит
+      'target-01': { type: 'universal', canonicalOrder: 4 },
+      'target-02': { type: 'universal', canonicalOrder: 4 },
+      // 5. Описание профессии / о рынке (text-section)
+      'text-01': { type: 'universal', canonicalOrder: 5 },
+      // 5.5. «Боли» — у Eduson отсутствует, ставим рядом с описанием как опциональный
+      'pain-01': { type: 'universal', canonicalOrder: 5, notes: 'У Eduson обычно нет блока «болей» — opt-in, ставится рядом с описанием.' },
+      // 6. Статистика зарплат / результатов
+      'stats-02': { type: 'universal', canonicalOrder: 6 },
+      // 7. Навыки и инструменты
+      'skills-01': { type: 'universal', canonicalOrder: 7 },
+      // 8. Формат обучения / методы
+      'format-01': { type: 'universal', canonicalOrder: 8 },
+      // 9. Программа
+      'program-01': { type: 'universal', canonicalOrder: 9 },
+      'program-02': { type: 'universal', canonicalOrder: 9 },
+      // 10. Проекты / портфолио — у Eduson всегда горизонтальный слайдер (projects-01),
+      // вертикальный список (projects-02) не соответствует канону, оставлен для backward-compat.
+      'projects-01': { type: 'universal', canonicalOrder: 10 },
+      'projects-02': { type: 'universal', canonicalOrder: 10, notes: 'Не соответствует канону Eduson — у них всегда горизонтальный слайдер. Рекомендуется projects-01.' },
+      // 11. Стажировка / куратор / поддержка
+      'mentor-01': { type: 'universal', canonicalOrder: 11 },
+      'mentor-02': { type: 'universal', canonicalOrder: 11 },
+      // 12. Stats-dark (результаты обучения, тёмный hero-style)
+      'stats-01': { type: 'universal', canonicalOrder: 12 },
+      // 13. Диплом
+      'diploma-01': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true, notes: 'Фото диплома Eduson — продакт заменяет на реальное изображение.' },
+      'diploma-02': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true, notes: 'Фото диплома + удостоверения.' },
+      // 14. Преподаватели
+      'experts-01': { type: 'universal', canonicalOrder: 14 },
+      // 15. Отзывы / выпускники
+      'graduates-01': { type: 'universal', canonicalOrder: 15 },
+      'graduates-02': { type: 'universal', canonicalOrder: 15 },
+      // 16. Рейтинги-агрегаторы
+      'ratings-01': { type: 'exact', canonicalOrder: 16, hasBrandPlaceholders: true, notes: 'Логотипы Яндекс/Сравни/Хабр — продакт заменяет на реальные SVG.' },
+      // 17. Партнёры
+      'partners-01': { type: 'exact', canonicalOrder: 17, hasBrandPlaceholders: true, notes: 'Логотипы компаний-партнёров — продакт заменяет на реальные SVG.' },
+      // 18. Trust (цифры о компании)
+      'trust-01': { type: 'exact', canonicalOrder: 18, notes: 'Цифры о Eduson — фиксированные, не адаптируются под курс.' },
+      // 19. Pricing
+      'pricing-01': { type: 'universal', canonicalOrder: 19 },
+      'pricing-02': { type: 'universal', canonicalOrder: 19 },
+      'employer-01': { type: 'universal', canonicalOrder: 20 },
+      // 21. CTA-форма #2
+      'cta-01': { type: 'universal', canonicalOrder: 21 },
+      'cta-02': { type: 'universal', canonicalOrder: 21 },
+      // 22. FAQ — у Eduson часто в самом конце
+      'faq-01': { type: 'universal', canonicalOrder: 22 },
+      // 99. Sticky-footer (всегда поверх)
+      'sticky-01': { type: 'universal', canonicalOrder: 99 },
+    };
+    function meta(slug) { return BLOCK_META[slug] || { type: 'universal', canonicalOrder: 50 }; }
+
     const state = {
       selected: [],
       blockHtml: {},
@@ -653,6 +765,7 @@
       theme: 'theme-light-violet',
       search: '',
       brief: '',
+      canonicalOrder: true,
     };
 
     // Brief-шаблоны под отдельные блоки. При нажатии «+ шаблон» собираются
@@ -704,7 +817,7 @@
     }
 
     function persistState() {
-      const data = { selected: state.selected, theme: state.theme, mode: state.mode, brief: state.brief };
+      const data = { selected: state.selected, theme: state.theme, mode: state.mode, brief: state.brief, canonicalOrder: state.canonicalOrder };
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
       const params = new URLSearchParams();
       const slugs = state.selected.map(pathToSlug).filter(Boolean);
@@ -736,6 +849,7 @@
         if (d.theme === 'theme-dark-orange' || d.theme === 'theme-light-violet') state.theme = d.theme;
         if (d.mode === 'cli' || d.mode === 'browser') state.mode = d.mode;
         if (typeof d.brief === 'string') state.brief = d.brief;
+        if (typeof d.canonicalOrder === 'boolean') state.canonicalOrder = d.canonicalOrder;
       } catch (e) {}
     }
 
@@ -839,10 +953,24 @@
       card.dataset.search = (it.name + ' ' + it.slug + ' ' + (it.tags || []).join(' ')).toLowerCase();
 
       const previewSrc = it.path + (it.slug.startsWith('sticky') ? '?preview=1' : '');
+      const m = meta(it.slug);
+      const orderLabel = m.canonicalOrder === 99 ? '∞' : m.canonicalOrder;
+      const orderPill = `<span class="order-pill" title="Позиция в каноничном порядке Eduson">${orderLabel} •</span>`;
+      const extLink = m.sourceUrl
+        ? `<a class="ext-link" href="${m.sourceUrl}" target="_blank" rel="noopener" title="Оригинал на eduson.academy" data-action="ext"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg></a>`
+        : '';
+      const flagType = m.type === 'exact'
+        ? '<span class="flag exact" title="Копируется из оригинала Eduson без правок">Точный</span>'
+        : '<span class="flag">Универсальный</span>';
       const flagDark = it.themed === 'dark' ? '<span class="flag dark">Dark theme</span>' : '';
+      const flagWarn = m.hasBrandPlaceholders
+        ? '<span class="flag warn" title="Содержит brand-плейсхолдеры — продакт заменяет реальными ассетами перед публикацией">⚠ замена ассетов</span>'
+        : '';
 
       card.innerHTML = `
         <div class="preview">
+          ${orderPill}
+          ${extLink}
           <iframe loading="lazy" src="${previewSrc}"></iframe>
           <div class="preview-actions">
             <button class="preview-action" data-action="open" title="Открыть блок в новой вкладке">
@@ -852,7 +980,7 @@
         </div>
         <div class="label">
           <div class="label-title">${it.name}</div>
-          ${flagDark ? `<div class="label-flags">${flagDark}</div>` : ''}
+          <div class="label-flags">${flagType}${flagDark}${flagWarn}</div>
         </div>
       `;
 
@@ -1005,15 +1133,37 @@
     }
 
     function getOrderedSelected() {
-      return state.selected.map(path => {
+      const arr = state.selected.map(path => {
         const it = getItemByPath(path);
         return { ...it, html: state.blockHtml[path], error: state.blockError[path] };
       });
+      if (state.canonicalOrder) {
+        arr.sort((a, b) => {
+          const oa = meta(a.slug).canonicalOrder;
+          const ob = meta(b.slug).canonicalOrder;
+          if (oa !== ob) return oa - ob;
+          return state.selected.indexOf(a.path) - state.selected.indexOf(b.path);
+        });
+      }
+      return arr;
     }
 
     function buildModeA() {
       const items = getOrderedSelected();
-      const list = items.map((it, i) => `${i + 1}. ${it.path}`).join('\n');
+      const list = items.map((it, i) => {
+        const m = meta(it.slug);
+        const tag = m.type === 'exact' ? ' ⟵ ТОЧНЫЙ (не править)' : '';
+        return `${i + 1}. ${it.path}${tag}`;
+      }).join('\n');
+      const exactPaths = items.filter(it => meta(it.slug).type === 'exact').map(it => it.path);
+      const exactSection = exactPaths.length
+        ? [
+            '',
+            'ТОЧНЫЕ блоки (копипастятся из оригинала Eduson БЕЗ изменений —',
+            'не подставляй данные из ТЗ, не меняй тексты, не трогай brand-плейсхолдеры):',
+            ...exactPaths.map(p => `   - ${p}`),
+          ].join('\n')
+        : '';
       return [
         '[Этот промт предназначен для Claude Code CLI, запущенного в корне проекта.',
         ' Не вставляйте его в claude.ai/chat — у браузерного Claude нет доступа к локальным файлам.]',
@@ -1022,6 +1172,7 @@
         `Тема: ${state.theme.replace('theme-', '')}`,
         'Блоки в порядке сверху вниз:',
         list,
+        exactSection,
         '',
         'Инструкция:',
         '1) Прочитай каждый файл блока (Read).',
@@ -1049,7 +1200,8 @@
         "     '../../js/'  → 'blocks/js/'",
         "     '../../img/' → 'blocks/img/'",
         '9) Подставь данные из ТЗ ниже в заголовки/подзаголовки/тексты/цены/FAQ/форму',
-        '   (НЕ меняй CSS-классы и структуру разметки).',
+        '   ТОЛЬКО в УНИВЕРСАЛЬНЫХ блоках (НЕ меняй CSS-классы и структуру).',
+        '   В ТОЧНЫХ блоках (см. список выше, если есть) — НЕ ТРОГАЙ контент.',
         '10) Сохрани результат в index.html в корне.',
         '',
         'ТЗ:',
@@ -1069,7 +1221,9 @@
         body = body.replace(STRIP_PREVIEW_RE, '');
         body = body.replace(STRIP_COMPONENTS_RE, '');
         body = rewriteImgPathsModeB(body);
-        return `\n<!-- ${it.path} -->\n${body.trim()}\n`;
+        const m = meta(it.slug);
+        const tag = m.type === 'exact' ? ' [EXACT — копипаст из оригинала, не править]' : '';
+        return `\n<!-- ${it.path}${tag} -->\n${body.trim()}\n`;
       }).join('\n');
       const inlineBlockCss = blockCss.join('\n\n');
 
@@ -1105,6 +1259,16 @@
         '</html>',
       ].join('\n');
 
+      const exactComments = items.filter(it => meta(it.slug).type === 'exact').map(it => `   - ${it.path}`);
+      const exactNote = exactComments.length
+        ? [
+            '',
+            'ВАЖНО: следующие блоки помечены как ТОЧНЫЕ (копируются из оригинала Eduson):',
+            ...exactComments,
+            '   В них НЕ ПОДСТАВЛЯЙ данные из ТЗ — оставь контент как есть.',
+            '   Блоки помечены HTML-комментарием выше своей разметки.',
+          ].join('\n')
+        : '';
       return [
         '[Этот промт можно вставить в любой чат Claude — он содержит готовый HTML и инструкцию.]',
         '',
@@ -1114,9 +1278,10 @@
         '',
         'Задача:',
         '1) Подставь данные из ТЗ ниже в заголовки, подзаголовки, тексты, цены,',
-        '   FAQ, поля формы (НЕ меняй CSS-классы и структуру разметки).',
+        '   FAQ, поля формы УНИВЕРСАЛЬНЫХ блоков (НЕ меняй CSS-классы и структуру).',
         '2) Не редактируй <style> и <script> блоки.',
         '3) Верни полный HTML-файл одним блоком кода, готовым к сохранению как index.html.',
+        exactNote,
         '',
         'ТЗ:',
         state.brief.trim() || '<сюда продакт вставит свой структурированный текст>',
@@ -1384,6 +1549,14 @@
     if (state.mode === 'browser') {
       document.getElementById('modeInfo').innerHTML = '<span><b>claude.ai (браузер)</b> — полный inline HTML с Unsplash-картинками. Большой (~30–100 KB) — лучше «Скачать .txt» и приложить файлом.</span>';
     }
+    const canonicalToggle = document.getElementById('canonicalOrderToggle');
+    canonicalToggle.checked = state.canonicalOrder;
+    canonicalToggle.addEventListener('change', () => {
+      state.canonicalOrder = canonicalToggle.checked;
+      renderSelected();
+      updateCounter();
+      persistState();
+    });
     briefInput.value = state.brief;
     updateBriefCounter();
     renderSelected();
