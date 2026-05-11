@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- projects-01-slider: «Вы отработаете навыки на N проектах» — горизонтальный
+     scroll-snap слайдер карточек проектов с фото и подписями + стрелки.
+     Ref: refrences/Снимок экрана 2026-05-11 145200.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Проекты · слайдер</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .projects { padding: 64px 0 72px; }
+    .projects h2 {
+      max-width: 880px; margin: 0 auto 32px;
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+    }
+    .projects h2 .accent { color: var(--color-primary); }
+
+    .slider-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 320px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+    }
+    .slider-track > * { scroll-snap-align: start; }
+
+    .project-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column;
+    }
+    .project-photo { aspect-ratio: 4 / 3; position: relative; }
+    .project-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .project-photo .play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--color-accent-yellow);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #1E1E20;
+    }
+    .project-body { padding: 18px 18px 22px; }
+    .project-body h3 { font-size: 14px; font-weight: var(--fw-semibold); line-height: 1.45; }
+
+    .slider-arrows {
+      display: flex; gap: 12px; justify-content: center; margin-top: 18px;
+    }
+    .slider-arrows button {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .slider-arrows button:hover { background: var(--color-surface-soft); color: var(--color-primary); }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="projects">
+    <div class="container">
+      <h2>Вы отработаете навыки тестирования <span class="accent">на 21 проекте</span></h2>
+
+      <div data-slider>
+        <div class="slider-track" data-slider-track>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="play"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span></div>
+            <div class="project-body"><h3>Создадите чек-листы и сценарии тест-проверки для приложения Todoist</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Составите технический отчёт по итогам тестирования сайта</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Составите план тестов, сценариев и технический отчёт по сайту Triangle-ru</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Соберёте регрессионную модель для платёжной формы</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Опишете API-контракты микросервиса доставки</h3></div>
+          </div>
+        </div>
+
+        <div class="slider-arrows">
+          <button data-slider-arrow="prev" aria-label="Назад"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button data-slider-arrow="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

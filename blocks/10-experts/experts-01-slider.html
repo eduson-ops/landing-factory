@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- experts-01-slider: «При поддержке аналитиков-практиков из крупных компаний»
+     — слайдер из круглых фото-портретов с подписями.
+     Ref: refrences/Снимок экрана 2026-05-11 144618.png (нижняя часть) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Эксперты · слайдер</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .experts { padding: 64px 0 72px; }
+    .experts-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 24px; margin-bottom: 28px;
+    }
+    .experts-head h2 { font-size: clamp(28px, 4vw, 44px); max-width: 720px; }
+
+    .experts-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(180px, 220px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+    }
+    .experts-track > * { scroll-snap-align: start; }
+    .expert-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .expert-photo { aspect-ratio: 1 / 1; }
+    .expert-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .expert-body { padding: 16px 18px 20px; }
+    .expert-body h3 { font-size: 16px; font-weight: var(--fw-semibold); margin-bottom: 6px; }
+    .expert-body p { font-size: 13px; color: var(--color-text-muted); line-height: 1.45; }
+
+    .slider-arrows { display: flex; gap: 8px; }
+    .slider-arrows button {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .slider-arrows button:hover { color: var(--color-primary); }
+
+    @media (max-width: 768px) {
+      .experts-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="experts">
+    <div class="container">
+      <div class="experts-head">
+        <h2>При поддержке аналитиков-практиков из крупных компаний</h2>
+        <div class="slider-arrows">
+          <button data-slider-arrow="prev" aria-label="Назад"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button data-slider-arrow="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+
+      <div data-slider>
+        <div class="experts-track" data-slider-track>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Анна Иванова</h3><p>Lead Analyst, Яндекс</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Сергей Петров</h3><p>Head of Data, Сбер</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Ольга Смирнова</h3><p>Product Lead, Ozon</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Денис Орлов</h3><p>Senior PM, VK</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Мария Кузнецова</h3><p>Tech Lead, X5 Tech</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Артём Волков</h3><p>BI Architect, Авито</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

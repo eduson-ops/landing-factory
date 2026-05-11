@@ -1,0 +1,65 @@
+/* Eduson Academy — design tokens
+   Источник: refrences/Операционный директор лендинг.txt (реальный CSS Tilda).
+   Hex-значения подтверждены grep-ом (см. план v6.1). */
+
+:root {
+  /* Поверхности */
+  --color-bg:           #F3F3F6;
+  --color-surface:      #FFFFFF;
+  --color-surface-soft: #F0EEFF;
+
+  /* Текст */
+  --color-text:         #1E1E20;
+  --color-text-muted:   #A3A3AB;
+  --color-text-soft:    #88888F;
+
+  /* Бренд */
+  --color-primary:        #6B5EEC;
+  --color-primary-hover:  #5B4ECC;
+  --color-primary-shadow: rgba(107, 94, 236, 0.10);
+
+  /* Акценты */
+  --color-accent-yellow: #FFD53B;
+  --color-cta-dark:      #0F0F12;
+
+  /* Утилитарные */
+  --color-border:  #E6E6EC;
+  --color-success: #40B166;
+  --color-error:   #E95D55;
+  --color-dark:    #37373D;
+
+  /* Типографика */
+  --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold: 600;
+  --fw-bold:    700;
+  --fw-extrabold: 800;
+  --fw-black:   900;
+
+  /* Радиусы */
+  --radius-sm:    8px;
+  --radius-input: 12px;
+  --radius-md:    20px;
+  --radius-lg:    30px;
+  --radius-pill:  100px;
+
+  /* Тени */
+  --shadow-card: 0 4px 20px rgba(15, 15, 18, 0.04);
+  --shadow-cta:  0 6px 12px var(--color-primary-shadow);
+  --shadow-pop:  0 12px 32px rgba(15, 15, 18, 0.08);
+
+  /* Сетка */
+  --container-max: 1240px;
+  --gap-xs:  8px;
+  --gap-sm:  12px;
+  --gap-md:  16px;
+  --gap-lg:  24px;
+  --gap-xl:  32px;
+  --gap-2xl: 48px;
+  --gap-3xl: 80px;
+
+  /* Анимации */
+  --tr-fast: 150ms ease;
+  --tr-base: 200ms ease;
+}

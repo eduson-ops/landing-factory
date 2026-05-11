@@ -1,0 +1,84 @@
+<!doctype html>
+<!-- diploma-02-two-docs: «Каждый выпускник получит два документа» —
+     удостоверение о повышении квалификации + диплом Эдюсон.
+     Два больших блока: фото диплома + текст рядом.
+     Ref: ТЗ «ИИ-инженер» п.9 -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Диплом · 2 документа</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .diploma2 { padding: 64px 0 72px; }
+    .diploma2 h2 {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 40px;
+    }
+
+    .diploma2-grid {
+      display: flex; flex-direction: column;
+      gap: 28px;
+    }
+    .diploma2-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .diploma2-row.reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+    .diploma2-row.reverse .diploma2-photo { order: 2; }
+    .diploma2-row.reverse .diploma2-text  { order: 1; }
+
+    .diploma2-photo {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .diploma2-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    .diploma2-text h3 { font-size: 24px; margin-bottom: 12px; }
+    .diploma2-text p { color: var(--color-text-muted); font-size: 15px; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .diploma2-row, .diploma2-row.reverse { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
+      .diploma2-row.reverse .diploma2-photo { order: 0; }
+      .diploma2-row.reverse .diploma2-text  { order: 0; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="diploma2">
+    <div class="container">
+      <h2>Каждый выпускник программы получит два документа</h2>
+
+      <div class="diploma2-grid">
+        <div class="diploma2-row">
+          <div class="diploma2-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+          <div class="diploma2-text">
+            <h3>Удостоверение о повышении квалификации</h3>
+            <p>У вас будет официальный документ, который подтвердит ваши навыки и поможет в карьерном росте. В зависимости от выбранного трека — удостоверение о повышении квалификации или диплом о профессиональной переподготовке.</p>
+          </div>
+        </div>
+        <div class="diploma2-row reverse">
+          <div class="diploma2-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+          <div class="diploma2-text">
+            <h3>Диплом о прохождении курса</h3>
+            <p>После прохождения всех уроков и выполнения практических кейсов курса вы получите официальный диплом Академии Эдюсон.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

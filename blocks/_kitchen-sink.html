@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchen Sink — Eduson Blocks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .ks-bar {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 14px 24px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .ks-bar h1 { font-size: 18px; font-weight: var(--fw-bold); margin: 0; }
+    .ks-bar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; color: var(--color-text-muted); }
+    .ks-bar input[type="radio"] { accent-color: var(--color-primary); }
+    .ks-section { padding: 32px 24px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--color-border); }
+    .ks-section h2 { font-size: 22px; margin-bottom: 16px; }
+    .ks-section .ks-note { font-size: 13px; color: var(--color-text-muted); margin-bottom: 18px; }
+    .ks-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+    .ks-sw {
+      padding: 14px; border-radius: 12px; border: 1px solid var(--color-border);
+      background: var(--color-surface); display: flex; flex-direction: column; gap: 8px;
+    }
+    .ks-sw-chip { height: 56px; border-radius: 8px; border: 1px solid var(--color-border); }
+    .ks-sw code { font-size: 12px; color: var(--color-text-muted); }
+    .ks-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .ks-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <div class="ks-bar">
+    <h1>Kitchen sink — Eduson blocks</h1>
+    <label><input type="radio" name="theme" value="theme-light-violet" checked> Light · Violet</label>
+    <label><input type="radio" name="theme" value="theme-dark-orange"> Dark · Orange</label>
+    <span style="margin-left:auto; color: var(--color-text-muted); font-size:13px;">через ?theme=light|dark или радио</span>
+  </div>
+
+  <section class="ks-section">
+    <h2>Цвета</h2>
+    <div class="ks-swatches">
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-bg)"></div><div>bg<br><code>--color-bg</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-surface)"></div><div>surface<br><code>--color-surface</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-surface-soft)"></div><div>surface-soft<br><code>--color-surface-soft</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-text)"></div><div>text<br><code>--color-text</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-text-muted)"></div><div>text-muted<br><code>--color-text-muted</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-primary)"></div><div>primary<br><code>--color-primary</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-primary-hover)"></div><div>primary-hover<br><code>--color-primary-hover</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-accent-yellow)"></div><div>accent-yellow<br><code>--color-accent-yellow</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-cta-dark)"></div><div>cta-dark<br><code>--color-cta-dark</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-success)"></div><div>success<br><code>--color-success</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-error)"></div><div>error<br><code>--color-error</code></div></div>
+      <div class="ks-sw"><div class="ks-sw-chip" style="background:var(--color-border)"></div><div>border<br><code>--color-border</code></div></div>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Типографика — Inter (opsz auto)</h2>
+    <p class="ks-note">font-optical-sizing: auto автоматически переключает оптический размер для крупных заголовков</p>
+    <h1>H1 · Жирный заголовок 64px</h1>
+    <h2 style="margin-top:12px">H2 · Подзаголовок секции 48px</h2>
+    <h3 style="margin-top:12px">H3 · Заголовок карточки 28px</h3>
+    <h4 style="margin-top:12px">H4 · Подпись 18px</h4>
+    <p style="margin-top:16px; max-width: 640px;">Body · Inter Regular 16px / line-height 1.55. <span class="text-muted">Это приглушённый текст — color: var(--color-text-muted).</span> <span class="text-primary">Это акцентный текст — color: var(--color-primary).</span></p>
+  </section>
+
+  <section class="ks-section">
+    <h2>Кнопки (pill, radius 100px)</h2>
+    <div class="ks-row">
+      <button class="btn btn--primary">Primary · Записаться на курс</button>
+      <button class="btn btn--dark">Dark · Записаться</button>
+      <button class="btn btn--ghost">Ghost · Подробнее</button>
+      <button class="btn btn--primary btn--lg">Primary lg</button>
+      <button class="btn btn--dark btn--sm">Dark sm</button>
+      <button class="btn btn--primary">
+        Узнать стоимость
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Бейджи и плашки</h2>
+    <div class="ks-row">
+      <span class="badge-yellow">Создан · 2026</span>
+      <span class="badge-yellow badge-yellow--lg">Актуальна в 2026</span>
+      <span class="badge-discount">−60%<small>до 11 мая</small></span>
+      <span class="pill-tag">Сильное резюме</span>
+      <span class="pill-tag pill-tag--counter">194 уроков</span>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Иконки в круге</h2>
+    <div class="ks-row">
+      <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+      <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></span>
+      <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.4 7.6a4.5 4.5 0 0 1 0 6.4l-2.6 2.6a4.5 4.5 0 0 1-6.4-6.4M5.6 16.4a4.5 4.5 0 0 1 0-6.4l2.6-2.6a4.5 4.5 0 0 1 6.4 6.4"/></svg></span>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Карточки</h2>
+    <div class="ks-grid">
+      <div class="card">
+        <span class="icon-circle" style="margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <h3>Заголовок карточки</h3>
+        <p style="margin-top:8px; color: var(--color-text-muted)">Описание содержимого карточки в одну-две строки.</p>
+      </div>
+      <div class="card card--md">
+        <h3 style="font-size:18px">Карточка md</h3>
+        <p style="margin-top:6px; color: var(--color-text-muted); font-size:14px">Радиус 20px, padding 22px.</p>
+      </div>
+      <div class="card card--soft">
+        <h3 style="font-size:18px">Soft card</h3>
+        <p style="margin-top:6px; color: var(--color-text-muted); font-size:14px">Без тени, с бордером.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Аккордеон</h2>
+    <div class="accordion" data-accordion="single">
+      <div class="accordion-item is-open" data-accordion-item>
+        <div class="accordion-head" data-accordion-head>
+          <h3>Сколько времени занимает обучение?</h3>
+          <span class="accordion-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </div>
+        <div class="accordion-body">Курс рассчитан на 6 месяцев. График гибкий — учитесь в удобное время.</div>
+      </div>
+      <div class="accordion-item" data-accordion-item>
+        <div class="accordion-head" data-accordion-head>
+          <h3>Можно ли вернуть деньги, если курс не подойдёт?</h3>
+          <span class="accordion-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </div>
+        <div class="accordion-body">Да, в течение 14 дней с момента покупки.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Форма</h2>
+    <form data-cta-form style="display:grid; gap:12px; max-width: 520px;">
+      <div class="field"><input type="text" placeholder="Имя"></div>
+      <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
+      <div class="field"><input type="email" placeholder="Электронная почта"></div>
+      <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+      <button class="btn btn--dark">Отправить заявку</button>
+      <p data-cta-success hidden style="color: var(--color-success); font-size:14px;">✓ Заявка отправлена</p>
+    </form>
+  </section>
+
+  <section class="ks-section">
+    <h2>Фото-плейсхолдеры</h2>
+    <div class="ks-grid">
+      <div class="placeholder-photo placeholder-photo--landscape" style="height:180px"></div>
+      <div class="placeholder-photo placeholder-photo--portrait"  style="height:240px"></div>
+      <div class="placeholder-photo placeholder-photo--wide"      style="height:160px"></div>
+    </div>
+  </section>
+
+  <section class="ks-section">
+    <h2>Звёзды</h2>
+    <div class="stars">★★★★★</div>
+  </section>
+
+  <script>
+    (() => {
+      const setTheme = (val) => {
+        const cls = val === 'dark' || val === 'theme-dark-orange' ? 'theme-dark-orange' : 'theme-light-violet';
+        document.body.className = cls;
+        document.querySelectorAll('input[name="theme"]').forEach((r) => { r.checked = (r.value === cls); });
+      };
+      const fromUrl = new URL(location).searchParams.get('theme');
+      if (fromUrl) setTheme(fromUrl);
+      document.querySelectorAll('input[name="theme"]').forEach((r) => {
+        r.addEventListener('change', (e) => setTheme(e.target.value));
+      });
+    })();
+  </script>
+  <script src="js/components.js" defer></script>
+</body>
+</html>

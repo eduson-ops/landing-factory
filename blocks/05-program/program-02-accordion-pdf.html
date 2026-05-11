@@ -1,0 +1,224 @@
+<!doctype html>
+<!-- program-02-accordion-pdf: упрощённый аккордеон с нумерованными пунктами,
+     раскрытый показывает 2-колоночный список тем + плашки "1 практическое
+     задание / 1 учебный материал".
+     Ref: refrences/Снимок экрана 2026-05-11 144245.png («Python разработчик») -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Программа · с PDF и нумерацией</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .prog2 { padding: 56px 0 80px; }
+
+    .prog2-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .prog2-head h2 { font-size: clamp(32px, 4.4vw, 56px); }
+
+    .prog2-pdf {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-cta);
+      font-weight: var(--fw-semibold);
+      font-size: 15px;
+    }
+    .prog2-pdf svg { width: 22px; height: 22px; color: #fff; }
+
+    .prog2-meta {
+      display: flex; flex-wrap: wrap; gap: 22px;
+      margin-bottom: 28px;
+      color: var(--color-text-muted);
+      font-size: 15px;
+    }
+    .prog2-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .prog2-meta svg { width: 18px; height: 18px; color: var(--color-primary); }
+
+    .prog2-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .prog2-item + .prog2-item { border-top: 1px solid var(--color-border); }
+
+    .prog2-item-head {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 28px;
+      cursor: pointer;
+    }
+    .prog2-item-head h3 { font-size: 20px; font-weight: var(--fw-semibold); flex: 1; margin: 0; }
+
+    .prog2-toggle {
+      width: 32px; height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--color-bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base), background var(--tr-base);
+    }
+    .prog2-item.is-open .prog2-toggle { transform: rotate(180deg); background: var(--color-surface-soft); color: var(--color-primary); }
+
+    .prog2-item-body {
+      display: none;
+      padding: 0 28px 26px;
+    }
+    .prog2-item.is-open { background: var(--color-bg); }
+    .prog2-item.is-open .prog2-item-body { display: block; background: var(--color-surface); margin: 4px 12px 12px; padding: 22px 24px; border-radius: var(--radius-md); }
+
+    .prog2-body-summary {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      align-items: flex-start; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .prog2-body-summary p { color: var(--color-text-muted); max-width: 540px; font-size: 14px; }
+    .prog2-body-summary .meta {
+      display: flex; gap: 16px; color: var(--color-text-muted); font-size: 13px;
+      align-items: center; flex-shrink: 0;
+    }
+    .prog2-body-summary .meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .prog2-body-summary .meta svg { width: 16px; height: 16px; }
+
+    .prog2-topics {
+      list-style: disc;
+      columns: 2;
+      column-gap: 32px;
+      padding-left: 22px;
+      margin: 0 0 16px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+    .prog2-topics li { break-inside: avoid; }
+
+    .prog2-tasks { display: flex; gap: 8px; flex-wrap: wrap; }
+    .prog2-task {
+      display: inline-flex; align-items: center;
+      padding: 7px 14px;
+      background: rgba(255, 213, 59, 0.4);
+      color: #1E1E20;
+      border-radius: var(--radius-pill);
+      font-weight: var(--fw-medium);
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .prog2-head { flex-direction: column; align-items: flex-start; }
+      .prog2-topics { columns: 1; }
+      .prog2-item-head { padding: 18px 18px; gap: 12px; }
+      .prog2-item.is-open .prog2-item-body { margin: 4px 8px 10px; padding: 18px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="prog2">
+    <div class="container">
+      <div class="prog2-head">
+        <h2>Программа обучения</h2>
+        <a href="#" class="prog2-pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+          </svg>
+          Скачать полную версию в ПДФ
+        </a>
+      </div>
+
+      <div class="prog2-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>286 интерактивных уроков</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>334 академических часа</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6zM6 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6z"/></svg>Доступ навсегда</span>
+      </div>
+
+      <div class="prog2-card" data-accordion="single">
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>1. Введение в профессию Python-разработчик</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>2. Введение в IT</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>3. Основы программирования</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item is-open" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>4. Начало работы с Python</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body">
+            <div class="prog2-body-summary">
+              <p>Напишете свой первый код на Python. Узнаете о стандартах оформления кода. Научитесь работать в IDE PyCharm.</p>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>15 занятий</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>8 часов</span>
+              </div>
+            </div>
+            <ul class="prog2-topics">
+              <li>Введение в языки программирования</li>
+              <li>Подключение к Гитхаб (GitHub) из PyCharm</li>
+              <li>Язык программирования Python</li>
+              <li>Установка Visual Studio Code</li>
+              <li>Методология изучения Python</li>
+              <li>Подключение к Гитхаб (GitHub) из Visual Studio Code и загрузка проектов</li>
+              <li>Установка Python и вывод фразы «Hello, world!»</li>
+              <li>Настройка окружения</li>
+              <li>IDE для работы с Python</li>
+              <li>Работа с системой контроля версий Гит (Git)</li>
+              <li>IDE PyCharm для работы с Python</li>
+              <li>Стандарты PEP 8 и их применение</li>
+            </ul>
+            <div class="prog2-tasks">
+              <span class="prog2-task">1 практическое задание</span>
+              <span class="prog2-task">1 учебный материал</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>5. Типы данных в Python</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>6. Функции</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

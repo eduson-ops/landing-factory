@@ -1,0 +1,81 @@
+<!doctype html>
+<!-- partners-01-logos: «Лидирующие компании доверяют» — заголовок + полоса
+     с логотипами партнёров. Лого — текстовые «псевдо-логотипы» с подобранными
+     цветами, чтобы не зависеть от внешних SVG.
+     Ref: ТЗ «ИИ-инженер» п.11 (полоса партнёров) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Партнёры · логотипы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .partners { padding: 56px 0 64px; }
+    .partners h2 {
+      text-align: center;
+      font-size: clamp(22px, 2.6vw, 30px);
+      margin-bottom: 28px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .partners-strip {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px 28px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .partners-track {
+      display: flex; align-items: center; gap: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .partner-logo {
+      font-weight: var(--fw-extrabold);
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      opacity: 0.75;
+      transition: opacity var(--tr-base);
+    }
+    .partner-logo:hover { opacity: 1; }
+    .partner-logo.coral { color: #E94B4F; }
+    .partner-logo.green { color: #00C18A; }
+    .partner-logo.yellow { color: #FFC700; }
+    .partner-logo.red { color: #FF2D55; }
+    .partner-logo.blue { color: #0066FF; }
+    .partner-logo.dark { color: #1E1E20; }
+
+    @media (max-width: 640px) {
+      .partners-track { gap: 22px; }
+      .partner-logo { font-size: 18px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="partners">
+    <div class="container">
+      <h2>Лидирующие компании доверяют Академии Эдюсон обучение своих сотрудников</h2>
+      <div class="partners-strip">
+        <div class="partners-track">
+          <span class="partner-logo">СБЕР</span>
+          <span class="partner-logo coral">М.Видео</span>
+          <span class="partner-logo yellow">билайн</span>
+          <span class="partner-logo red">Ростелеком</span>
+          <span class="partner-logo green">Avito</span>
+          <span class="partner-logo blue">X5 Group</span>
+          <span class="partner-logo dark">Ozon</span>
+          <span class="partner-logo">VK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

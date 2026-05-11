@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- mentor-01-chat: «Личный куратор» — слева заголовок и описание,
+     справа чат-баблы (асимметричный угол 30 30 30 0), снизу карточка с формой консультации.
+     Ref: refrences/Снимок экрана 2026-05-11 144951.png (нижняя часть) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Куратор · чат</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .mentor1 { padding: 64px 0 80px; }
+    .mentor1-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+    .mentor1-text h2 { font-size: clamp(28px, 3.8vw, 44px); line-height: 1.15; margin-bottom: 18px; }
+    .mentor1-text p { color: var(--color-text-muted); font-size: 16px; }
+
+    .chat { display: flex; flex-direction: column; gap: 16px; max-width: 540px; margin-left: auto; }
+    .bubble {
+      background: var(--color-surface);
+      padding: 18px 22px;
+      box-shadow: var(--shadow-card);
+      max-width: 85%;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .bubble.from-student {
+      border-radius: 30px 30px 30px 0;
+      align-self: flex-start;
+    }
+    .bubble.from-curator {
+      border-radius: 30px 30px 0 30px;
+      align-self: flex-end;
+      background: var(--color-surface-soft);
+    }
+    .chat-meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-text-muted); }
+    .chat-meta .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--color-surface-soft) center/cover;
+      flex-shrink: 0;
+    }
+    .chat-meta.right { align-self: flex-end; }
+
+    .form-card-wide {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 26px 28px;
+      box-shadow: var(--shadow-card);
+      display: grid;
+      gap: 16px;
+    }
+    .form-card-wide h3 { font-size: 18px; margin-bottom: 4px; }
+    .form-card-wide form {
+      display: grid;
+      grid-template-columns: 1.2fr 1.5fr 1.5fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .form-card-wide .checkbox { font-size: 13px; }
+
+    @media (max-width: 992px) {
+      .mentor1-grid { grid-template-columns: 1fr; gap: 28px; }
+      .chat { margin-left: 0; }
+      .form-card-wide form { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="mentor1">
+    <div class="container">
+      <div class="mentor1-grid">
+        <div class="mentor1-text">
+          <h2>Личный куратор поможет применить новые знания на практике</h2>
+          <p>Ваш куратор на связи 7 дней в неделю, чтобы помочь исправить ошибки в практических работах и ответить на ваши вопросы.</p>
+        </div>
+        <div class="chat">
+          <div class="bubble from-student">Добрый день! Сделала практику, проверьте, пожалуйста. Ещё оставила в документе несколько вопросов. Сможете ответить?</div>
+          <div class="chat-meta right">Студент <span class="avatar"></span></div>
+          <div class="bubble from-curator">Да, конечно! Практику проверил, на вопросы ответил. Вы хорошо поработали, кое-что поправить — и будет отлично</div>
+          <div class="chat-meta"><span class="avatar"></span>Куратор</div>
+        </div>
+      </div>
+
+      <div class="form-card-wide">
+        <h3>Есть вопросы? Закажи бесплатную консультацию</h3>
+        <form data-cta-form>
+          <div class="field"><input type="text" placeholder="Имя"></div>
+          <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
+          <div class="field"><input type="email" placeholder="Электронная почта"></div>
+          <button class="btn btn--dark">Отправить заявку</button>
+        </form>
+        <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

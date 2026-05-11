@@ -1,0 +1,244 @@
+<!doctype html>
+<!-- program-01-accordion: счётчики (194 уроков / 6 кейсов / ...), аккордеон с жёлтыми
+     плашками "N уроков" внутри каждого пункта, большая жёлтая полоса
+     "Доступ навсегда" + чёрная pill "Записаться".
+     Ref: refrences/Снимок экрана 2026-05-11 143609.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Программа · аккордеон со счётчиками</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .program { padding: 56px 0 80px; }
+
+    .program-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .program-head .title-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .program-head h2 { font-size: clamp(32px, 4.4vw, 56px); }
+
+    .program-pdf {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px;
+      background: var(--color-surface);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-card);
+      font-weight: var(--fw-semibold);
+      font-size: 15px;
+      color: var(--color-text);
+    }
+    .program-pdf svg {
+      width: 22px; height: 22px;
+      color: var(--color-primary);
+    }
+
+    .program-counters {
+      display: flex; flex-wrap: wrap; gap: 12px 28px;
+      margin-bottom: 32px;
+      align-items: center;
+    }
+    .program-counter {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 14px;
+      color: var(--color-text);
+    }
+    .program-counter b {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 44px; padding: 6px 12px;
+      background: var(--color-surface);
+      border-radius: var(--radius-input);
+      font-weight: var(--fw-extrabold);
+      font-size: 18px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .program-list {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .program-item {
+      background: #ECECF1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: background var(--tr-base);
+    }
+    .program-item.is-open { background: var(--color-surface); box-shadow: var(--shadow-card); }
+
+    .program-item-head {
+      padding: 22px 24px 22px 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      cursor: pointer;
+    }
+    .program-item-meta {
+      display: flex; flex-direction: column; gap: 8px;
+      flex: 1;
+    }
+    .program-item-meta h3 { font-size: 22px; font-weight: var(--fw-bold); margin: 0; }
+
+    .program-item-toggle {
+      width: 30px; height: 30px;
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base);
+    }
+    .program-item.is-open .program-item-toggle { transform: rotate(45deg); color: var(--color-text); }
+
+    .program-item-body {
+      display: none;
+      padding: 0 24px 24px;
+    }
+    .program-item.is-open .program-item-body { display: block; }
+    .program-item-body ul {
+      list-style: disc;
+      padding-left: 22px;
+      margin: 0;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .program-perpetual {
+      background: var(--color-accent-yellow);
+      border-radius: var(--radius-md);
+      padding: 26px 28px;
+      display: flex; align-items: center; gap: 16px;
+      font-weight: var(--fw-bold);
+      font-size: clamp(17px, 2vw, 22px);
+      color: #1E1E20;
+      margin-bottom: 32px;
+    }
+    .program-perpetual svg {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+      color: #1E1E20;
+    }
+
+    .program-cta { display: flex; justify-content: center; }
+    .program-cta .btn { padding: 22px 64px; font-size: 17px; }
+
+    @media (max-width: 768px) {
+      .program-head { flex-direction: column; align-items: flex-start; }
+      .program-perpetual { padding: 20px 22px; gap: 12px; }
+      .program-perpetual svg { width: 28px; height: 28px; }
+      .program-cta .btn { width: 100%; padding: 20px 28px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="program">
+    <div class="container">
+      <div class="program-head">
+        <div class="title-row">
+          <h2>Программа обучения</h2>
+          <span class="badge-yellow badge-yellow--lg">Актуальна в 2026</span>
+        </div>
+        <a href="#" class="program-pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+          </svg>
+          Скачать полную версию в ПДФ
+        </a>
+      </div>
+
+      <div class="program-counters">
+        <div class="program-counter"><b>194</b>интерактивных урока</div>
+        <div class="program-counter"><b>6</b>бизнес-кейсов</div>
+        <div class="program-counter"><b>12</b>практических заданий</div>
+        <div class="program-counter"><b>7</b>квизов</div>
+        <div class="program-counter"><b>27</b>лонгридов</div>
+      </div>
+
+      <div class="program-list" data-accordion="single">
+        <div class="program-item" data-accordion-item>
+          <div class="program-item-head" data-accordion-head>
+            <div class="program-item-meta">
+              <span class="pill-tag pill-tag--counter" style="align-self:flex-start">4 урока</span>
+              <h3>Управление клиникой как системой</h3>
+            </div>
+            <span class="program-item-toggle">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </div>
+          <div class="program-item-body">
+            <ul>
+              <li>Стратегия и операционная модель клиники</li>
+              <li>Финансовая модель и unit-экономика</li>
+              <li>Декомпозиция целей по подразделениям</li>
+              <li>Чек-лист запуска новой клиники</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="program-item is-open" data-accordion-item>
+          <div class="program-item-head" data-accordion-head>
+            <div class="program-item-meta">
+              <span class="pill-tag pill-tag--counter" style="align-self:flex-start">6 уроков</span>
+              <h3>Основы управления бизнес-процессами</h3>
+            </div>
+            <span class="program-item-toggle">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </div>
+          <div class="program-item-body">
+            <ul>
+              <li>Как оценить эффективность бизнес-процессов</li>
+              <li>Как определить и устранить потери в процессах</li>
+              <li>Что такое КПЭ (KPI) и как его формировать</li>
+              <li><b>Квиз к курсу:</b> «Основные методологии и нотации моделирования бизнес-процессов»</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="program-item" data-accordion-item>
+          <div class="program-item-head" data-accordion-head>
+            <div class="program-item-meta">
+              <span class="pill-tag pill-tag--counter" style="align-self:flex-start">6 уроков</span>
+              <h3>Основы стратегического менеджмента</h3>
+            </div>
+            <span class="program-item-toggle">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </div>
+          <div class="program-item-body"><ul><li>Анализ рынка и конкурентов</li><li>Постановка стратегических целей</li><li>Дорожная карта развития</li></ul></div>
+        </div>
+
+        <div class="program-item" data-accordion-item>
+          <div class="program-item-head" data-accordion-head>
+            <div class="program-item-meta">
+              <span class="pill-tag pill-tag--counter" style="align-self:flex-start">4 урока</span>
+              <h3>Инструменты стратегического менеджмента</h3>
+            </div>
+            <span class="program-item-toggle">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </div>
+          <div class="program-item-body"><ul><li>SWOT-анализ</li><li>BCG-матрица</li><li>OKR</li></ul></div>
+        </div>
+      </div>
+
+      <div class="program-perpetual">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <path d="M18.5 6c-3 0-4.5 3-6.5 6s-3.5 6-6.5 6S2 16.5 2 13.5 4 9 6 9c3 0 4.5 3 6.5 6s3.5 6 6.5 6 3.5-2.5 3.5-5.5S21.5 6 18.5 6Z"/>
+        </svg>
+        Доступ к материалам и обновлениям курса навсегда
+      </div>
+
+      <div class="program-cta">
+        <button class="btn btn--dark btn--lg">Записаться</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

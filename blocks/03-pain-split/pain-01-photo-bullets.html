@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- pain-01-photo-bullets: split — текст слева + фото справа сверху, 3 карточки-буллета снизу,
+     фиолетовая плашка с инсайтом внизу.
+     Ref: refrences/Снимок экрана 2026-05-11 143434.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Боли · split</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .pain { padding: 64px 0 80px; }
+    .pain h2 {
+      text-align: center; max-width: 880px; margin: 0 auto 40px;
+      font-size: clamp(30px, 4vw, 48px);
+    }
+    .pain h2 .accent { color: var(--color-primary); }
+
+    .pain-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+    .pain-text { display: flex; flex-direction: column; gap: 18px; }
+    .pain-text p { font-size: 16px; line-height: 1.55; }
+    .pain-text p b { font-weight: var(--fw-bold); color: var(--color-text); }
+    .pain-photo {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+    .pain-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    .pain-bullets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .pain-card { padding: 22px; border-radius: var(--radius-md); }
+    .pain-card .icon-circle { margin-bottom: 12px; }
+    .pain-card h4 { font-size: 16px; margin-bottom: 6px; }
+    .pain-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+    .pain-insight {
+      background: var(--color-surface-soft);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      display: flex; gap: 16px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: var(--color-text);
+    }
+    .pain-insight .icon-circle { background: var(--color-primary); color: #fff; }
+    .pain-insight b { font-weight: var(--fw-bold); }
+
+    @media (max-width: 992px) {
+      .pain-top { grid-template-columns: 1fr; }
+      .pain-bullets { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="pain">
+    <div class="container">
+      <h2>Вместо общей теории менеджмента — <span class="accent">реальные задачи медбизнеса</span></h2>
+
+      <div class="pain-top">
+        <div class="pain-text">
+          <p>Вы освоите профессию руководителя медорганизации — <b>системно, с упором на актуальные инструменты 2026 года</b>.</p>
+          <p>Будете учиться без расплывчатой и ограниченной теории: открываете нужную тему, берёте готовое решение — и сразу применяете в своей клинике.</p>
+        </div>
+        <div class="pain-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+      </div>
+
+      <div class="pain-bullets">
+        <div class="card pain-card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6z"/></svg></span>
+          <h4>Защита от реальных рисков</h4>
+          <p>Вы знаете заранее, на практике медбизнеса, как закрывать кассовые разрывы, налоговые проверки и претензии пациентов</p>
+        </div>
+        <div class="card pain-card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
+          <h4>Опыт практиков</h4>
+          <p>Получите проверенные советы от практикующих главврачей и владельцев медицинских клиник, которые делятся ошибками и находками</p>
+        </div>
+        <div class="card pain-card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 4V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
+          <h4>Личная консультация</h4>
+          <p>Созвонитесь с экспертом курса и получите ответы на вопросы по вашей ситуации</p>
+        </div>
+      </div>
+
+      <div class="pain-insight">
+        <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+          <p><b>Профессиональный руководитель не допускает управленческих ошибок — их цена слишком высока.</b> Только в 2025 году закрылось 5400 медорганизаций — на 23% больше, чем в 2024. Частые причины: кассовые разрывы, юридическая неувязка и штрафы от надзорных органов.</p>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

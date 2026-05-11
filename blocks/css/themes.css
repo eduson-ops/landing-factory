@@ -1,0 +1,28 @@
+/* Темы — переопределяют переменные из tokens.css.
+   Ставятся классом на <body>: theme-light-violet (по умолчанию) или theme-dark-orange. */
+
+.theme-light-violet {
+  /* Дефолтные значения уже в :root, переопределений минимум */
+  --color-cta-dark: #0F0F12;
+}
+
+.theme-dark-orange {
+  --color-bg:           #0F0F12;
+  --color-surface:      #1B1B20;
+  --color-surface-soft: #2A2A30;
+
+  --color-text:         #FFFFFF;
+  --color-text-muted:   #B4B4BC;
+  --color-text-soft:    #8E8E96;
+
+  --color-primary:        #FF6B0F;
+  --color-primary-hover:  #E85F00;
+  --color-primary-shadow: rgba(255, 107, 15, 0.18);
+
+  --color-cta-dark:     #FF6B0F;
+  --color-border:       #2A2A30;
+  --color-dark:         #FFFFFF;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-pop:  0 12px 32px rgba(0, 0, 0, 0.45);
+}

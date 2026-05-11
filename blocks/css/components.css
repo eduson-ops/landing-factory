@@ -1,0 +1,233 @@
+/* Компоненты Eduson. Используют переменные из tokens.css/themes.css. */
+
+/* ───── Кнопки (pill) ───── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: var(--radius-pill);
+  font-weight: var(--fw-semibold);
+  font-size: 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text);
+  transition: background var(--tr-base), color var(--tr-base), transform var(--tr-fast), box-shadow var(--tr-base);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-cta);
+}
+.btn--primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+
+.btn--dark {
+  background: var(--color-cta-dark);
+  color: #fff;
+}
+.btn--dark:hover { transform: translateY(-1px); opacity: .92; }
+
+.btn--ghost {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+.btn--ghost:hover { border-color: var(--color-text); }
+
+.btn--lg { padding: 20px 36px; font-size: 17px; }
+.btn--sm { padding: 10px 18px; font-size: 14px; }
+
+.btn .arrow {
+  width: 18px; height: 18px; display: inline-block;
+}
+
+/* ───── Бейджи / плашки ───── */
+
+.badge-yellow {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-input);
+  background: var(--color-accent-yellow);
+  color: #1E1E20;
+  font-weight: var(--fw-semibold);
+  font-size: 13px;
+}
+
+.badge-yellow--lg {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+.badge-discount {
+  background: var(--color-accent-yellow);
+  color: #1E1E20;
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  font-weight: var(--fw-black);
+  font-size: 32px;
+  line-height: 1;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.badge-discount small { font-size: 12px; font-weight: var(--fw-medium); opacity: .9; }
+
+.pill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-soft);
+  color: var(--color-primary);
+  font-weight: var(--fw-medium);
+  font-size: 14px;
+}
+.pill-tag--counter {
+  background: var(--color-accent-yellow);
+  color: #1E1E20;
+  font-weight: var(--fw-semibold);
+}
+
+/* ───── Иконки в круге ───── */
+
+.icon-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--color-surface-soft);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.icon-circle svg { width: 24px; height: 24px; }
+.icon-circle--sm { width: 36px; height: 36px; }
+.icon-circle--sm svg { width: 18px; height: 18px; }
+
+/* ───── Карточки ───── */
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+.card--soft { background: var(--color-bg); box-shadow: none; border: 1px solid var(--color-border); }
+.card--md   { border-radius: var(--radius-md); padding: 22px; }
+
+/* ───── Аккордеон ───── */
+
+.accordion { display: flex; flex-direction: column; gap: 12px; }
+
+.accordion-item {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: background var(--tr-base);
+}
+.theme-light-violet .accordion-item { background: #ECECF1; }
+.theme-dark-orange .accordion-item  { background: var(--color-surface); }
+
+.accordion-item.is-open { background: var(--color-surface); box-shadow: var(--shadow-card); }
+.theme-light-violet .accordion-item.is-open { background: var(--color-surface); }
+
+.accordion-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  cursor: pointer;
+  user-select: none;
+}
+.accordion-head h3 { flex: 1; font-size: 18px; font-weight: var(--fw-bold); }
+.accordion-toggle {
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent;
+  color: var(--color-text-muted);
+  transition: transform var(--tr-base);
+}
+.accordion-item.is-open .accordion-toggle { transform: rotate(45deg); color: var(--color-text); }
+
+.accordion-body {
+  display: none;
+  padding: 0 24px 24px;
+  color: var(--color-text);
+}
+.accordion-item.is-open .accordion-body { display: block; }
+
+/* ───── Форма ───── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font: inherit;
+  color: var(--color-text);
+  transition: border-color var(--tr-base);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+.field--inline { flex-direction: row; align-items: center; gap: 8px; }
+
+.checkbox { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-text-muted); cursor: pointer; }
+.checkbox input { accent-color: var(--color-primary); width: 18px; height: 18px; }
+
+/* ───── Фото-плейсхолдер ───── */
+
+.placeholder-photo {
+  background: var(--color-surface-soft) url("../img/placeholder.svg") center/cover no-repeat;
+  border-radius: var(--radius-lg);
+  display: block;
+}
+.placeholder-photo--portrait { aspect-ratio: 3/4; }
+.placeholder-photo--landscape { aspect-ratio: 4/3; }
+.placeholder-photo--wide { aspect-ratio: 16/9; }
+.placeholder-photo--square { aspect-ratio: 1/1; }
+
+/* ───── Звёздный рейтинг ───── */
+
+.stars {
+  color: var(--color-accent-yellow);
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* ───── Утилиты сетки ───── */
+
+.grid { display: grid; gap: var(--gap-lg); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 992px) {
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+}
+
+.stack { display: flex; flex-direction: column; gap: var(--gap-md); }
+.row   { display: flex; gap: var(--gap-md); align-items: center; flex-wrap: wrap; }

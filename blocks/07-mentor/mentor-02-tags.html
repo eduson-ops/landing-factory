@@ -1,0 +1,132 @@
+<!doctype html>
+<!-- mentor-02-tags: «Личный ментор» — фото видеосозвона сверху, заголовок с
+     плашкой-тарифом справа и тегами-плашками вокруг, 5 карточек встреч снизу.
+     Ref: refrences/photo_2026-05-11_15-00-44.jpg, refrences/Снимок экрана 2026-05-11 144618.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ментор · теги</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .mentor2 { padding: 56px 0 80px; }
+    .mentor2-photo {
+      aspect-ratio: 16 / 7;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .mentor2-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    .mentor2-head {
+      position: relative;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 16px;
+    }
+    .mentor2-head .badge-yellow.tariff {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    }
+    .mentor2-head h2 { margin-top: 24px; font-size: clamp(28px, 4vw, 44px); }
+    .mentor2-head p { margin-top: 14px; color: var(--color-text-muted); font-size: 16px; }
+
+    .tag-cloud {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto 36px;
+      min-height: 120px;
+    }
+    .tag-cloud .pill-tag {
+      position: absolute;
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+    .t1 { left: 6%;   top: 8px; }
+    .t2 { left: 22%;  top: 60px; }
+    .t3 { left: 50%;  top: 0;  transform: translateX(-50%); background: var(--color-accent-yellow); color: #1E1E20; }
+    .t4 { right: 22%; top: 60px; }
+    .t5 { right: 4%;  top: 8px; }
+
+    .mentor2-sub {
+      text-align: center;
+      font-weight: var(--fw-bold);
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .meetings {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .meetings .card {
+      text-align: center;
+      padding: 22px;
+    }
+    .meetings .card .icon-circle { margin: 0 auto 12px; }
+    .meetings .card p { font-size: 14px; line-height: 1.45; }
+    .meetings .second-row { grid-column: span 3; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 660px; margin: 0 auto; }
+
+    @media (max-width: 768px) {
+      .meetings { grid-template-columns: 1fr; }
+      .meetings .second-row { grid-template-columns: 1fr; grid-column: auto; }
+      .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; min-height: auto; }
+      .tag-cloud .pill-tag { position: static; transform: none; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="mentor2">
+    <div class="container">
+      <div class="mentor2-photo"><div class="placeholder-photo placeholder-photo--wide"></div></div>
+
+      <div class="tag-cloud">
+        <span class="pill-tag t1">Уверенный выход на работу</span>
+        <span class="pill-tag t2">Сильное резюме</span>
+        <span class="pill-tag t3"><b style="font-weight:var(--fw-bold)">Тариф ПРО</b></span>
+        <span class="pill-tag t4">Подготовка к собеседованию</span>
+        <span class="pill-tag t5">Поддержка</span>
+      </div>
+
+      <div class="mentor2-head">
+        <h2>Личный ментор<br>на всём пути обучения</h2>
+        <p>Вас будет сопровождать эксперт из индустрии, который помог многим начинающим специалистам.</p>
+      </div>
+
+      <h3 class="mentor2-sub">Вас ждёт 6 индивидуальных онлайн-встреч:</h3>
+
+      <div class="meetings">
+        <div class="card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 4 20 12 6 20"/></svg></span>
+          <p>2 консультации<br>по ходу обучения</p>
+        </div>
+        <div class="card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/></svg></span>
+          <p>Карьерная сессия<br>с разбором резюме</p>
+        </div>
+        <div class="card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
+          <p>Мок-интервью в формате<br>реального собеседования</p>
+        </div>
+        <div class="second-row">
+          <div class="card">
+            <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 4V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
+            <p>Обратная связь по тестовому<br>заданию из вакансии</p>
+          </div>
+          <div class="card">
+            <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+            <p>Консультация<br>после трудоустройства</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

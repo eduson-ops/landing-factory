@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- graduates-01-quotes: «Кем были — кем стали» — карточки выпускников с круглым
+     фото-аватаром, именем, профессией и историей.
+     Ref: refrences/Снимок экрана 2026-05-11 144524.png (верх) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Выпускники · истории</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .grad1 { padding: 64px 0 72px; }
+    .grad1 h2 { text-align: center; font-size: clamp(28px, 4vw, 44px); margin-bottom: 36px; }
+
+    .grad1-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .grad-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column;
+      gap: 12px;
+    }
+    .grad-head { display: flex; gap: 12px; align-items: center; }
+    .grad-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--color-surface-soft) center/cover no-repeat;
+      flex-shrink: 0;
+    }
+    .grad-name { font-weight: var(--fw-bold); font-size: 15px; }
+    .grad-prof { font-size: 12px; color: var(--color-text-muted); margin-top: 2px; }
+    .grad-text { font-size: 13px; color: var(--color-text); line-height: 1.55; }
+    .grad-more { color: var(--color-primary); font-size: 13px; font-weight: var(--fw-medium); margin-top: auto; }
+
+    @media (max-width: 992px) { .grad1-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grad1-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="grad1">
+    <div class="container">
+      <h2>Кем были — кем стали</h2>
+      <p style="text-align:center; color: var(--color-text-muted); margin: -28px 0 36px;">5 историй реальных студентов Eduson</p>
+
+      <div class="grad1-grid">
+        <div class="grad-card">
+          <div class="grad-head"><span class="grad-avatar"></span><div><div class="grad-name">Ирина</div><div class="grad-prof">Финансист → Бизнес-аналитик в банке</div></div></div>
+          <p class="grad-text">Всегда работала с цифрами, но чувствовала, что не хватает системы и понимания процессов. После курса ушла из бухгалтерии в команду продукта — теперь делаю расчёты для финансирующих решений.</p>
+          <a href="#" class="grad-more">Читать ещё →</a>
+        </div>
+        <div class="grad-card">
+          <div class="grad-head"><span class="grad-avatar"></span><div><div class="grad-name">Алексей</div><div class="grad-prof">Руководитель проекта в IT-компании</div></div></div>
+          <p class="grad-text">Перешёл в IT, всю жизнь работал в строительстве. Прошёл переподготовку с нуля. Прошёл собеседование с трёх попыток, теперь руковожу разработкой продукта и доволен тем, как изменилась моя жизнь.</p>
+          <a href="#" class="grad-more">Читать ещё →</a>
+        </div>
+        <div class="grad-card">
+          <div class="grad-head"><span class="grad-avatar"></span><div><div class="grad-name">Ольга</div><div class="grad-prof">Маркетолог → Brand Lead</div></div></div>
+          <p class="grad-text">Маркетинг знала через теории, но через эту программу поняла его системно. Боль системы — изучила в ходе курса. Применяю инструменты в команде — растут метрики продукта.</p>
+          <a href="#" class="grad-more">Читать ещё →</a>
+        </div>
+        <div class="grad-card">
+          <div class="grad-head"><span class="grad-avatar"></span><div><div class="grad-name">Сергей</div><div class="grad-prof">Cредний менеджмент → CEO стартапа</div></div></div>
+          <p class="grad-text">В моём небольшом бизнесе я долгое время отвечал за всё. После курса узнал, как правильно делегировать и считать. Теперь у меня команда из 8 человек, рост 3х за год.</p>
+          <a href="#" class="grad-more">Читать ещё →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

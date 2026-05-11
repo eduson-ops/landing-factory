@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- pricing-01-card: блок стоимости — карточка тарифа с зачёркнутой ценой,
+     актуальной ценой, рассрочкой, бейджем -60% и кнопкой записаться. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Стоимость · карточка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .pricing { padding: 64px 0 80px; }
+    .pricing h2 { text-align: center; margin-bottom: 32px; font-size: clamp(28px, 4vw, 44px); }
+
+    .pricing-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 760px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-card);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .pricing-meta { display: flex; flex-direction: column; gap: 14px; }
+    .pricing-meta h3 { font-size: 22px; margin-bottom: 4px; }
+    .pricing-meta p { font-size: 14px; color: var(--color-text-muted); line-height: 1.5; }
+    .pricing-points { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .pricing-point { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+    .pricing-point svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; }
+
+    .pricing-prices { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .pricing-old { color: var(--color-text-muted); text-decoration: line-through; font-size: 18px; }
+    .pricing-now { font-size: 40px; font-weight: var(--fw-extrabold); line-height: 1; }
+    .pricing-rassrochka { font-size: 14px; color: var(--color-text-muted); }
+    .pricing-rassrochka b { font-weight: var(--fw-bold); color: var(--color-text); }
+    .pricing-prices .badge-yellow { font-size: 14px; padding: 8px 14px; }
+    .pricing-prices .btn { width: 100%; }
+
+    @media (max-width: 768px) {
+      .pricing-card { grid-template-columns: 1fr; padding: 28px; }
+      .pricing-now { font-size: 32px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="pricing">
+    <div class="container">
+      <h2>Стоимость курса</h2>
+
+      <div class="pricing-card">
+        <div class="pricing-meta">
+          <span class="badge-yellow">−60% до 11 мая</span>
+          <h3>Тариф «ПРО»</h3>
+          <p>6 месяцев обучения с куратором, диплом о профпереподготовке, бессрочный доступ.</p>
+          <div class="pricing-points">
+            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Личный куратор и проверка домашних</div>
+            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>6 индивидуальных встреч с ментором</div>
+            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Карьерное сопровождение и помощь с трудоустройством</div>
+          </div>
+        </div>
+
+        <div class="pricing-prices">
+          <span class="pricing-old">137 500 ₽</span>
+          <span class="pricing-now">55 000 ₽</span>
+          <div class="pricing-rassrochka">или <b>от 5 850 ₽/мес</b><br>в рассрочку без переплат</div>
+          <button class="btn btn--primary btn--lg">Записаться на курс</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

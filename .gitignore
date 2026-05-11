@@ -1,0 +1,15 @@
+# Локальный source-of-truth — большие скриншоты и голосовое ТЗ
+refrences/
+voice-promt.txt
+Ленд*.pdf
+
+# Build artefacts — переcобирается из блоков
+landing-ai-engineer.html
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+__pycache__/

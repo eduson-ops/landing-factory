@@ -1,0 +1,141 @@
+<!doctype html>
+<!-- pricing-02-two-tracks: «Форматы обучения» — две колонки-тарифа рядом
+     (например «ИТ-специалист» и «С нуля») с указанием длительности, цены,
+     рассрочки, преимуществ и чёрной CTA-кнопкой.
+     Ref: ТЗ «ИИ-инженер» п.13, https://eduson.academy/team-lead-it («Форматы обучения») -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Стоимость · 2 тарифа</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .pricing2 { padding: 64px 0 80px; }
+    .pricing2-head {
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .pricing2-head h2 { font-size: clamp(28px, 4vw, 44px); }
+    .pricing2-subtitle {
+      color: var(--color-text-muted);
+      font-size: 15px;
+      max-width: 720px;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .pricing2-subtitle b { color: var(--color-text); font-weight: var(--fw-bold); }
+
+    .pricing2-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .pricing2-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pricing2-track {
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      padding: 12px 16px;
+      border-radius: var(--radius-pill);
+      font-weight: var(--fw-semibold);
+      align-self: flex-start;
+      font-size: 14px;
+    }
+
+    .pricing2-price-old { color: var(--color-text-muted); text-decoration: line-through; font-size: 14px; }
+    .pricing2-price-now {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .pricing2-price-now small {
+      font-size: 14px; font-weight: var(--fw-medium);
+      color: var(--color-text-muted);
+      margin-left: 6px;
+    }
+
+    .pricing2-stats { display: flex; gap: 18px; flex-wrap: wrap; }
+    .pricing2-stats span {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+    .pricing2-stats svg { width: 16px; height: 16px; color: var(--color-primary); }
+
+    .pricing2-desc { color: var(--color-text); font-size: 14px; line-height: 1.55; }
+
+    .pricing2-points { display: flex; flex-direction: column; gap: 8px; }
+    .pricing2-point { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+    .pricing2-point svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; }
+
+    .pricing2-card .btn { margin-top: auto; }
+
+    @media (max-width: 768px) { .pricing2-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="pricing2">
+    <div class="container">
+      <div class="pricing2-head">
+        <h2>Форматы обучения</h2>
+        <span class="badge-yellow">−60% до 11 мая</span>
+      </div>
+      <p class="pricing2-subtitle">Обучение можно оплатить сразу или воспользоваться <b>беспроцентной рассрочкой на 24 месяца</b>. Мы свяжемся с вами и поможем выбрать наилучшие условия обучения.</p>
+
+      <div class="pricing2-grid">
+        <div class="pricing2-card">
+          <span class="pricing2-track">Трек «ИТ-специалист»</span>
+          <div>
+            <div class="pricing2-price-old">9 895 ₽/мес</div>
+            <div class="pricing2-price-now">3 958 ₽<small>в месяц в рассрочку</small></div>
+          </div>
+          <div class="pricing2-stats">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>4–5 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>N часов</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>9 проектов</span>
+          </div>
+          <p class="pricing2-desc">Наложите LLM-стек поверх имеющейся базы — не придётся терять время на изучение того, что вы уже знаете.</p>
+          <div class="pricing2-points">
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Полная цена: 237 500 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Цена со скидкой 60%: 95 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>15% теории и 85% практики</div>
+          </div>
+          <button class="btn btn--dark">Оставить заявку</button>
+        </div>
+
+        <div class="pricing2-card">
+          <span class="pricing2-track">Трек «С нуля»</span>
+          <div>
+            <div class="pricing2-price-old">13 541 ₽/мес</div>
+            <div class="pricing2-price-now">5 417 ₽<small>в месяц в рассрочку</small></div>
+          </div>
+          <div class="pricing2-stats">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>7–9 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>N часов</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>9 проектов</span>
+          </div>
+          <p class="pricing2-desc">Освоите навыки работы с ИИ с нуля: начнёте с основ Python и постепенно перейдёте к LLM и агентам.</p>
+          <div class="pricing2-points">
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Полная цена: 325 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Цена со скидкой 60%: 130 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Вводный блок по Python + Pandas + API</div>
+          </div>
+          <button class="btn btn--dark">Оставить заявку</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

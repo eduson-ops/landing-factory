@@ -1,0 +1,174 @@
+<!doctype html>
+<!-- hero-02-with-form: hero + форма консультации справа + 4 мини-преимущества снизу.
+     Ref: refrences/Снимок экрана 2026-05-11 144951.png («Менеджер проектов») -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hero · with form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .hero2 { padding: 48px 0 32px; }
+
+    .hero2-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .hero2-left h1 { margin-bottom: 14px; font-size: clamp(34px, 4.4vw, 52px); }
+    .hero2-eyebrow { color: var(--color-text-muted); font-size: 14px; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px; }
+    .hero2-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+    .hero2-lead { font-size: 17px; color: var(--color-text); margin-bottom: 22px; max-width: 520px; }
+    .hero2-lead b { font-weight: var(--fw-bold); }
+
+    .hero2-meta {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      margin-bottom: 22px;
+      align-items: center;
+    }
+    .hero2-meta-item { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--color-text-muted); }
+    .hero2-meta-item svg { color: var(--color-primary); width: 18px; height: 18px; }
+
+    .hero2-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--color-surface-soft);
+      margin-bottom: 22px;
+    }
+    .hero2-visual .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .hero2-discount {
+      position: absolute; top: 16px; right: 16px;
+    }
+    .hero2-rating {
+      position: absolute; bottom: 16px; left: 16px;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      box-shadow: var(--shadow-pop);
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px;
+    }
+    .hero2-rating b { font-size: 22px; font-weight: var(--fw-black); line-height: 1; }
+
+    .hero2-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Form card */
+    .form-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .form-card h3 { font-size: 22px; margin-bottom: 6px; }
+    .form-card p.note { color: var(--color-text-muted); font-size: 14px; margin-bottom: 18px; }
+    .form-card form { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Bottom benefits */
+    .hero2-bottom {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .hero2-bottom .card {
+      padding: 22px;
+      border-radius: var(--radius-md);
+    }
+    .hero2-bottom .card h4 { font-size: 16px; line-height: 1.3; margin: 14px 0 4px; }
+    .hero2-bottom .card p { font-size: 13px; color: var(--color-text-muted); margin: 0; line-height: 1.45; }
+
+    @media (max-width: 992px) {
+      .hero2-top { grid-template-columns: 1fr; }
+      .hero2-bottom { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .hero2-bottom { grid-template-columns: 1fr; }
+      .hero2-cta-row .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="hero2">
+    <div class="container">
+      <div class="hero2-top">
+        <div class="hero2-left">
+          <span class="hero2-eyebrow">Онлайн-курс</span>
+          <h1>Менеджер проектов</h1>
+          <p class="hero2-lead">Зарабатывайте от 100 000 ₽ на удалённой работе, где не нужно писать код.</p>
+
+          <div class="hero2-meta">
+            <span class="hero2-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              с нуля за 3 месяца
+            </span>
+            <span class="hero2-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              Доступ навсегда
+            </span>
+          </div>
+
+          <div class="hero2-visual">
+            <div class="placeholder-photo placeholder-photo--landscape"></div>
+            <span class="badge-discount hero2-discount">−60%<small>до 11 мая</small></span>
+            <div class="hero2-rating">
+              <b>4.8</b><div><div class="stars">★★★★★</div><span style="color: var(--color-text-muted)">3700 студентов</span></div>
+            </div>
+          </div>
+
+          <div class="hero2-cta-row">
+            <button class="btn btn--primary btn--lg">Записаться со скидкой
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </button>
+            <button class="btn btn--ghost btn--lg">Получить консультацию</button>
+          </div>
+        </div>
+
+        <aside class="form-card">
+          <h3>Получите бесплатную консультацию</h3>
+          <p class="note">Расскажем о программе, тарифах и трудоустройстве.</p>
+          <form data-cta-form>
+            <div class="field"><input type="text" placeholder="Имя"></div>
+            <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
+            <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+            <button class="btn btn--primary">Получить консультацию</button>
+            <p data-cta-success hidden style="color: var(--color-success); font-size:14px;">✓ Заявка отправлена</p>
+          </form>
+        </aside>
+      </div>
+
+      <div class="hero2-bottom">
+        <div class="card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <h4>Учитесь у экспертов</h4>
+          <p>Преподаватели — практики из крупных компаний</p>
+        </div>
+        <div class="card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
+          <h4>2 диплома в портфолио</h4>
+          <p>Сможете работать в крупных и средних компаниях</p>
+        </div>
+        <div class="card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></span>
+          <h4>Получите удостоверение</h4>
+          <p>О повышении квалификации государственного образца</p>
+        </div>
+        <div class="card">
+          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <h4>Отработаете навыки</h4>
+          <p>На задачах из реальных проектов</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

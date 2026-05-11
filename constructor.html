@@ -1,0 +1,1114 @@
+<!doctype html>
+<!-- Конструктор лендингов Eduson.
+     Запуск: python -m http.server 8000 в корне проекта, открыть http://localhost:8000/constructor.html
+
+     UX:
+     - Слева: каталог блоков, поиск, collapsible-группы, большие превью с overlay.
+     - Сверху: пресеты (готовые наборы блоков).
+     - Справа: список выбранных в порядке сборки, кнопки ↑↓×, режим, кнопка генерации.
+     - Кнопка "Открыть превью" на каждой карточке (новая вкладка).
+     - Финальная сборка — кнопка "Посмотреть собранный лендинг" (live-preview через Blob URL).
+
+     Технические детали:
+     - Превью через <iframe src=…> + scale 0.3125 (pointer-events: none на .preview).
+     - Sticky-footer передаётся с ?preview=1, скрипт data-preview-only вырезается перед сборкой.
+     - Mode A — компактный промт со списком файлов (для Claude Code CLI).
+     - Mode B — полный inline HTML + Unsplash картинки (для claude.ai).
+     - При сборке извлекаются И <body> И inline <style> из <head> каждого блока,
+       иначе layout-вёрстка теряется.
+-->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конструктор лендингов · Eduson Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="blocks/css/tokens.css">
+  <link rel="stylesheet" href="blocks/css/themes.css">
+  <link rel="stylesheet" href="blocks/css/base.css">
+  <link rel="stylesheet" href="blocks/css/components.css">
+  <style>
+    body { background: var(--color-bg); overflow-x: hidden; }
+
+    /* ── Шапка ────────────────────────────────────────────────────────── */
+
+    .ctr-header {
+      background: var(--color-surface);
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex; align-items: center; gap: 24px;
+      flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 20;
+    }
+    .ctr-brand { display: flex; align-items: center; gap: 14px; }
+    .ctr-brand-logo {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--color-primary);
+      color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: var(--fw-black);
+      font-size: 18px;
+    }
+    .ctr-brand-text h1 { font-size: 16px; font-weight: var(--fw-bold); margin: 0; line-height: 1.2; }
+    .ctr-brand-text p { font-size: 12px; color: var(--color-text-muted); margin: 0; }
+
+    .ctr-search {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+    }
+    .ctr-search input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      font: inherit;
+      transition: border-color var(--tr-base), background var(--tr-base);
+    }
+    .ctr-search input:focus { outline: none; border-color: var(--color-primary); background: var(--color-surface); }
+    .ctr-search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--color-text-muted); pointer-events: none;
+    }
+    .ctr-search-clear {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      width: 24px; height: 24px; border: 0; border-radius: 50%;
+      background: var(--color-border); color: var(--color-text);
+      display: none; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .ctr-search-clear.is-visible { display: inline-flex; }
+
+    .ctr-header-actions { display: flex; gap: 10px; align-items: center; }
+    .ctr-counter-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      font-weight: var(--fw-semibold);
+      font-size: 13px;
+    }
+    .ctr-counter-badge.is-empty { background: var(--color-bg); color: var(--color-text-muted); }
+
+    /* ── Пресеты ──────────────────────────────────────────────────────── */
+
+    .ctr-presets {
+      background: var(--color-surface);
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    }
+    .ctr-presets-label {
+      font-size: 12px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 6px;
+    }
+    .ctr-preset {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-size: 13px;
+      font-weight: var(--fw-medium);
+      cursor: pointer;
+      transition: all var(--tr-base);
+    }
+    .ctr-preset:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .ctr-preset .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--color-primary);
+    }
+    .ctr-preset.preset-tech .dot { background: #FF6B0F; }
+    .ctr-preset.preset-soft .dot { background: var(--color-primary); }
+    .ctr-preset.preset-mini .dot { background: var(--color-accent-yellow); }
+    .ctr-preset.preset-full .dot { background: var(--color-text); }
+    .ctr-preset-clear { color: var(--color-error); margin-left: auto; }
+    .ctr-preset-clear:hover { border-color: var(--color-error); }
+
+    /* ── Layout ───────────────────────────────────────────────────────── */
+
+    .ctr-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+    }
+    .ctr-main { padding: 24px 28px 120px; min-width: 0; }
+
+    /* ── Группы каталога ──────────────────────────────────────────────── */
+
+    .ctr-group { margin-bottom: 28px; }
+    .ctr-group.is-hidden { display: none; }
+
+    .ctr-group-head {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 4px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 14px;
+    }
+    .ctr-group-head h2 {
+      font-size: 14px;
+      font-weight: var(--fw-bold);
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .ctr-group-head .count {
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: var(--fw-medium);
+    }
+    .ctr-group-head .chev {
+      margin-left: auto;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base);
+    }
+    .ctr-group.is-collapsed .chev { transform: rotate(-90deg); }
+    .ctr-group.is-collapsed .ctr-grid { display: none; }
+
+    .ctr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── Карточка блока ───────────────────────────────────────────────── */
+
+    .ctr-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      border: 2px solid transparent;
+      transition: border-color var(--tr-base), transform var(--tr-fast), box-shadow var(--tr-base);
+      position: relative;
+      cursor: pointer;
+    }
+    .ctr-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+    .ctr-card.is-selected { border-color: var(--color-primary); }
+    .ctr-card.is-selected::after {
+      content: "✓";
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: var(--fw-bold);
+      font-size: 14px;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(107,94,236,0.4);
+    }
+    .ctr-card.is-hidden { display: none; }
+
+    .ctr-card .preview {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--color-bg);
+      pointer-events: none;
+    }
+    .ctr-card .preview iframe {
+      position: absolute; top: 0; left: 0;
+      width: 320%; height: 320%;
+      transform: scale(0.3125);
+      transform-origin: 0 0;
+      border: 0;
+    }
+    .ctr-card .preview-error {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(233,93,85,0.08);
+      color: var(--color-error);
+      font-size: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .ctr-card .preview-actions {
+      position: absolute; bottom: 8px; right: 8px;
+      display: flex; gap: 6px;
+      opacity: 0;
+      transition: opacity var(--tr-base);
+      pointer-events: auto;
+    }
+    .ctr-card:hover .preview-actions { opacity: 1; }
+    .ctr-card .preview-action {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 6px 10px; height: 28px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.96);
+      border: 0;
+      color: var(--color-text);
+      font-size: 12px;
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+    }
+    .ctr-card .preview-action:hover { background: var(--color-primary); color: #fff; }
+
+    .ctr-card .label { padding: 12px 14px 14px; }
+    .ctr-card .label-title {
+      font-size: 14px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-text);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .ctr-card .label-path { font-size: 11px; color: var(--color-text-muted); font-family: 'Inter', monospace; }
+    .ctr-card .label-flags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .ctr-card .flag {
+      display: inline-flex; align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      font-size: 11px;
+      font-weight: var(--fw-medium);
+    }
+    .ctr-card .flag.dark { background: #2A2A30; color: #fff; }
+
+    /* ── Правая панель ────────────────────────────────────────────────── */
+
+    .ctr-aside {
+      background: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      padding: 20px;
+      position: sticky;
+      top: 76px;
+      align-self: start;
+      max-height: calc(100vh - 76px);
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .ctr-aside-section h3 {
+      font-size: 12px;
+      font-weight: var(--fw-bold);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .selected-list { display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
+    .selected-empty {
+      padding: 24px 12px;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--color-border);
+    }
+    .selected-item {
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      gap: 8px; align-items: center;
+      padding: 8px 10px;
+      background: var(--color-bg);
+      border-radius: var(--radius-input);
+      font-size: 13px;
+      transition: background var(--tr-base);
+    }
+    .selected-item:hover { background: var(--color-surface-soft); }
+    .selected-item .idx {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--color-primary); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: var(--fw-bold); font-size: 11px;
+    }
+    .selected-item .name { line-height: 1.3; min-width: 0; word-break: break-word; }
+    .selected-item .actions { display: flex; gap: 2px; }
+    .selected-item .act-btn {
+      width: 24px; height: 24px;
+      border: 0; background: transparent;
+      color: var(--color-text-muted);
+      border-radius: 6px; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .selected-item .act-btn:hover { background: var(--color-surface); color: var(--color-text); }
+    .selected-item .act-btn.remove:hover { color: var(--color-error); }
+
+    .seg-radio {
+      display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+      gap: 4px;
+      padding: 4px;
+      background: var(--color-bg);
+      border-radius: var(--radius-pill);
+    }
+    .seg-radio label {
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background var(--tr-base), color var(--tr-base);
+      color: var(--color-text-muted);
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .seg-radio label.is-active {
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-weight: var(--fw-semibold);
+      box-shadow: var(--shadow-card);
+    }
+    .seg-radio input { display: none; }
+    .seg-radio .swatch { width: 12px; height: 12px; border-radius: 50%; }
+
+    .mode-info {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 12px;
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+    .mode-info b { color: var(--color-text); font-weight: var(--fw-semibold); }
+
+    .ctr-actions { display: flex; flex-direction: column; gap: 8px; }
+    .ctr-actions .btn { width: 100%; }
+    .ctr-counter {
+      font-size: 12px; color: var(--color-text-muted); text-align: center;
+      min-height: 18px;
+      transition: color var(--tr-base);
+    }
+
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(15,15,18,0.5);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
+    }
+    .modal-bg.is-open { display: flex; }
+    .modal {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      max-width: 480px; width: 100%;
+      box-shadow: var(--shadow-pop);
+    }
+    .modal h3 { margin-bottom: 12px; font-size: 18px; }
+    .modal p { color: var(--color-text-muted); font-size: 14px; line-height: 1.55; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 18px; justify-content: flex-end; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--color-text); color: #fff;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      font-size: 14px; font-weight: var(--fw-medium);
+      box-shadow: var(--shadow-pop);
+      opacity: 0;
+      transition: opacity var(--tr-base), transform var(--tr-base);
+      pointer-events: none; z-index: 200;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.is-success { background: var(--color-success); }
+    .toast.is-error { background: var(--color-error); }
+
+    @media (max-width: 1180px) {
+      .ctr-layout { grid-template-columns: 1fr; }
+      .ctr-aside { position: static; max-height: none; border-left: 0; border-top: 1px solid var(--color-border); top: auto; }
+      .ctr-header { padding: 14px 16px; }
+      .ctr-main { padding: 20px 16px 60px; }
+    }
+    @media (max-width: 640px) {
+      .ctr-header { gap: 12px; }
+      .ctr-search { order: 3; max-width: none; width: 100%; }
+      .ctr-presets { padding: 12px 16px; overflow-x: auto; flex-wrap: nowrap; }
+      .ctr-preset { flex-shrink: 0; }
+      .ctr-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <header class="ctr-header">
+    <div class="ctr-brand">
+      <span class="ctr-brand-logo">E</span>
+      <div class="ctr-brand-text">
+        <h1>Конструктор лендингов</h1>
+        <p>Eduson Academy · 35 блоков</p>
+      </div>
+    </div>
+
+    <label class="ctr-search">
+      <input type="text" id="searchInput" placeholder="Поиск — например, «hero», «программа», «отзывы»…" autocomplete="off">
+      <span class="ctr-search-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </span>
+      <button class="ctr-search-clear" id="searchClear" type="button" aria-label="Очистить">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </label>
+
+    <div class="ctr-header-actions">
+      <span class="ctr-counter-badge is-empty" id="counterBadge">0 блоков</span>
+    </div>
+  </header>
+
+  <div class="ctr-presets">
+    <span class="ctr-presets-label">Готовые наборы:</span>
+    <button class="ctr-preset preset-tech" data-preset="ai-engineer"><span class="dot"></span>IT/ИИ-курс</button>
+    <button class="ctr-preset preset-soft" data-preset="soft-skills"><span class="dot"></span>Софт-навыки</button>
+    <button class="ctr-preset preset-mini" data-preset="minimal"><span class="dot"></span>Минимальный</button>
+    <button class="ctr-preset preset-full" data-preset="full"><span class="dot"></span>Полный</button>
+    <button class="ctr-preset ctr-preset-clear" id="btnClearAll">Очистить выбор</button>
+  </div>
+
+  <div class="ctr-layout">
+    <main class="ctr-main">
+      <div id="catalog"></div>
+      <div id="emptySearch" style="display:none; padding: 48px; text-align:center; color: var(--color-text-muted);">
+        <div style="font-size: 36px; margin-bottom: 12px;">🔍</div>
+        Ничего не найдено по запросу.<br>Попробуйте другое ключевое слово.
+      </div>
+    </main>
+
+    <aside class="ctr-aside">
+      <div class="ctr-aside-section">
+        <h3>Тема</h3>
+        <div class="seg-radio" id="themeRadios">
+          <label class="is-active"><input type="radio" name="theme" value="theme-light-violet" checked><span class="swatch" style="background:#6B5EEC"></span>Light</label>
+          <label><input type="radio" name="theme" value="theme-dark-orange"><span class="swatch" style="background:#FF6B0F"></span>Dark</label>
+        </div>
+      </div>
+
+      <div class="ctr-aside-section">
+        <h3>Выбранные блоки <span id="selectedCount" style="color:var(--color-primary); font-weight:var(--fw-bold)"></span></h3>
+        <div class="selected-list" id="selectedList"></div>
+      </div>
+
+      <div class="ctr-aside-section">
+        <h3>Куда вставлять?</h3>
+        <div class="seg-radio" id="modeRadios">
+          <label class="is-active"><input type="radio" name="mode" value="cli" checked>CLI</label>
+          <label><input type="radio" name="mode" value="browser">Браузер</label>
+        </div>
+        <div class="mode-info" id="modeInfo">
+          <span><b>Claude Code CLI</b> — компактный промт ~1.5 KB со ссылками на файлы. Только для CLI, запущенного в этом проекте.</span>
+        </div>
+      </div>
+
+      <div class="ctr-actions">
+        <button class="btn btn--primary btn--lg" id="btnCopy">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Скопировать промт
+        </button>
+        <button class="btn btn--ghost" id="btnDownload">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          Скачать .txt
+        </button>
+        <button class="btn btn--dark" id="btnPreview">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Посмотреть собранный лендинг
+        </button>
+        <div class="ctr-counter" id="counter"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="modal-bg" id="modalErr">
+    <div class="modal">
+      <h3>Внимание: <span id="errCount"></span> блоков не загрузились</h3>
+      <p>Промт будет неполным. Убедитесь, что dev-сервер запущен (<code>python -m http.server 8000</code>) и все файлы блоков существуют.</p>
+      <div class="modal-actions">
+        <button class="btn btn--ghost btn--sm" data-modal-close>Отмена</button>
+        <button class="btn btn--primary btn--sm" id="errProceed">Всё равно сгенерировать</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const CATALOG = [
+      { group: 'Hero · первый экран', items: [
+        { path: 'blocks/01-hero/hero-01-classic.html',     name: 'Classic split',          slug: 'hero-01', tags: ['hero','split','фото','рейтинг','скидка'] },
+        { path: 'blocks/01-hero/hero-02-with-form.html',   name: 'С формой консультации',  slug: 'hero-02', tags: ['hero','форма','консультация'] },
+        { path: 'blocks/01-hero/hero-03-dark.html',        name: 'Dark · Orange',          slug: 'hero-03', tags: ['hero','тёмный','dark','оранжевый','python'], themed: 'dark' },
+        { path: 'blocks/01-hero/hero-04-centered.html',    name: 'Centered с карточкой',   slug: 'hero-04', tags: ['hero','центр','центрированный','карточка'] },
+      ]},
+      { group: 'Аудитория и боли', items: [
+        { path: 'blocks/02-target-audience/target-01-cards-photo.html', name: 'Для кого · карточки с фото',    slug: 'target-01', tags: ['для кого','аудитория','фото'] },
+        { path: 'blocks/02-target-audience/target-02-cards-text.html',  name: 'Для кого · текстовые карточки', slug: 'target-02', tags: ['для кого','аудитория','текст'] },
+        { path: 'blocks/03-pain-split/pain-01-photo-bullets.html',      name: 'Боли · split + 3 буллета',       slug: 'pain-01', tags: ['боли','проблемы','split'] },
+        { path: 'blocks/04-benefits/benefits-01-grid.html',             name: 'Что получите · 3 карточки',      slug: 'benefits-01', tags: ['что получите','преимущества','диплом'] },
+        { path: 'blocks/18-text-section/text-01-narrative.html',        name: 'Текстовый блок · narrative',     slug: 'text-01', tags: ['текст','рынок','описание','занять нишу'] },
+      ]},
+      { group: 'Программа и FAQ', items: [
+        { path: 'blocks/05-program/program-01-accordion.html',     name: 'Программа · со счётчиками', slug: 'program-01', tags: ['программа','аккордеон','уроки'] },
+        { path: 'blocks/05-program/program-02-accordion-pdf.html', name: 'Программа · с PDF',          slug: 'program-02', tags: ['программа','аккордеон','pdf','модули'] },
+        { path: 'blocks/15-faq/faq-01-accordion.html',             name: 'FAQ · pill-аккордеон',       slug: 'faq-01', tags: ['faq','вопросы','аккордеон'] },
+      ]},
+      { group: 'Формат и сопровождение', items: [
+        { path: 'blocks/06-format/format-01-mosaic.html',  name: 'Формат · мозаика',         slug: 'format-01', tags: ['формат','тренажёры','задания'] },
+        { path: 'blocks/07-mentor/mentor-01-chat.html',    name: 'Куратор · чат + форма',    slug: 'mentor-01', tags: ['куратор','чат','форма'] },
+        { path: 'blocks/07-mentor/mentor-02-tags.html',    name: 'Ментор · теги + 5 встреч', slug: 'mentor-02', tags: ['ментор','теги','встречи'] },
+      ]},
+      { group: 'Навыки и карьера', items: [
+        { path: 'blocks/19-skills/skills-01-table.html',         name: 'Навыки · фото + список + инструменты', slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
+        { path: 'blocks/08-projects/projects-01-slider.html',    name: 'Проекты · слайдер',                slug: 'projects-01', tags: ['проекты','слайдер','портфолио'] },
+        { path: 'blocks/08-projects/projects-02-list.html',      name: 'Проекты · нумерованный список',     slug: 'projects-02', tags: ['проекты','список','портфолио'] },
+        { path: 'blocks/09-result-stats/stats-01-dark.html',     name: 'Результат · stats DARK',           slug: 'stats-01', tags: ['результат','статистика','dark','тёмный'], themed: 'dark' },
+        { path: 'blocks/09-result-stats/stats-02-salary.html',   name: 'Зарплаты · уровни',               slug: 'stats-02', tags: ['зарплата','доход','уровни','hh'] },
+        { path: 'blocks/10-experts/experts-01-slider.html',      name: 'Эксперты · слайдер фото',          slug: 'experts-01', tags: ['эксперты','преподаватели','слайдер'] },
+      ]},
+      { group: 'Соц. доказательство', items: [
+        { path: 'blocks/11-graduates/graduates-01-quotes.html',    name: 'Выпускники · истории',         slug: 'graduates-01', tags: ['выпускники','истории','цитаты'] },
+        { path: 'blocks/11-graduates/graduates-02-reviews.html',   name: 'Отзывы · фиолетовая полоса',   slug: 'graduates-02', tags: ['отзывы','рейтинг','звёзды'] },
+        { path: 'blocks/12-ratings/ratings-01-aggregators.html',   name: 'Рейтинги агрегаторов',         slug: 'ratings-01', tags: ['рейтинг','яндекс','хабр','2gis'] },
+        { path: 'blocks/21-partners/partners-01-logos.html',       name: 'Партнёры · полоса логотипов',  slug: 'partners-01', tags: ['партнёры','логотипы','компании','сбер','vk'] },
+        { path: 'blocks/20-trust/trust-01-stats-hero.html',        name: 'Доверие · фото + 4 числа',     slug: 'trust-01', tags: ['доверие','числа','о компании'] },
+      ]},
+      { group: 'Финальные блоки', items: [
+        { path: 'blocks/13-diploma/diploma-01-split.html',         name: 'Диплом · split',            slug: 'diploma-01', tags: ['диплом','сертификат','split'] },
+        { path: 'blocks/13-diploma/diploma-02-two-docs.html',      name: 'Диплом · 2 документа',      slug: 'diploma-02', tags: ['диплом','удостоверение','2 документа'] },
+        { path: 'blocks/14-pricing/pricing-01-card.html',          name: 'Стоимость · карточка',       slug: 'pricing-01', tags: ['цена','стоимость','тариф'] },
+        { path: 'blocks/14-pricing/pricing-02-two-tracks.html',    name: 'Стоимость · 2 тарифа',       slug: 'pricing-02', tags: ['цена','стоимость','тарифы','треки'] },
+        { path: 'blocks/22-employer/employer-01-cta.html',         name: 'Оплата работодателем',       slug: 'employer-01', tags: ['оплата','работодатель','b2b','юрлицо'] },
+        { path: 'blocks/16-cta-form/cta-01-inline.html',           name: 'CTA · inline-форма',         slug: 'cta-01', tags: ['cta','форма','заявка'] },
+        { path: 'blocks/16-cta-form/cta-02-callback.html',         name: 'CTA · обратный звонок',      slug: 'cta-02', tags: ['cta','форма','звонок'] },
+        { path: 'blocks/17-sticky-footer/sticky-01-bottom-bar.html', name: 'Sticky · нижняя плашка',  slug: 'sticky-01', tags: ['sticky','footer','cta','фикс'] },
+      ]},
+    ];
+
+    const PRESETS = {
+      'ai-engineer': ['hero-04','text-01','stats-02','target-02','skills-01','projects-02','program-02','diploma-02','experts-01','ratings-01','partners-01','trust-01','employer-01','pricing-02','faq-01','cta-01'],
+      'soft-skills': ['hero-01','target-01','pain-01','benefits-01','program-01','mentor-01','graduates-01','graduates-02','diploma-01','pricing-01','faq-01','cta-01'],
+      'minimal':     ['hero-01','program-01','faq-01','pricing-01','cta-01'],
+      'full':        ['hero-02','target-01','pain-01','benefits-01','program-01','format-01','mentor-01','mentor-02','projects-01','stats-01','experts-01','graduates-01','graduates-02','ratings-01','diploma-01','pricing-01','faq-01','cta-01','sticky-01'],
+    };
+
+    const IMG_MAP = {
+      'placeholder.svg':         'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80&auto=format',
+      'hero-placeholder.jpg':    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1400&q=80&auto=format',
+      'portrait-placeholder.jpg':'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80&auto=format',
+    };
+
+    const state = {
+      selected: [],
+      blockHtml: {},
+      blockError: {},
+      mode: 'cli',
+      theme: 'theme-light-violet',
+      search: '',
+    };
+
+    const BODY_RE = /<body[^>]*>([\s\S]*?)<\/body>/i;
+    const HEAD_RE = /<head[^>]*>([\s\S]*?)<\/head>/i;
+    const STYLE_RE = /<style[^>]*>([\s\S]*?)<\/style>/gi;
+    const STRIP_PREVIEW_RE = /<script\s[^>]*data-preview-only[^>]*>[\s\S]*?<\/script>/gi;
+    const STRIP_COMPONENTS_RE = /<script\s+src=["'][^"']*components\.js["'][^>]*>\s*<\/script>/gi;
+    const IMG_PATH_RE = /\.\.\/\.\.\/img\/([\w-.]+)/g;
+
+    function extractInlineCss(html) {
+      const headMatch = html.match(HEAD_RE);
+      if (!headMatch) return '';
+      const chunks = [];
+      let m;
+      const re = new RegExp(STYLE_RE.source, 'gi');
+      while ((m = re.exec(headMatch[1])) !== null) chunks.push(m[1].trim());
+      return chunks.join('\n\n');
+    }
+
+    function getItemByPath(path) {
+      for (const g of CATALOG) for (const it of g.items) if (it.path === path) return it;
+      return null;
+    }
+
+    async function loadBlock(path) {
+      try {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+        state.blockHtml[path] = await r.text();
+        state.blockError[path] = null;
+      } catch (e) {
+        state.blockHtml[path] = null;
+        state.blockError[path] = e.message;
+      }
+    }
+
+    async function preloadAll() {
+      const all = CATALOG.flatMap(g => g.items.map(it => it.path));
+      await Promise.all(all.map(loadBlock));
+      renderErrors();
+    }
+
+    function renderErrors() {
+      Object.entries(state.blockError).forEach(([path, err]) => {
+        if (!err) return;
+        const card = document.querySelector(`[data-path="${path}"]`);
+        if (!card) return;
+        const prev = card.querySelector('.preview');
+        if (!prev) return;
+        prev.innerHTML = '';
+        const errEl = document.createElement('div');
+        errEl.className = 'preview-error';
+        errEl.textContent = `Не загрузился (${err})`;
+        prev.appendChild(errEl);
+      });
+    }
+
+    function renderCatalog() {
+      const root = document.getElementById('catalog');
+      root.innerHTML = '';
+      CATALOG.forEach((group, gi) => {
+        const sec = document.createElement('section');
+        sec.className = 'ctr-group';
+        sec.dataset.group = gi;
+
+        const head = document.createElement('div');
+        head.className = 'ctr-group-head';
+        head.innerHTML = `<h2>${group.group}</h2><span class="count">${group.items.length}</span><span class="chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>`;
+        head.addEventListener('click', () => sec.classList.toggle('is-collapsed'));
+        sec.appendChild(head);
+
+        const grid = document.createElement('div');
+        grid.className = 'ctr-grid';
+        group.items.forEach(it => grid.appendChild(makeCard(it)));
+        sec.appendChild(grid);
+        root.appendChild(sec);
+      });
+    }
+
+    function makeCard(it) {
+      const card = document.createElement('div');
+      card.className = 'ctr-card';
+      card.dataset.path = it.path;
+      card.dataset.slug = it.slug;
+      card.dataset.search = (it.name + ' ' + it.slug + ' ' + (it.tags || []).join(' ')).toLowerCase();
+
+      const previewSrc = it.path + (it.slug.startsWith('sticky') ? '?preview=1' : '');
+      const flagDark = it.themed === 'dark' ? '<span class="flag dark">Dark theme</span>' : '';
+
+      card.innerHTML = `
+        <div class="preview">
+          <iframe loading="lazy" src="${previewSrc}"></iframe>
+          <div class="preview-actions">
+            <button class="preview-action" data-action="open" title="Открыть блок в новой вкладке">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>Открыть
+            </button>
+          </div>
+        </div>
+        <div class="label">
+          <div class="label-title">${it.name}</div>
+          <div class="label-path">${it.path.replace('blocks/', '')}</div>
+          ${flagDark ? `<div class="label-flags">${flagDark}</div>` : ''}
+        </div>
+      `;
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('[data-action]')) return;
+        toggleSelect(it.path);
+      });
+      card.querySelector('[data-action="open"]').addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.open(it.path, '_blank');
+      });
+      return card;
+    }
+
+    function toggleSelect(path, forceVal) {
+      const idx = state.selected.indexOf(path);
+      const wasSelected = idx >= 0;
+      const shouldSelect = forceVal !== undefined ? forceVal : !wasSelected;
+
+      if (shouldSelect && !wasSelected) state.selected.push(path);
+      else if (!shouldSelect && wasSelected) state.selected.splice(idx, 1);
+
+      const card = document.querySelector(`[data-path="${path}"]`);
+      if (card) card.classList.toggle('is-selected', shouldSelect);
+      renderSelected();
+      updateCounter();
+    }
+
+    function moveSelected(path, dir) {
+      const idx = state.selected.indexOf(path);
+      if (idx < 0) return;
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= state.selected.length) return;
+      [state.selected[idx], state.selected[newIdx]] = [state.selected[newIdx], state.selected[idx]];
+      renderSelected();
+    }
+
+    function renderSelected() {
+      const list = document.getElementById('selectedList');
+      const count = state.selected.length;
+      const countEl = document.getElementById('selectedCount');
+      countEl.textContent = count > 0 ? `· ${count}` : '';
+
+      const badge = document.getElementById('counterBadge');
+      badge.textContent = count === 0 ? '0 блоков' : count === 1 ? '1 блок' : count + ' блоков';
+      badge.classList.toggle('is-empty', count === 0);
+
+      if (count === 0) {
+        list.innerHTML = '<div class="selected-empty">Выберите блоки слева, нажав на карточку</div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      state.selected.forEach((path, i) => {
+        const it = getItemByPath(path);
+        if (!it) return;
+        const row = document.createElement('div');
+        row.className = 'selected-item';
+        row.innerHTML = `
+          <span class="idx">${i + 1}</span>
+          <div class="name">${it.name}</div>
+          <div class="actions">
+            <button class="act-btn" data-act="up"   title="Выше">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+            </button>
+            <button class="act-btn" data-act="down" title="Ниже">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="act-btn remove" data-act="remove" title="Убрать">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+        `;
+        row.querySelector('[data-act="up"]'    ).addEventListener('click', () => moveSelected(path, -1));
+        row.querySelector('[data-act="down"]'  ).addEventListener('click', () => moveSelected(path,  1));
+        row.querySelector('[data-act="remove"]').addEventListener('click', () => toggleSelect(path, false));
+        list.appendChild(row);
+      });
+    }
+
+    function applySearch() {
+      const q = state.search.trim().toLowerCase();
+      const clear = document.getElementById('searchClear');
+      clear.classList.toggle('is-visible', q.length > 0);
+
+      let totalVisible = 0;
+      document.querySelectorAll('.ctr-card').forEach(card => {
+        const match = !q || card.dataset.search.includes(q);
+        card.classList.toggle('is-hidden', !match);
+        if (match) totalVisible++;
+      });
+      document.querySelectorAll('.ctr-group').forEach(g => {
+        const visibleInGroup = [...g.querySelectorAll('.ctr-card')].filter(c => !c.classList.contains('is-hidden')).length;
+        g.classList.toggle('is-hidden', visibleInGroup === 0);
+        if (q.length > 0) g.classList.remove('is-collapsed');
+      });
+      document.getElementById('emptySearch').style.display = totalVisible === 0 && q.length > 0 ? 'block' : 'none';
+    }
+
+    function applyPreset(name) {
+      const slugs = PRESETS[name] || [];
+      state.selected = [];
+      document.querySelectorAll('.ctr-card.is-selected').forEach(c => c.classList.remove('is-selected'));
+      const slugToPath = {};
+      CATALOG.forEach(g => g.items.forEach(it => slugToPath[it.slug] = it.path));
+      slugs.forEach(slug => {
+        const path = slugToPath[slug];
+        if (path) {
+          state.selected.push(path);
+          const card = document.querySelector(`[data-path="${path}"]`);
+          if (card) card.classList.add('is-selected');
+        }
+      });
+      renderSelected();
+      updateCounter();
+      showToast(`✓ Загружен пресет: ${state.selected.length} блоков`, 'success');
+    }
+
+    function clearAll() {
+      if (state.selected.length === 0) return;
+      state.selected = [];
+      document.querySelectorAll('.ctr-card.is-selected').forEach(c => c.classList.remove('is-selected'));
+      renderSelected();
+      updateCounter();
+    }
+
+    function getOrderedSelected() {
+      return state.selected.map(path => {
+        const it = getItemByPath(path);
+        return { ...it, html: state.blockHtml[path], error: state.blockError[path] };
+      });
+    }
+
+    function buildModeA() {
+      const items = getOrderedSelected();
+      const list = items.map((it, i) => `${i + 1}. ${it.path}`).join('\n');
+      return [
+        '[Этот промт предназначен для Claude Code CLI, запущенного в корне проекта.',
+        ' Не вставляйте его в claude.ai/chat — у браузерного Claude нет доступа к локальным файлам.]',
+        '',
+        'Собери лендинг в стилистике Eduson Academy.',
+        `Тема: ${state.theme.replace('theme-', '')}`,
+        'Блоки в порядке сверху вниз:',
+        list,
+        '',
+        'Инструкция:',
+        '1) Прочитай каждый файл блока (Read).',
+        '2) Из КАЖДОГО файла извлеки ДВЕ вещи:',
+        '   а) Содержимое <body> — всё между <body> и </body>, без самих тегов.',
+        '   б) Содержимое всех <style>-блоков из <head> — каждый блок имеет',
+        '      уникальную layout-вёрстку в inline <style>, БЕЗ НЕЁ блок развалится.',
+        '   Не копируй файлы целиком — получится вложенный <html>/<head>/<body>.',
+        '3) Удали из извлечённого body все <script data-preview-only>...<\/script>',
+        '   (regex: /<script\\s[^>]*data-preview-only[^>]*>[\\s\\S]*?<\\/script>/gi).',
+        '4) Удали повторные подключения components.js из body',
+        '   (regex: /<script\\s+src=[^>]*components\\.js[^>]*>\\s*<\\/script>/gi).',
+        '5) Сложи извлечённое содержимое <body> блоков последовательно в <body> нового index.html.',
+        '6) В <head> подключи ОДИН раз внешние ассеты:',
+        '     <link rel="stylesheet" href="blocks/css/tokens.css">',
+        '     <link rel="stylesheet" href="blocks/css/themes.css">',
+        '     <link rel="stylesheet" href="blocks/css/base.css">',
+        '     <link rel="stylesheet" href="blocks/css/components.css">',
+        '     <script src="blocks/js/components.js" defer><\/script>',
+        '     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">',
+        '   И добавь ОДИН общий <style> со всеми CSS из шага 2б.',
+        `7) Поставь на <body> класс ${state.theme}.`,
+        '8) ПРАВИЛО ПУТЕЙ: после сборки замени во всём HTML:',
+        "     '../../css/' → 'blocks/css/'",
+        "     '../../js/'  → 'blocks/js/'",
+        "     '../../img/' → 'blocks/img/'",
+        '9) Подставь данные из ТЗ ниже в заголовки/подзаголовки/тексты/цены/FAQ/форму',
+        '   (НЕ меняй CSS-классы и структуру разметки).',
+        '10) Сохрани результат в index.html в корне.',
+        '',
+        'ТЗ:',
+        '<сюда продакт вставит свой структурированный текст>',
+        '',
+      ].join('\n');
+    }
+
+    async function buildModeB() {
+      const items = getOrderedSelected();
+      const blockCss = [];
+      const bodies = items.map(it => {
+        if (!it.html) return `<!-- ОШИБКА загрузки ${it.path} -->`;
+        const css = extractInlineCss(it.html);
+        if (css) blockCss.push(`/* ─── ${it.path} ─── */\n${css}`);
+        let body = (it.html.match(BODY_RE) || ['', ''])[1];
+        body = body.replace(STRIP_PREVIEW_RE, '');
+        body = body.replace(STRIP_COMPONENTS_RE, '');
+        body = body.replace(IMG_PATH_RE, (_, name) => IMG_MAP[name] || IMG_MAP['placeholder.svg']);
+        return `\n<!-- ${it.path} -->\n${body.trim()}\n`;
+      }).join('\n');
+      const inlineBlockCss = blockCss.join('\n\n');
+
+      const fetchText = (p) => fetch(p).then(r => r.text()).catch(() => `/* failed: ${p} */`);
+      const [tokens, themes, base, components, js] = await Promise.all([
+        fetchText('blocks/css/tokens.css'),
+        fetchText('blocks/css/themes.css'),
+        fetchText('blocks/css/base.css'),
+        fetchText('blocks/css/components.css'),
+        fetchText('blocks/js/components.js'),
+      ]);
+
+      const html = [
+        '<!DOCTYPE html>',
+        '<html lang="ru">',
+        '<head>',
+        '  <meta charset="utf-8">',
+        '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '  <title>Eduson · сборка</title>',
+        '  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">',
+        '  <style>',
+        '/* ─── tokens.css ─── */', tokens,
+        '/* ─── themes.css ─── */', themes,
+        '/* ─── base.css ─── */',   base,
+        '/* ─── components.css ─── */', components,
+        '/* ─── per-block inline styles ─── */', inlineBlockCss,
+        '  </style>',
+        '</head>',
+        `<body class="${state.theme}">`,
+        bodies,
+        '<script>', js, '<\/script>',
+        '</body>',
+        '</html>',
+      ].join('\n');
+
+      return [
+        '[Этот промт можно вставить в любой чат Claude — он содержит готовый HTML и инструкцию.]',
+        '',
+        'Ниже — готовый HTML лендинга в стилистике Eduson Academy',
+        'со встроенными стилями, скриптами и Unsplash-картинками.',
+        `Тема: ${state.theme.replace('theme-', '')}`,
+        '',
+        'Задача:',
+        '1) Подставь данные из ТЗ ниже в заголовки, подзаголовки, тексты, цены,',
+        '   FAQ, поля формы (НЕ меняй CSS-классы и структуру разметки).',
+        '2) Не редактируй <style> и <script> блоки.',
+        '3) Верни полный HTML-файл одним блоком кода, готовым к сохранению как index.html.',
+        '',
+        'ТЗ:',
+        '<сюда продакт вставит свой структурированный текст>',
+        '',
+        '--- HTML ---',
+        html,
+        '',
+      ].join('\n');
+    }
+
+    async function buildPrompt() {
+      return state.mode === 'cli' ? buildModeA() : await buildModeB();
+    }
+
+    async function buildAssembledHtml() {
+      const items = getOrderedSelected();
+      const blockCss = [];
+      const bodies = items.map(it => {
+        if (!it.html) return `<!-- ОШИБКА загрузки ${it.path} -->`;
+        const css = extractInlineCss(it.html);
+        if (css) blockCss.push(`/* ─── ${it.path} ─── */\n${css}`);
+        let body = (it.html.match(BODY_RE) || ['', ''])[1];
+        body = body.replace(STRIP_PREVIEW_RE, '');
+        body = body.replace(STRIP_COMPONENTS_RE, '');
+        body = body.replace(IMG_PATH_RE, (_, name) => `/blocks/img/${name}`);
+        return `\n<!-- ${it.path} -->\n${body.trim()}\n`;
+      }).join('\n');
+      const inlineBlockCss = blockCss.join('\n\n');
+
+      const base = location.origin;
+      return [
+        '<!DOCTYPE html>',
+        '<html lang="ru">',
+        '<head>',
+        '  <meta charset="utf-8">',
+        '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '  <title>Превью сборки · Eduson</title>',
+        '  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">',
+        `  <link rel="stylesheet" href="${base}/blocks/css/tokens.css">`,
+        `  <link rel="stylesheet" href="${base}/blocks/css/themes.css">`,
+        `  <link rel="stylesheet" href="${base}/blocks/css/base.css">`,
+        `  <link rel="stylesheet" href="${base}/blocks/css/components.css">`,
+        `  <script src="${base}/blocks/js/components.js" defer><\/script>`,
+        '  <style>', inlineBlockCss, '</style>',
+        '</head>',
+        `<body class="${state.theme}">`,
+        bodies,
+        '</body>',
+        '</html>',
+      ].join('\n');
+    }
+
+    function approxTokens(s) { return Math.ceil(s.length / 4); }
+
+    async function updateCounter() {
+      const c = document.getElementById('counter');
+      if (state.selected.length === 0) { c.textContent = ''; return; }
+      if (state.mode === 'cli') {
+        const t = buildModeA();
+        c.textContent = `≈ ${t.length.toLocaleString('ru-RU')} симв. / ${approxTokens(t).toLocaleString('ru-RU')} токенов`;
+      } else {
+        c.textContent = `≈ 30–100 KB · считаем при генерации…`;
+      }
+    }
+
+    function withErrorGuard(action) {
+      const errors = getOrderedSelected().filter(it => it.error).length;
+      if (errors === 0) return action();
+      document.getElementById('errCount').textContent = errors;
+      const modal = document.getElementById('modalErr');
+      modal.classList.add('is-open');
+      const proceed = document.getElementById('errProceed');
+      const onProceed = () => { modal.classList.remove('is-open'); proceed.removeEventListener('click', onProceed); action(); };
+      proceed.addEventListener('click', onProceed);
+    }
+
+    function showToast(msg, kind) {
+      const t = document.getElementById('toast');
+      t.className = 'toast is-visible' + (kind ? ' is-' + kind : '');
+      t.textContent = msg;
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => t.className = 'toast', 2800);
+    }
+
+    document.querySelectorAll('[data-modal-close]').forEach(b =>
+      b.addEventListener('click', () => document.getElementById('modalErr').classList.remove('is-open')));
+
+    document.getElementById('btnCopy').addEventListener('click', () => {
+      if (state.selected.length === 0) return showToast('Сначала выберите хотя бы один блок', 'error');
+      withErrorGuard(async () => {
+        const text = await buildPrompt();
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast(`✓ Скопировано ${text.length.toLocaleString('ru-RU')} символов`, 'success');
+        } catch (e) {
+          showToast('Не удалось скопировать — попробуйте «Скачать»', 'error');
+        }
+      });
+    });
+
+    document.getElementById('btnDownload').addEventListener('click', () => {
+      if (state.selected.length === 0) return showToast('Сначала выберите хотя бы один блок', 'error');
+      withErrorGuard(async () => {
+        const text = await buildPrompt();
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `eduson-prompt-${state.mode}-${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast(`✓ Скачано ${text.length.toLocaleString('ru-RU')} символов`, 'success');
+      });
+    });
+
+    document.getElementById('btnPreview').addEventListener('click', () => {
+      if (state.selected.length === 0) return showToast('Сначала выберите хотя бы один блок', 'error');
+      withErrorGuard(async () => {
+        const html = await buildAssembledHtml();
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      });
+    });
+
+    document.querySelectorAll('#themeRadios input').forEach(r => {
+      r.addEventListener('change', () => {
+        state.theme = r.value;
+        document.querySelectorAll('#themeRadios label').forEach(l => l.classList.toggle('is-active', l.querySelector('input').checked));
+        updateCounter();
+      });
+    });
+    document.querySelectorAll('#modeRadios input').forEach(r => {
+      r.addEventListener('change', () => {
+        state.mode = r.value;
+        document.querySelectorAll('#modeRadios label').forEach(l => l.classList.toggle('is-active', l.querySelector('input').checked));
+        const info = document.getElementById('modeInfo');
+        info.innerHTML = state.mode === 'cli'
+          ? '<span><b>Claude Code CLI</b> — компактный промт ~1.5 KB со ссылками на файлы. Только для CLI, запущенного в этом проекте.</span>'
+          : '<span><b>claude.ai (браузер)</b> — полный inline HTML с Unsplash-картинками. Большой (~30–100 KB) — лучше «Скачать .txt» и приложить файлом.</span>';
+        updateCounter();
+      });
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => { state.search = e.target.value; applySearch(); });
+    document.getElementById('searchClear').addEventListener('click', () => {
+      searchInput.value = ''; state.search = ''; applySearch(); searchInput.focus();
+    });
+
+    document.querySelectorAll('[data-preset]').forEach(b =>
+      b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+    document.getElementById('btnClearAll').addEventListener('click', clearAll);
+
+    renderCatalog();
+    renderSelected();
+    preloadAll();
+  })();
+  </script>
+</body>
+</html>

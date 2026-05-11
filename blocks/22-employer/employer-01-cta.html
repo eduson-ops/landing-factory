@@ -1,0 +1,153 @@
+<!doctype html>
+<!-- employer-01-cta: «Этот курс может оплатить ваш работодатель» — тёмная
+     карточка, заголовок + описание + список преимуществ + чёрная CTA-кнопка,
+     справа жёлтая 3D-иллюстрация процентов.
+     Ref: ТЗ «ИИ-инженер» п.12, https://eduson.academy/team-lead-it -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оплата работодателем</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .employer { padding: 56px 0 72px; }
+    .employer-card {
+      background: #1E1E20;
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .employer-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .employer-head h2 {
+      color: #fff;
+      font-size: clamp(26px, 3.6vw, 40px);
+      margin-bottom: 14px;
+    }
+    .employer-head p {
+      color: rgba(255,255,255,0.78);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .employer-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 28px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .employer-inner {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      color: var(--color-text);
+    }
+    .employer-inner h3 { font-size: 18px; margin-bottom: 14px; }
+    .employer-inner ul { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
+    .employer-inner li { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+    .employer-inner li::before {
+      content: "";
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--color-accent-yellow);
+      flex-shrink: 0;
+    }
+    .employer-inner .btn { width: 100%; }
+
+    .employer-illu {
+      position: relative;
+      min-height: 220px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .employer-illu .folder {
+      background: var(--color-accent-yellow);
+      color: #1E1E20;
+      width: 180px; height: 180px;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 88px;
+      font-weight: var(--fw-black);
+      transform: rotate(-8deg);
+      box-shadow: 0 12px 32px rgba(255, 213, 59, 0.25);
+      position: relative;
+    }
+    .employer-illu .folder::before {
+      content: "";
+      position: absolute; top: -12px; left: 16px;
+      width: 80px; height: 20px;
+      background: var(--color-accent-yellow);
+      border-radius: 6px 6px 0 0;
+    }
+    .employer-illu .badge {
+      position: absolute;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.95);
+      color: #1E1E20;
+      font-weight: var(--fw-bold);
+      font-size: 13px;
+      border-radius: 10px;
+    }
+    .employer-illu .badge.b1 { top: 12px; right: 20px; transform: rotate(8deg); }
+    .employer-illu .badge.b2 { bottom: 14px; left: 0; transform: rotate(-6deg); }
+    .employer-illu .badge.b3 { top: 50%; right: 0; transform: translateY(-50%) rotate(3deg); }
+
+    .employer-foot {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      margin-top: 22px;
+    }
+
+    @media (max-width: 768px) {
+      .employer-card { padding: 28px; }
+      .employer-body { grid-template-columns: 1fr; }
+      .employer-illu .folder { width: 140px; height: 140px; font-size: 64px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="employer">
+    <div class="container">
+      <div class="employer-card">
+        <div class="employer-head">
+          <h2>Этот курс может оплатить ваш работодатель</h2>
+          <p>Оплату может взять на себя ваш работодатель или любое юрлицо — полностью или частично (50/50 или 75/25). Также подходит собственникам, которые оформляют обучение от своей компании.</p>
+        </div>
+
+        <div class="employer-body">
+          <div class="employer-inner">
+            <h3>Оставьте заявку — и мы:</h3>
+            <ul>
+              <li>Поделимся презентацией</li>
+              <li>Расскажем о курсе и ответим на вопросы</li>
+              <li>Подготовим договор и счёт</li>
+            </ul>
+            <button class="btn btn--dark">Оставить заявку</button>
+          </div>
+
+          <div class="employer-illu">
+            <div class="folder">%</div>
+            <span class="badge b1">50/50</span>
+            <span class="badge b2">100</span>
+            <span class="badge b3">75/25</span>
+          </div>
+        </div>
+
+        <p class="employer-foot">Для организаций возможны индивидуальные условия при обучении нескольких сотрудников.</p>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

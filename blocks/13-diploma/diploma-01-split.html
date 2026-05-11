@@ -1,0 +1,66 @@
+<!doctype html>
+<!-- diploma-01-split: split — фото диплома слева в наклонной рамке
+     + текст и список преимуществ справа. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Диплом · split</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .diploma { padding: 64px 0 80px; }
+    .diploma-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 48px;
+      align-items: center;
+    }
+    .diploma-photo {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-pop);
+      transform: rotate(-2.5deg);
+    }
+    .diploma-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    .diploma-text h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 18px; }
+    .diploma-text > p { color: var(--color-text-muted); margin-bottom: 22px; font-size: 16px; line-height: 1.55; }
+
+    .diploma-bullets { display: flex; flex-direction: column; gap: 14px; margin-bottom: 26px; }
+    .diploma-bullet { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; }
+    .diploma-bullet .icon-circle--sm { background: var(--color-surface-soft); color: var(--color-primary); }
+
+    @media (max-width: 992px) {
+      .diploma-grid { grid-template-columns: 1fr; gap: 28px; }
+      .diploma-photo { transform: none; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="diploma">
+    <div class="container">
+      <div class="diploma-grid">
+        <div class="diploma-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+        <div class="diploma-text">
+          <h2>Диплом о профессиональной переподготовке</h2>
+          <p>После курса вы получаете официальный документ государственного образца — он вносится в ФИС ФРДО и проверяется работодателем за 1 минуту.</p>
+
+          <div class="diploma-bullets">
+            <div class="diploma-bullet"><span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><div>Принимается всеми работодателями России</div></div>
+            <div class="diploma-bullet"><span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><div>Подтверждает право заниматься новой профессиональной деятельностью</div></div>
+            <div class="diploma-bullet"><span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><div>Указывается в трудовой книжке как основание для перевода на новую должность</div></div>
+          </div>
+
+          <button class="btn btn--primary">Записаться на курс</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

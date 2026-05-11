@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- stats-02-salary: «Зарплаты по уровням» — большое число средней зарплаты
+     слева, справа 3 уровня (junior / middle / senior) карточками.
+     Ref: ТЗ «ИИ-инженер» п.3 «Специалисты по ИИ — в топе» -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Зарплаты · по уровням</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .salary { padding: 64px 0 72px; }
+    .salary h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 12px;
+      max-width: 880px;
+    }
+    .salary .subtitle {
+      color: var(--color-text-muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+    }
+    .salary .subtitle b { color: var(--color-primary); font-weight: var(--fw-bold); }
+
+    .salary-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .salary-avg {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .salary-avg .num {
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: var(--fw-black);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .salary-avg .cap {
+      margin-top: 14px;
+      font-size: 16px;
+      opacity: 0.92;
+      line-height: 1.5;
+    }
+
+    .salary-levels {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .salary-level {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow-card);
+    }
+    .salary-level h4 { font-size: 17px; font-weight: var(--fw-semibold); }
+    .salary-level .price { font-size: 24px; font-weight: var(--fw-extrabold); color: var(--color-text); }
+
+    .salary-source {
+      margin-top: 18px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .salary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="salary">
+    <div class="container">
+      <h2>Специалисты по ИИ — в топе востребованных профессий на ближайшие годы</h2>
+      <p class="subtitle">Спрос на них за год вырос <b>в 2 раза</b>.</p>
+
+      <div class="salary-grid">
+        <div class="salary-avg">
+          <div class="num">232 000 ₽</div>
+          <div class="cap">средняя зарплата ИИ-инженера в 2026 году</div>
+        </div>
+        <div class="salary-levels">
+          <div class="salary-level"><h4>Начинающий</h4><span class="price">113 000 ₽</span></div>
+          <div class="salary-level"><h4>Специалист</h4><span class="price">229 000 ₽</span></div>
+          <div class="salary-level"><h4>Старший специалист</h4><span class="price">384 000 ₽</span></div>
+        </div>
+      </div>
+
+      <p class="salary-source">* По данным HeadHunter</p>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

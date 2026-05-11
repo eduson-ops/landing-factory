@@ -1,0 +1,127 @@
+<!doctype html>
+<!-- hero-01-classic: split-hero — h1+буллеты+CTA слева, фото-карточка с бейджами справа.
+     Refs: refrences/hero.jpg, refrences/Снимок экрана 2026-05-11 143407.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hero · classic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .hero {
+      padding: 56px 0 80px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-eyebrow { display: inline-block; margin-bottom: 18px; }
+    .hero h1 { margin-bottom: 18px; }
+    .hero-lead {
+      font-size: 18px;
+      color: var(--color-text-muted);
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+    .hero-bullets {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-bottom: 32px;
+    }
+    .hero-bullet {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .hero-bullet p { font-size: 15px; color: var(--color-text); margin: 0; }
+    .hero-bullet b { font-weight: var(--fw-bold); }
+
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--color-surface-soft);
+    }
+    .hero-visual .placeholder-photo {
+      width: 100%; height: 100%;
+      border-radius: 0;
+    }
+    .hero-badge-discount {
+      position: absolute; top: 20px; right: 20px;
+    }
+    .hero-rating {
+      position: absolute; bottom: 20px; left: 20px;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-pop);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-rating .rate-num { font-size: 28px; font-weight: var(--fw-black); line-height: 1; }
+    .hero-rating .rate-meta { font-size: 11px; color: var(--color-text-muted); line-height: 1.3; }
+
+    @media (max-width: 992px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-visual { aspect-ratio: 4 / 3; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 32px 0 48px; }
+      .hero-cta { flex-direction: column; align-items: stretch; }
+      .hero-cta .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <span class="badge-yellow hero-eyebrow">Создан · 2026</span>
+          <h1>Руководитель медицинской организации</h1>
+          <p class="hero-lead">Освойте профессию управленца в медицине и увеличьте свой доход.</p>
+
+          <div class="hero-bullets">
+            <div class="hero-bullet">
+              <span class="icon-circle"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <p>Освойте <b>стратегию, финансы, маркетинг</b>, управление командой и процессами</p>
+            </div>
+            <div class="hero-bullet">
+              <span class="icon-circle"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span>
+              <p>Настройте клиентский сервис и <b>перестаньте зависеть от звёздных врачей</b></p>
+            </div>
+            <div class="hero-bullet">
+              <span class="icon-circle"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M9 9l2 2 4-4"/></svg></span>
+              <p>Получите <b>диплом о профессиональной переподготовке</b></p>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <button class="btn btn--primary btn--lg">Записаться на курс</button>
+            <button class="btn btn--ghost btn--lg">Узнать подробнее</button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="placeholder-photo placeholder-photo--square"></div>
+          <span class="badge-discount hero-badge-discount">−60%<small>до 11 мая</small></span>
+          <div class="hero-rating">
+            <span class="rate-num">4.8</span>
+            <div>
+              <div class="stars">★★★★★</div>
+              <div class="rate-meta">Средняя оценка лекций<br>по данным опроса 3700 студентов</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

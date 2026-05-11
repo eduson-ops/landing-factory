@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- trust-01-stats-hero: тёмная карточка с фото-фоном, заголовок поверх фото,
+     ниже 4 больших числа карточками. «Академия Эдюсон — это про доверие»
+     Ref: ТЗ «ИИ-инженер» п.11 (низ) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Доверие · 4 числа</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .trust { padding: 56px 0 72px; }
+    .trust-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #1B1B20;
+      color: #fff;
+      min-height: 420px;
+      padding: 56px 40px 28px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .trust-bg {
+      position: absolute; inset: 0;
+      background: var(--color-surface-soft) center/cover no-repeat;
+    }
+    .trust-bg .placeholder-photo { width: 100%; height: 100%; border-radius: 0; opacity: 0.45; }
+    .trust-card::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(15,15,18,0.30) 0%, rgba(15,15,18,0.80) 70%, rgba(15,15,18,0.95) 100%);
+    }
+    .trust-content { position: relative; z-index: 1; }
+
+    .trust-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .trust-head h2 {
+      color: #fff;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 12px;
+    }
+    .trust-head p {
+      color: rgba(255,255,255,0.78);
+      font-size: 15px;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .trust-num-card {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+    }
+    .trust-num-card .num {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .trust-num-card .cap {
+      font-size: 13px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 768px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-card { padding: 36px 22px 20px; }
+    }
+    @media (max-width: 420px) {
+      .trust-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="trust">
+    <div class="container">
+      <div class="trust-card">
+        <div class="trust-bg"><div class="placeholder-photo placeholder-photo--wide"></div></div>
+        <div class="trust-content">
+          <div class="trust-head">
+            <h2>Академия Эдюсон — это про доверие</h2>
+            <p>Мы собрали лучших экспертов со всего мира, сделали удобную платформу, пригласили опытных кураторов — и вот что получилось:</p>
+          </div>
+          <div class="trust-grid">
+            <div class="trust-num-card"><div class="num">750 000</div><div class="cap">студентов проходят обучение на 2025 год</div></div>
+            <div class="trust-num-card"><div class="num">13+</div><div class="cap">лет обучаем компании и людей</div></div>
+            <div class="trust-num-card"><div class="num">75+</div><div class="cap">курсов-профессий выпустили с 2013 года</div></div>
+            <div class="trust-num-card"><div class="num">№1</div><div class="cap">в дополнительном обучении по версии Smart Ranking</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

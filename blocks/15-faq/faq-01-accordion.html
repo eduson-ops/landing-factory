@@ -1,0 +1,131 @@
+<!doctype html>
+<!-- faq-01-accordion: «Часто задаваемые вопросы» — белые pill-карточки с вопросом
+     и плюсом справа. Простой раскрывающийся аккордеон.
+     Ref: refrences/Снимок экрана 2026-05-11 143908.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ · аккордеон</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .faq { padding: 64px 0 88px; }
+    .faq h2 {
+      text-align: center;
+      font-size: clamp(32px, 4.4vw, 56px);
+      margin-bottom: 56px;
+    }
+
+    .faq-list {
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--color-surface);
+      border-radius: var(--radius-pill);
+      transition: border-radius var(--tr-base);
+      overflow: hidden;
+    }
+    .faq-item.is-open { border-radius: var(--radius-md); }
+
+    .faq-head {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 30px;
+      cursor: pointer;
+    }
+    .faq-head h3 {
+      font-size: 16px; font-weight: var(--fw-medium);
+      flex: 1; margin: 0;
+    }
+
+    .faq-toggle {
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base), color var(--tr-base);
+    }
+    .faq-item.is-open .faq-toggle { transform: rotate(45deg); color: var(--color-primary); }
+
+    .faq-body {
+      display: none;
+      padding: 0 30px 24px;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .faq-item.is-open .faq-body { display: block; }
+
+    @media (max-width: 640px) {
+      .faq-head { padding: 18px 22px; }
+      .faq-body { padding: 0 22px 20px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="faq">
+    <div class="container">
+      <h2>Часто задаваемые вопросы</h2>
+
+      <div class="faq-list" data-accordion="single">
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Сколько времени занимает обучение?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Курс рассчитан на 6 месяцев. Доступ к материалам и обновлениям — навсегда. Вы сами выбираете комфортный темп.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Что делать, если я не успеваю учиться?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Доступ к курсу остаётся навсегда — можете возвращаться к материалам, когда удобно. Куратор поможет составить план под ваш ритм.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Поможете, если я не разберусь в материале?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Личный куратор отвечает на вопросы 7 дней в неделю в Telegram. Также подключаются методисты и преподаватели курса.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Чем этот курс лучше бесплатных материалов в интернете?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Программа построена практиками отрасли, материалы собраны в логичную траекторию, есть проверка домашних заданий и реальные кейсы.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Можно ли вернуть деньги, если курс не подойдёт?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Да, в течение 14 дней с момента оплаты вернём 100% стоимости — без объяснения причин.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Что я получу после завершения курса?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Диплом о профессиональной переподготовке государственного образца, удостоверение от Eduson Academy и портфолио из 6 кейсов.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

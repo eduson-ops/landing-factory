@@ -1,0 +1,85 @@
+<!doctype html>
+<!-- graduates-02-reviews: «Смотрите, что студенты говорят о курсе» — карточки
+     с никами, звёздным рейтингом и отзывом. Заголовок белый на фиолетовой
+     полосе сверху или просто фиолетовый акцент.
+     Ref: refrences/Снимок экрана 2026-05-11 144524.png (низ), 145302.png -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Выпускники · отзывы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .grad2 { padding: 0 0 72px; }
+    .grad2-band {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 56px 0 64px;
+      margin-bottom: 0;
+    }
+    .grad2-band h2 { color: #fff; text-align: center; font-size: clamp(28px, 4vw, 44px); margin-bottom: 28px; }
+
+    .grad2-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .review-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .review-head { display: flex; align-items: center; justify-content: space-between; }
+    .review-name { font-weight: var(--fw-semibold); font-size: 14px; }
+    .review-card .stars { font-size: 13px; }
+    .review-title { font-weight: var(--fw-bold); font-size: 14px; color: var(--color-text); margin-top: 4px; }
+    .review-text { font-size: 13px; color: var(--color-text); line-height: 1.55; }
+    .review-more { color: var(--color-primary); font-size: 13px; font-weight: var(--fw-medium); margin-top: auto; }
+
+    @media (max-width: 992px) { .grad2-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grad2-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="grad2">
+    <div class="grad2-band">
+      <div class="container">
+        <h2>Отзывы студентов</h2>
+        <div class="grad2-grid">
+          <div class="review-card">
+            <div class="review-head"><span class="review-name">Маша</span><span class="stars">★★★★★</span></div>
+            <div class="review-title">Чувствуется сопровождение и что ты не один</div>
+            <div class="review-text">Прошла курс «Тестирование ПО». Атмосфера сопровождения и обратной связи на курсе ПРО — отличная. Всегда есть с кем обсудить кейс или задать вопрос — кураторы реагируют моментально.</div>
+            <a href="#" class="review-more">Читать ещё →</a>
+          </div>
+          <div class="review-card">
+            <div class="review-head"><span class="review-name">Игорь</span><span class="stars">★★★★★</span></div>
+            <div class="review-title">Курс идеально подошёл под мои цели</div>
+            <div class="review-text">До этого пробовал разные онлайн-курсы — этот первый, где материала ровно столько, сколько нужно. Заходишь, делаешь, видишь результат. Через 4 месяца получил первое предложение.</div>
+            <a href="#" class="review-more">Читать ещё →</a>
+          </div>
+          <div class="review-card">
+            <div class="review-head"><span class="review-name">Мелисса</span><span class="stars">★★★★★</span></div>
+            <div class="review-title">Достойная база знаний</div>
+            <div class="review-text">Структура программы хорошо продумана: от базы до сложных кейсов. Преподаватели — практики, видно, что делятся опытом, а не пересказывают учебник. Полезно даже для опытных специалистов.</div>
+            <a href="#" class="review-more">Читать ещё →</a>
+          </div>
+          <div class="review-card">
+            <div class="review-head"><span class="review-name">Suzie Beauty</span><span class="stars">★★★★★</span></div>
+            <div class="review-title">Реальное обучение, а не «лишь бы продать»</div>
+            <div class="review-text">Программа обучения мне подошла, чувствую себя более уверенно — даже на этапе работы. Все объясняется на конкретных кейсах и примерах. Кураторы активно помогают.</div>
+            <a href="#" class="review-more">Читать ещё →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

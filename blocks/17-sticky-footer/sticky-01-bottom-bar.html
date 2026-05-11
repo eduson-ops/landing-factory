@@ -1,0 +1,86 @@
+<!doctype html>
+<!-- sticky-01-bottom-bar: фиксированная нижняя плашка с заголовком курса,
+     ценой и CTA-кнопкой. Сидит position: fixed внизу окна.
+     В превью-iframe конструктора превращается в position: relative
+     через ?preview=1 (см. data-preview-only скрипт ниже).
+     Скрипт удаляется конструктором при формировании промта. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sticky footer bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    /* большой пустой блок чтобы было видно sticky-эффект при просмотре в браузере */
+    .sticky-spacer { min-height: 100vh; padding: 64px 0; }
+    .sticky-spacer h2 { text-align: center; }
+    .sticky-spacer p { text-align: center; color: var(--color-text-muted); margin-top: 8px; }
+
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--color-surface);
+      box-shadow: 0 -4px 16px rgba(15, 15, 18, 0.08);
+      padding: 14px 24px;
+    }
+    .sticky-bar-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex; align-items: center; gap: 18px;
+      flex-wrap: wrap;
+    }
+    .sticky-title { font-weight: var(--fw-bold); font-size: 15px; flex: 1; min-width: 200px; }
+    .sticky-old { color: var(--color-text-muted); text-decoration: line-through; font-size: 13px; }
+    .sticky-now { font-weight: var(--fw-extrabold); font-size: 22px; line-height: 1; }
+    .sticky-rassrochka { color: var(--color-text-muted); font-size: 12px; }
+
+    /* Когда блок встроен в превью-iframe конструктора — становится статичным,
+       чтобы не ломать scaled-обёртку (см. план v6.1). */
+    html.in-preview .sticky-bar {
+      position: relative;
+      box-shadow: var(--shadow-card);
+      border-radius: var(--radius-md);
+      margin: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .sticky-title { display: none; }
+      .sticky-bar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="sticky-spacer">
+    <div class="container">
+      <h2>Sticky CTA panel</h2>
+      <p>Прокрутите страницу — нижняя плашка прилипает к низу окна (position: fixed).</p>
+    </div>
+  </section>
+
+  <div class="sticky-bar">
+    <div class="sticky-bar-inner">
+      <div class="sticky-title">Руководитель медицинской организации</div>
+      <div>
+        <div class="sticky-old">137 500 ₽</div>
+        <div class="sticky-now">55 000 ₽</div>
+      </div>
+      <div class="sticky-rassrochka">от 5 850 ₽/мес<br>в рассрочку без %</div>
+      <button class="btn btn--dark">Записаться</button>
+    </div>
+  </div>
+
+  <!-- При встраивании в iframe конструктора с ?preview=1 — переключаем sticky в relative.
+       Скрипт помечен data-preview-only и вырезается constructor.html перед сборкой промта. -->
+  <script data-preview-only>
+    if (new URL(location).searchParams.get('preview') === '1') {
+      document.documentElement.classList.add('in-preview');
+    }
+  </script>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

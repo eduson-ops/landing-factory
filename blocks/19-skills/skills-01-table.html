@@ -1,0 +1,130 @@
+<!doctype html>
+<!-- skills-01-table: «Ваши навыки после обучения» — split: слева вертикальная
+     фото-карточка с подписью «ИИ-инженер», справа большой список буллетов
+     «Понимаю / Умею / Создаю...». Снизу — отдельная карточка
+     «Инструменты» с tag-cloud.
+     Ref: ТЗ «ИИ-инженер» п.5 -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Навыки · таблица</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .skills { padding: 64px 0 72px; }
+    .skills h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 32px;
+    }
+
+    .skills-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: 36px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 18px;
+    }
+    .skills-left {
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .skills-photo {
+      aspect-ratio: 3 / 4;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .skills-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .skills-role {
+      font-size: 22px;
+      font-weight: var(--fw-bold);
+      text-align: center;
+    }
+
+    .skills-right h3 {
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .skills-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .skill-item svg {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      color: var(--color-primary);
+      margin-top: 3px;
+    }
+
+    .skills-tools {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .skills-tools h3 { font-size: 20px; margin-bottom: 14px; }
+    .tools-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tools-cloud .pill-tag { font-size: 13px; padding: 7px 14px; }
+
+    @media (max-width: 768px) {
+      .skills-card { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+      .skills-photo { aspect-ratio: 4 / 3; max-width: 280px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="skills">
+    <div class="container">
+      <h2>Ваши навыки после обучения</h2>
+
+      <div class="skills-card">
+        <div class="skills-left">
+          <div class="skills-photo"><div class="placeholder-photo placeholder-photo--portrait"></div></div>
+          <div class="skills-role">ИИ-инженер</div>
+        </div>
+        <div class="skills-right">
+          <h3>Навыки</h3>
+          <div class="skills-list">
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Понимаю, как устроены LLM, умею делать запросы к API на Python, составлять промпты разного уровня сложности и выбирать модель под задачу.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею проектировать, собирать и оценивать RAG-системы, которые соответствуют всем требованиям.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Создаю ИИ-агентов как на коде, так и без разработки.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Разворачиваю ИИ-сервисы через FastAPI, собираю мультиагентные системы и настраиваю интеграцию с внешними сервисами.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею дообучать модели с открытым исходным кодом и оценивать результат.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Собираю веб-интерфейсы для LLM-приложений на Streamlit или Gradio и подключаю их к бэкенду через FastAPI.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Запускаю сервисы через Docker, веду репозиторий на GitHub, пишу документацию по стандартам.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею писать SQL-запросы и работать с данными.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Знаю, как снизить галлюцинации с помощью guardrails.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Учитываю 152-ФЗ и этические ограничения при проектировании ИИ-решений.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-tools">
+        <h3>Инструменты</h3>
+        <div class="tools-cloud">
+          <span class="pill-tag">Python</span><span class="pill-tag">SQL</span><span class="pill-tag">JSON</span>
+          <span class="pill-tag">OpenAI API (GPT-4o)</span><span class="pill-tag">GigaChat API</span><span class="pill-tag">DeepSeek</span>
+          <span class="pill-tag">Llama</span><span class="pill-tag">Mistral</span><span class="pill-tag">Hugging Face</span>
+          <span class="pill-tag">LangChain</span><span class="pill-tag">LangGraph</span><span class="pill-tag">CrewAI</span>
+          <span class="pill-tag">Embeddings</span><span class="pill-tag">cosine similarity</span>
+          <span class="pill-tag">Chroma</span><span class="pill-tag">Qdrant</span>
+          <span class="pill-tag">LoRA</span><span class="pill-tag">QLoRA</span><span class="pill-tag">MLflow</span>
+          <span class="pill-tag">FastAPI</span><span class="pill-tag">Docker</span><span class="pill-tag">Swagger UI</span>
+          <span class="pill-tag">Streamlit</span><span class="pill-tag">Gradio</span>
+          <span class="pill-tag">n8n</span><span class="pill-tag">Dify</span>
+          <span class="pill-tag">Pandas</span><span class="pill-tag">Jupyter Notebook</span>
+          <span class="pill-tag">Git</span><span class="pill-tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

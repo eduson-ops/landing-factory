@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- text-01-narrative: блок «крупный заголовок + 3-4 абзаца текста», простой
+     нарративный блок без декораций. Используется когда нужно поместить
+     рынковый/мотивационный текст между другими блоками.
+     Ref: ТЗ «ИИ-инженер» п.2 «Займите нишу ИИ, пока рынок формируется» -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Текстовый блок · narrative</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .text-narrative { padding: 64px 0 72px; }
+    .text-narrative-inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .text-narrative h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 28px;
+    }
+    .text-narrative p {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .text-narrative p:last-child { margin-bottom: 0; }
+    .text-narrative p b { font-weight: var(--fw-bold); }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="text-narrative">
+    <div class="container">
+      <div class="text-narrative-inner">
+        <h2>Займите нишу ИИ, пока рынок активно формируется</h2>
+        <p>Компании внедряют большие языковые модели (LLM), автоматизируют поддержку, аналитику, внутренние сервисы — и ищут специалистов, которые умеют создавать ИИ-агентов и строить работающие системы на основе нейросетей.</p>
+        <p>Спрос на ИИ-инженеров растёт быстрее, чем успевает формироваться рынок. При этом вход в профессию пока остаётся доступным: <b>многие задачи можно решать без сложной математики</b> — через программный интерфейс API и готовые модели.</p>
+        <p>Для разработчиков это возможность расширить стек, работать с более сложными задачами и претендовать на рост дохода без смены профессии.</p>
+        <p>Для специалистов без ИТ-бэкграунда — шанс попасть в востребованную сферу с низким порогом входа.</p>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

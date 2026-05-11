@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- benefits-01-grid: сетка из 3 крупных карточек "Что вы получите".
+     Ref: refrences/Снимок экрана 2026-05-11 143434.png (карточки внизу) -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Что вы получите · сетка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .benefits { padding: 64px 0 80px; }
+    .benefits h2 {
+      text-align: center;
+      max-width: 880px; margin: 0 auto 40px;
+      font-size: clamp(30px, 4vw, 48px);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .benefit-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow-card);
+    }
+    .benefit-card .icon-circle { margin-bottom: 18px; }
+    .benefit-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .benefit-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.55; }
+
+    @media (max-width: 992px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .benefits-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="benefits">
+    <div class="container">
+      <h2>Что вы получите после курса</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg></span>
+          <h3>Диплом о профпереподготовке</h3>
+          <p>Государственного образца. Вносится в ФИС ФРДО — проверяется работодателем за 1 минуту.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
+          <h3>Портфолио из 6 кейсов</h3>
+          <p>Реальные задачи медбизнеса с обратной связью от практикующих главврачей и владельцев клиник.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6zM6 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6z"/></svg></span>
+          <h3>Бессрочный доступ</h3>
+          <p>К материалам курса и всем будущим обновлениям. Можете возвращаться, когда понадобится.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

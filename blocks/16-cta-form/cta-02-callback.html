@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- cta-02-callback: split — текст-приглашение слева + компактная вертикальная
+     форма обратного звонка справа в карточке. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTA · обратный звонок</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .cta2 { padding: 64px 0 80px; }
+    .cta2-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: center;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 48px;
+      border-radius: var(--radius-lg);
+    }
+    .cta2-grid h2 { color: #fff; font-size: clamp(26px, 3.6vw, 40px); margin-bottom: 14px; }
+    .cta2-grid p { color: rgba(255,255,255,0.85); font-size: 16px; line-height: 1.55; }
+
+    .cta2-form {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .cta2-form h3 { font-size: 18px; margin-bottom: 4px; color: var(--color-text); }
+    .cta2-form .checkbox { font-size: 13px; }
+
+    @media (max-width: 768px) {
+      .cta2-grid { grid-template-columns: 1fr; padding: 28px; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="cta2">
+    <div class="container">
+      <div class="cta2-grid">
+        <div>
+          <h2>Расскажем о курсе и подберём подходящий тариф</h2>
+          <p>Оставьте заявку — менеджер позвонит в течение 15 минут. Расскажет о программе, скидках и трудоустройстве.</p>
+        </div>
+        <form class="cta2-form" data-cta-form>
+          <h3>Заказать обратный звонок</h3>
+          <div class="field"><input type="text" placeholder="Имя"></div>
+          <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
+          <button class="btn btn--primary">Перезвоните мне</button>
+          <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+          <p data-cta-success hidden style="color: var(--color-success); font-size: 13px;">✓ Спасибо, скоро позвоним</p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>
