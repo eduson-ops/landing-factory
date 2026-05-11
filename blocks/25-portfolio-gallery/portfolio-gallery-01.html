@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- portfolio-gallery-01: «Работы наших студентов» — адаптивная masonry-сетка
+     визуальных работ. Паттерн для креативных курсов (дизайн, копирайтинг). -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Портфолио · галерея</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .pgallery { padding: 64px 0 72px; }
+    .pgallery-head { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+    .pgallery-head h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 12px; }
+    .pgallery-head h2 .accent { color: var(--color-primary); }
+    .pgallery-head p { color: var(--color-text-muted); font-size: 16px; }
+
+    .pgallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 220px;
+      gap: 14px;
+    }
+    .pgallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      cursor: zoom-in;
+      transition: transform var(--tr-base), box-shadow var(--tr-base);
+    }
+    .pgallery-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+    .pgallery-item .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .pgallery-item.tall  { grid-row: span 2; }
+    .pgallery-item.wide  { grid-column: span 2; }
+    .pgallery-item .caption {
+      position: absolute; left: 12px; bottom: 12px;
+      background: rgba(15,15,18,0.78);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: var(--fw-medium);
+      backdrop-filter: blur(4px);
+    }
+
+    .pgallery-cta { text-align: center; margin-top: 32px; }
+
+    @media (max-width: 900px) {
+      .pgallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+      .pgallery-item.wide { grid-column: span 2; }
+    }
+    @media (max-width: 480px) {
+      .pgallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .pgallery-item.tall { grid-row: auto; }
+      .pgallery-item.wide { grid-column: auto; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="pgallery">
+    <div class="container">
+      <div class="pgallery-head">
+        <h2>Работы наших <span class="accent">студентов</span></h2>
+        <p>Каждый студент собирает портфолио из практических работ, которое сразу можно показать работодателю.</p>
+      </div>
+
+      <div class="pgallery-grid">
+        <div class="pgallery-item tall"><div class="placeholder-photo placeholder-photo--portrait"></div><span class="caption">Кейс 1</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 2</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 3</span></div>
+        <div class="pgallery-item wide"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 4</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 5</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 6</span></div>
+        <div class="pgallery-item tall"><div class="placeholder-photo placeholder-photo--portrait"></div><span class="caption">Кейс 7</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 8</span></div>
+        <div class="pgallery-item"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="caption">Кейс 9</span></div>
+      </div>
+
+      <div class="pgallery-cta">
+        <button class="btn btn--ghost">Посмотреть все работы</button>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

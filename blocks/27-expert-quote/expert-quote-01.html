@@ -1,0 +1,94 @@
+<!doctype html>
+<!-- expert-quote-01: цитата авторитета (фото + цитата + имя + должность).
+     Паттерн встречается на MBA-курсах для социального доказательства от
+     внешнего эксперта (не выпускника). Generic-плейсхолдеры — продакт
+     заменяет на реального авторитета и его согласованную цитату. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Цитата эксперта</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .equote { padding: 72px 0; background: var(--color-cta-dark); color: #fff; }
+    .equote-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .equote-photo {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-pop);
+      position: relative;
+    }
+    .equote-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; background: #2A2A30; color: #5E5E66; }
+
+    .equote-text { color: #fff; }
+    .equote-quote-mark {
+      font-size: 84px;
+      line-height: 0.4;
+      color: var(--color-accent-yellow);
+      font-weight: var(--fw-black);
+      margin-bottom: 18px;
+      display: block;
+    }
+    .equote-text blockquote {
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.4;
+      font-weight: var(--fw-medium);
+      margin: 0 0 28px;
+      color: #fff;
+    }
+    .equote-author { display: flex; flex-direction: column; gap: 4px; }
+    .equote-author .name { font-size: 18px; font-weight: var(--fw-bold); color: #fff; }
+    .equote-author .role { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+    .equote-author .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      padding: 4px 10px;
+      background: rgba(255,213,59,0.15);
+      color: var(--color-accent-yellow);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: var(--fw-medium);
+      align-self: flex-start;
+    }
+
+    @media (max-width: 760px) {
+      .equote-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .equote-photo { max-width: 220px; margin: 0 auto; }
+      .equote-author { align-items: center; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="equote">
+    <div class="container">
+      <div class="equote-grid">
+        <div class="equote-photo">
+          <div class="placeholder-photo placeholder-photo--portrait"></div>
+        </div>
+        <div class="equote-text">
+          <span class="equote-quote-mark">"</span>
+          <blockquote>Здесь — короткая цитата авторитета о ценности программы или подходе. 1-3 предложения, тон уверенный, конкретный.</blockquote>
+          <div class="equote-author">
+            <span class="name">Имя Фамилия</span>
+            <span class="role">Должность · краткое описание роли в индустрии</span>
+            <span class="badge">★ Эксперт мирового уровня</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>

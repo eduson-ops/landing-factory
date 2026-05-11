@@ -1,0 +1,119 @@
+<!doctype html>
+<!-- program-cards-01-grid: каталог нескольких программ/треков карточками
+     с заголовком, описанием и CTA. Паттерн для агрегаторов курсов. -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Программы · карточки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .pcards { padding: 64px 0 72px; background: var(--color-bg); }
+    .pcards-head { text-align: center; max-width: 760px; margin: 0 auto 40px; }
+    .pcards-head h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 12px; }
+    .pcards-head h2 .accent { color: var(--color-primary); }
+    .pcards-head p { color: var(--color-text-muted); font-size: 16px; }
+
+    .pcards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .pcard {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      padding: 26px 22px 22px;
+      display: flex; flex-direction: column;
+      gap: 14px;
+      transition: transform var(--tr-base), box-shadow var(--tr-base);
+    }
+    .pcard:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
+    .pcard-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      font-size: 12px; font-weight: var(--fw-medium);
+      align-self: flex-start;
+    }
+    .pcard-tag.tag-yellow { background: #FFF4D6; color: #8A6300; }
+    .pcard h3 { font-size: 20px; line-height: 1.25; margin: 0; }
+    .pcard p { color: var(--color-text-muted); font-size: 14px; line-height: 1.55; margin: 0; flex: 1; }
+    .pcard-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border);
+      font-size: 13px; color: var(--color-text-muted);
+    }
+    .pcard-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .pcard-meta svg { width: 14px; height: 14px; color: var(--color-primary); }
+    .pcard-cta { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .pcard-price { font-weight: var(--fw-bold); font-size: 18px; }
+    .pcard-price small { font-weight: var(--fw-medium); font-size: 12px; color: var(--color-text-muted); display: block; line-height: 1; }
+
+    @media (max-width: 992px) { .pcards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .pcards-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-light-violet">
+  <section class="pcards">
+    <div class="container">
+      <div class="pcards-head">
+        <h2>Выбирайте программу <span class="accent">под свои задачи</span></h2>
+        <p>Несколько треков обучения с разной глубиной и фокусом — от вводной до уровня senior.</p>
+      </div>
+
+      <div class="pcards-grid">
+        <div class="pcard">
+          <span class="pcard-tag">Базовый</span>
+          <h3>Программа 1</h3>
+          <p>Краткое описание программы — для кого, чему научит, в каком формате проходит.</p>
+          <div class="pcard-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>3 месяца</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>8 модулей</span>
+          </div>
+          <div class="pcard-cta">
+            <div class="pcard-price">от X ₽<small>в месяц</small></div>
+            <button class="btn btn--primary btn--sm">Подробнее</button>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <span class="pcard-tag tag-yellow">Популярный</span>
+          <h3>Программа 2</h3>
+          <p>Краткое описание программы — для кого, чему научит, в каком формате проходит.</p>
+          <div class="pcard-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>6 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>14 модулей</span>
+          </div>
+          <div class="pcard-cta">
+            <div class="pcard-price">от X ₽<small>в месяц</small></div>
+            <button class="btn btn--primary btn--sm">Подробнее</button>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <span class="pcard-tag">Расширенный</span>
+          <h3>Программа 3</h3>
+          <p>Краткое описание программы — для кого, чему научит, в каком формате проходит.</p>
+          <div class="pcard-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>9 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>22 модуля</span>
+          </div>
+          <div class="pcard-cta">
+            <div class="pcard-price">от X ₽<small>в месяц</small></div>
+            <button class="btn btn--primary btn--sm">Подробнее</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/components.js" defer></script>
+</body>
+</html>
