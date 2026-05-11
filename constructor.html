@@ -254,15 +254,13 @@
     }
     .ctr-card .preview-action:hover { background: var(--color-primary); color: #fff; }
 
-    .ctr-card .label { padding: 12px 14px 14px; }
+    .ctr-card .label { padding: 14px 16px 16px; }
     .ctr-card .label-title {
       font-size: 14px;
       font-weight: var(--fw-semibold);
       color: var(--color-text);
-      line-height: 1.35;
-      margin-bottom: 4px;
+      line-height: 1.4;
     }
-    .ctr-card .label-path { font-size: 11px; color: var(--color-text-muted); font-family: 'Inter', monospace; }
     .ctr-card .label-flags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .ctr-card .flag {
       display: inline-flex; align-items: center;
@@ -537,53 +535,53 @@
     'use strict';
 
     const CATALOG = [
-      { group: 'Hero · первый экран', items: [
-        { path: 'blocks/01-hero/hero-01-classic.html',     name: 'Classic split',          slug: 'hero-01', tags: ['hero','split','фото','рейтинг','скидка'] },
-        { path: 'blocks/01-hero/hero-02-with-form.html',   name: 'С формой консультации',  slug: 'hero-02', tags: ['hero','форма','консультация'] },
-        { path: 'blocks/01-hero/hero-03-dark.html',        name: 'Dark · Orange',          slug: 'hero-03', tags: ['hero','тёмный','dark','оранжевый','python'], themed: 'dark' },
-        { path: 'blocks/01-hero/hero-04-centered.html',    name: 'Centered с карточкой',   slug: 'hero-04', tags: ['hero','центр','центрированный','карточка'] },
+      { group: 'Шапка курса', items: [
+        { path: 'blocks/01-hero/hero-01-classic.html',     name: 'Заголовок и фото',                       slug: 'hero-01', tags: ['hero','split','фото','рейтинг','скидка','шапка'] },
+        { path: 'blocks/01-hero/hero-02-with-form.html',   name: 'Заголовок и форма консультации',         slug: 'hero-02', tags: ['hero','форма','консультация','шапка'] },
+        { path: 'blocks/01-hero/hero-03-dark.html',        name: 'Тёмный заголовок (для IT-курсов)',       slug: 'hero-03', tags: ['hero','тёмный','dark','оранжевый','python','шапка'], themed: 'dark' },
+        { path: 'blocks/01-hero/hero-04-centered.html',    name: 'Заголовок по центру с большой карточкой', slug: 'hero-04', tags: ['hero','центр','центрированный','карточка','шапка'] },
       ]},
-      { group: 'Аудитория и боли', items: [
-        { path: 'blocks/02-target-audience/target-01-cards-photo.html', name: 'Для кого · карточки с фото',    slug: 'target-01', tags: ['для кого','аудитория','фото'] },
-        { path: 'blocks/02-target-audience/target-02-cards-text.html',  name: 'Для кого · текстовые карточки', slug: 'target-02', tags: ['для кого','аудитория','текст'] },
-        { path: 'blocks/03-pain-split/pain-01-photo-bullets.html',      name: 'Боли · split + 3 буллета',       slug: 'pain-01', tags: ['боли','проблемы','split'] },
-        { path: 'blocks/04-benefits/benefits-01-grid.html',             name: 'Что получите · 3 карточки',      slug: 'benefits-01', tags: ['что получите','преимущества','диплом'] },
-        { path: 'blocks/18-text-section/text-01-narrative.html',        name: 'Текстовый блок · narrative',     slug: 'text-01', tags: ['текст','рынок','описание','занять нишу'] },
+      { group: 'Кому подходит и зачем учиться', items: [
+        { path: 'blocks/02-target-audience/target-01-cards-photo.html', name: 'Для кого курс — с фото',     slug: 'target-01', tags: ['для кого','аудитория','фото'] },
+        { path: 'blocks/02-target-audience/target-02-cards-text.html',  name: 'Для кого курс — без фото',   slug: 'target-02', tags: ['для кого','аудитория','текст'] },
+        { path: 'blocks/03-pain-split/pain-01-photo-bullets.html',      name: 'Проблемы и решения',          slug: 'pain-01', tags: ['боли','проблемы','split'] },
+        { path: 'blocks/04-benefits/benefits-01-grid.html',             name: 'Что вы получите',             slug: 'benefits-01', tags: ['что получите','преимущества','диплом'] },
+        { path: 'blocks/18-text-section/text-01-narrative.html',        name: 'Текст о рынке профессии',     slug: 'text-01', tags: ['текст','рынок','описание','занять нишу'] },
       ]},
-      { group: 'Программа и FAQ', items: [
-        { path: 'blocks/05-program/program-01-accordion.html',     name: 'Программа · со счётчиками', slug: 'program-01', tags: ['программа','аккордеон','уроки'] },
-        { path: 'blocks/05-program/program-02-accordion-pdf.html', name: 'Программа · с PDF',          slug: 'program-02', tags: ['программа','аккордеон','pdf','модули'] },
-        { path: 'blocks/15-faq/faq-01-accordion.html',             name: 'FAQ · pill-аккордеон',       slug: 'faq-01', tags: ['faq','вопросы','аккордеон'] },
+      { group: 'Программа и вопросы', items: [
+        { path: 'blocks/05-program/program-01-accordion.html',     name: 'Программа со счётчиками уроков', slug: 'program-01', tags: ['программа','аккордеон','уроки'] },
+        { path: 'blocks/05-program/program-02-accordion-pdf.html', name: 'Программа с раскрытыми темами',  slug: 'program-02', tags: ['программа','аккордеон','pdf','модули'] },
+        { path: 'blocks/15-faq/faq-01-accordion.html',             name: 'Часто задаваемые вопросы',       slug: 'faq-01', tags: ['faq','вопросы','аккордеон'] },
       ]},
-      { group: 'Формат и сопровождение', items: [
-        { path: 'blocks/06-format/format-01-mosaic.html',  name: 'Формат · мозаика',         slug: 'format-01', tags: ['формат','тренажёры','задания'] },
-        { path: 'blocks/07-mentor/mentor-01-chat.html',    name: 'Куратор · чат + форма',    slug: 'mentor-01', tags: ['куратор','чат','форма'] },
-        { path: 'blocks/07-mentor/mentor-02-tags.html',    name: 'Ментор · теги + 5 встреч', slug: 'mentor-02', tags: ['ментор','теги','встречи'] },
+      { group: 'Как проходит обучение', items: [
+        { path: 'blocks/06-format/format-01-mosaic.html',  name: 'Формат обучения',           slug: 'format-01', tags: ['формат','тренажёры','задания'] },
+        { path: 'blocks/07-mentor/mentor-01-chat.html',    name: 'Куратор и форма заявки',     slug: 'mentor-01', tags: ['куратор','чат','форма'] },
+        { path: 'blocks/07-mentor/mentor-02-tags.html',    name: 'Личный ментор и встречи',    slug: 'mentor-02', tags: ['ментор','теги','встречи'] },
       ]},
       { group: 'Навыки и карьера', items: [
-        { path: 'blocks/19-skills/skills-01-table.html',         name: 'Навыки · фото + список + инструменты', slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
-        { path: 'blocks/08-projects/projects-01-slider.html',    name: 'Проекты · слайдер',                slug: 'projects-01', tags: ['проекты','слайдер','портфолио'] },
-        { path: 'blocks/08-projects/projects-02-list.html',      name: 'Проекты · нумерованный список',     slug: 'projects-02', tags: ['проекты','список','портфолио'] },
-        { path: 'blocks/09-result-stats/stats-01-dark.html',     name: 'Результат · stats DARK',           slug: 'stats-01', tags: ['результат','статистика','dark','тёмный'], themed: 'dark' },
-        { path: 'blocks/09-result-stats/stats-02-salary.html',   name: 'Зарплаты · уровни',               slug: 'stats-02', tags: ['зарплата','доход','уровни','hh'] },
-        { path: 'blocks/10-experts/experts-01-slider.html',      name: 'Эксперты · слайдер фото',          slug: 'experts-01', tags: ['эксперты','преподаватели','слайдер'] },
+        { path: 'blocks/19-skills/skills-01-table.html',         name: 'Навыки и инструменты',         slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
+        { path: 'blocks/08-projects/projects-01-slider.html',    name: 'Проекты — слайдер с фото',     slug: 'projects-01', tags: ['проекты','слайдер','портфолио'] },
+        { path: 'blocks/08-projects/projects-02-list.html',      name: 'Проекты — нумерованный список', slug: 'projects-02', tags: ['проекты','список','портфолио'] },
+        { path: 'blocks/09-result-stats/stats-01-dark.html',     name: 'Результаты обучения (тёмный)', slug: 'stats-01', tags: ['результат','статистика','dark','тёмный'], themed: 'dark' },
+        { path: 'blocks/09-result-stats/stats-02-salary.html',   name: 'Уровни зарплат',               slug: 'stats-02', tags: ['зарплата','доход','уровни','hh'] },
+        { path: 'blocks/10-experts/experts-01-slider.html',      name: 'Преподаватели',                 slug: 'experts-01', tags: ['эксперты','преподаватели','слайдер'] },
       ]},
-      { group: 'Соц. доказательство', items: [
-        { path: 'blocks/11-graduates/graduates-01-quotes.html',    name: 'Выпускники · истории',         slug: 'graduates-01', tags: ['выпускники','истории','цитаты'] },
-        { path: 'blocks/11-graduates/graduates-02-reviews.html',   name: 'Отзывы · фиолетовая полоса',   slug: 'graduates-02', tags: ['отзывы','рейтинг','звёзды'] },
-        { path: 'blocks/12-ratings/ratings-01-aggregators.html',   name: 'Рейтинги агрегаторов',         slug: 'ratings-01', tags: ['рейтинг','яндекс','хабр','2gis'] },
-        { path: 'blocks/21-partners/partners-01-logos.html',       name: 'Партнёры · полоса логотипов',  slug: 'partners-01', tags: ['партнёры','логотипы','компании','сбер','vk'] },
-        { path: 'blocks/20-trust/trust-01-stats-hero.html',        name: 'Доверие · фото + 4 числа',     slug: 'trust-01', tags: ['доверие','числа','о компании'] },
+      { group: 'Социальные доказательства', items: [
+        { path: 'blocks/11-graduates/graduates-01-quotes.html',    name: 'Истории выпускников',                slug: 'graduates-01', tags: ['выпускники','истории','цитаты'] },
+        { path: 'blocks/11-graduates/graduates-02-reviews.html',   name: 'Отзывы студентов',                    slug: 'graduates-02', tags: ['отзывы','рейтинг','звёзды'] },
+        { path: 'blocks/12-ratings/ratings-01-aggregators.html',   name: 'Рейтинги на сайтах-агрегаторах',      slug: 'ratings-01', tags: ['рейтинг','яндекс','хабр','2gis'] },
+        { path: 'blocks/21-partners/partners-01-logos.html',       name: 'Компании-партнёры',                   slug: 'partners-01', tags: ['партнёры','логотипы','компании','сбер','vk'] },
+        { path: 'blocks/20-trust/trust-01-stats-hero.html',        name: 'Цифры о компании',                    slug: 'trust-01', tags: ['доверие','числа','о компании'] },
       ]},
-      { group: 'Финальные блоки', items: [
-        { path: 'blocks/13-diploma/diploma-01-split.html',         name: 'Диплом · split',            slug: 'diploma-01', tags: ['диплом','сертификат','split'] },
-        { path: 'blocks/13-diploma/diploma-02-two-docs.html',      name: 'Диплом · 2 документа',      slug: 'diploma-02', tags: ['диплом','удостоверение','2 документа'] },
-        { path: 'blocks/14-pricing/pricing-01-card.html',          name: 'Стоимость · карточка',       slug: 'pricing-01', tags: ['цена','стоимость','тариф'] },
-        { path: 'blocks/14-pricing/pricing-02-two-tracks.html',    name: 'Стоимость · 2 тарифа',       slug: 'pricing-02', tags: ['цена','стоимость','тарифы','треки'] },
-        { path: 'blocks/22-employer/employer-01-cta.html',         name: 'Оплата работодателем',       slug: 'employer-01', tags: ['оплата','работодатель','b2b','юрлицо'] },
-        { path: 'blocks/16-cta-form/cta-01-inline.html',           name: 'CTA · inline-форма',         slug: 'cta-01', tags: ['cta','форма','заявка'] },
-        { path: 'blocks/16-cta-form/cta-02-callback.html',         name: 'CTA · обратный звонок',      slug: 'cta-02', tags: ['cta','форма','звонок'] },
-        { path: 'blocks/17-sticky-footer/sticky-01-bottom-bar.html', name: 'Sticky · нижняя плашка',  slug: 'sticky-01', tags: ['sticky','footer','cta','фикс'] },
+      { group: 'Документы, цена и заявка', items: [
+        { path: 'blocks/13-diploma/diploma-01-split.html',         name: 'Диплом',                                slug: 'diploma-01', tags: ['диплом','сертификат','split'] },
+        { path: 'blocks/13-diploma/diploma-02-two-docs.html',      name: 'Два документа (диплом + удостоверение)', slug: 'diploma-02', tags: ['диплом','удостоверение','2 документа'] },
+        { path: 'blocks/14-pricing/pricing-01-card.html',          name: 'Стоимость одного тарифа',               slug: 'pricing-01', tags: ['цена','стоимость','тариф'] },
+        { path: 'blocks/14-pricing/pricing-02-two-tracks.html',    name: 'Сравнение двух тарифов',                 slug: 'pricing-02', tags: ['цена','стоимость','тарифы','треки'] },
+        { path: 'blocks/22-employer/employer-01-cta.html',         name: 'Оплата от работодателя',                slug: 'employer-01', tags: ['оплата','работодатель','b2b','юрлицо'] },
+        { path: 'blocks/16-cta-form/cta-01-inline.html',           name: 'Форма заявки в один ряд',              slug: 'cta-01', tags: ['cta','форма','заявка'] },
+        { path: 'blocks/16-cta-form/cta-02-callback.html',         name: 'Форма обратного звонка',                slug: 'cta-02', tags: ['cta','форма','звонок'] },
+        { path: 'blocks/17-sticky-footer/sticky-01-bottom-bar.html', name: 'Плашка с ценой внизу экрана',         slug: 'sticky-01', tags: ['sticky','footer','cta','фикс'] },
       ]},
     ];
 
@@ -707,7 +705,6 @@
         </div>
         <div class="label">
           <div class="label-title">${it.name}</div>
-          <div class="label-path">${it.path.replace('blocks/', '')}</div>
           ${flagDark ? `<div class="label-flags">${flagDark}</div>` : ''}
         </div>
       `;
