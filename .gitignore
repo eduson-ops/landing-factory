@@ -6,6 +6,9 @@ voice-promt.txt
 # Build artefacts — переcобирается из блоков
 landing-ai-engineer.html
 
+# Локальный research — сырые выгрузки страниц eduson.academy, не пушим
+research/
+
 # OS / IDE
 .DS_Store
 Thumbs.db

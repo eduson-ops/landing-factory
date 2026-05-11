@@ -628,6 +628,7 @@
         { path: 'blocks/01-hero/hero-02-with-form.html',   name: 'Заголовок и форма консультации',         slug: 'hero-02', tags: ['hero','форма','консультация','шапка'] },
         { path: 'blocks/01-hero/hero-03-dark.html',        name: 'Тёмный заголовок (для IT-курсов)',       slug: 'hero-03', tags: ['hero','тёмный','dark','оранжевый','python','шапка'], themed: 'dark' },
         { path: 'blocks/01-hero/hero-04-centered.html',    name: 'Заголовок по центру с большой карточкой', slug: 'hero-04', tags: ['hero','центр','центрированный','карточка','шапка'] },
+        { path: 'blocks/01-hero/hero-05-bg-photo.html',    name: 'Фото на фон + текст поверх',              slug: 'hero-05', tags: ['hero','фон','bg-photo','overlay','тёмный','шапка'] },
       ]},
       { group: 'Кому подходит и зачем учиться', items: [
         { path: 'blocks/02-target-audience/target-01-cards-photo.html', name: 'Для кого курс — с фото',     slug: 'target-01', tags: ['для кого','аудитория','фото'] },
@@ -647,7 +648,9 @@
         { path: 'blocks/07-mentor/mentor-02-tags.html',    name: 'Личный ментор и встречи',    slug: 'mentor-02', tags: ['ментор','теги','встречи'] },
       ]},
       { group: 'Навыки и карьера', items: [
-        { path: 'blocks/19-skills/skills-01-table.html',         name: 'Навыки и инструменты',         slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
+        { path: 'blocks/19-skills/skills-01-table.html',           name: 'Навыки и инструменты',                slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
+        { path: 'blocks/24-skills-group/skills-group-01.html',     name: 'Навыки — три группы (методологии/инструменты/soft)', slug: 'skills-group-01', tags: ['навыки','группы','методологии','инструменты'] },
+        { path: 'blocks/23-ai-tools/ai-tools-01-grid.html',        name: 'Нейросети-помощники в работе',        slug: 'ai-tools-01', tags: ['нейросети','ai','инструменты','grid','chatgpt','copilot'] },
         { path: 'blocks/08-projects/projects-01-slider.html',    name: 'Проекты — слайдер с фото',     slug: 'projects-01', tags: ['проекты','слайдер','портфолио'] },
         { path: 'blocks/08-projects/projects-02-list.html',      name: 'Проекты — нумерованный список', slug: 'projects-02', tags: ['проекты','список','портфолио'] },
         { path: 'blocks/09-result-stats/stats-01-dark.html',     name: 'Результаты обучения (тёмный)', slug: 'stats-01', tags: ['результат','статистика','dark','тёмный'], themed: 'dark' },
@@ -674,7 +677,7 @@
     ];
 
     const PRESETS = {
-      'ai-engineer': ['hero-04','text-01','stats-02','target-02','skills-01','projects-02','program-02','diploma-02','experts-01','ratings-01','partners-01','trust-01','employer-01','pricing-02','faq-01','cta-01'],
+      'ai-engineer': ['hero-05','text-01','stats-02','target-02','ai-tools-01','skills-01','program-02','projects-01','diploma-02','experts-01','ratings-01','partners-01','trust-01','employer-01','pricing-02','faq-01','cta-01'],
       'soft-skills': ['hero-01','target-01','pain-01','benefits-01','program-01','mentor-01','graduates-01','graduates-02','diploma-01','pricing-01','faq-01','cta-01'],
       'minimal':     ['hero-01','program-01','faq-01','pricing-01','cta-01'],
       'full':        ['hero-02','target-01','pain-01','benefits-01','program-01','format-01','mentor-01','mentor-02','projects-01','stats-01','experts-01','graduates-01','graduates-02','ratings-01','diploma-01','pricing-01','faq-01','cta-01','sticky-01'],
@@ -700,6 +703,7 @@
       'hero-02': { type: 'universal', canonicalOrder: 1 },
       'hero-03': { type: 'universal', canonicalOrder: 1 },
       'hero-04': { type: 'universal', canonicalOrder: 1 },
+      'hero-05': { type: 'universal', canonicalOrder: 1, notes: 'Фото на фон + контент поверх — паттерн для управленческих курсов Eduson.' },
       // 2. CTA-форма #1 — сразу после hero (часто как mentor-01/cta-01 в исходниках Eduson)
       // (если выбран hero-02 с формой — этот блок не нужен; иначе ставится здесь)
       // 3. Ключевые преимущества
@@ -715,6 +719,8 @@
       'stats-02': { type: 'universal', canonicalOrder: 6 },
       // 7. Навыки и инструменты
       'skills-01': { type: 'universal', canonicalOrder: 7 },
+      'skills-group-01': { type: 'universal', canonicalOrder: 7, notes: 'Многогрупповые навыки (методологии + инструменты + soft) — паттерн PM/менеджерских курсов.' },
+      'ai-tools-01': { type: 'universal', canonicalOrder: 7, notes: 'Сетка нейросетей-помощников — паттерн IT/AI-курсов (python, ai-engineer).' },
       // 8. Формат обучения / методы
       'format-01': { type: 'universal', canonicalOrder: 8 },
       // 9. Программа
