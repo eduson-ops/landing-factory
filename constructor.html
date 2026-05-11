@@ -373,6 +373,40 @@
     }
     .mode-info b { color: var(--color-text); font-weight: var(--fw-semibold); }
 
+    /* ── Бриф (ТЗ) ───────────────────────────────────────────────────── */
+    .brief-head {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; margin-bottom: 10px;
+    }
+    .brief-head h3 { margin: 0; }
+    .brief-fill {
+      font-size: 12px;
+      padding: 4px 10px;
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      border: 0;
+      border-radius: var(--radius-pill);
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+    }
+    .brief-fill:hover { background: var(--color-primary); color: #fff; }
+    .brief-fill:disabled { opacity: 0.5; cursor: not-allowed; }
+    .brief-textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 12px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.55;
+      resize: vertical;
+      transition: border-color var(--tr-base), background var(--tr-base);
+    }
+    .brief-textarea:focus { outline: none; border-color: var(--color-primary); background: var(--color-surface); }
+    .brief-counter { font-size: 11px; color: var(--color-text-muted); margin-top: 4px; }
+
     .ctr-actions { display: flex; flex-direction: column; gap: 8px; }
     .ctr-actions .btn { width: 100%; }
     .ctr-counter {
@@ -489,6 +523,15 @@
       </div>
 
       <div class="ctr-aside-section">
+        <div class="brief-head">
+          <h3>ТЗ для лендинга</h3>
+          <button class="brief-fill" id="briefFill" type="button" title="Сгенерировать шаблон под выбранные блоки">+ шаблон</button>
+        </div>
+        <textarea class="brief-textarea" id="briefInput" placeholder="Опишите курс: название, лид, цены, ФИО экспертов, пункты программы, вопросы FAQ. Или нажмите «+ шаблон» — сгенерируем каркас под выбранные блоки."></textarea>
+        <div class="brief-counter" id="briefCounter"></div>
+      </div>
+
+      <div class="ctr-aside-section">
         <h3>Куда вставлять?</h3>
         <div class="seg-radio" id="modeRadios">
           <label class="is-active"><input type="radio" name="mode" value="cli" checked>CLI</label>
@@ -511,6 +554,10 @@
         <button class="btn btn--dark" id="btnPreview">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Посмотреть собранный лендинг
+        </button>
+        <button class="btn btn--ghost btn--sm" id="btnShare">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5L8.6 10.5"/></svg>
+          Поделиться выбором ссылкой
         </button>
         <div class="ctr-counter" id="counter"></div>
       </div>
@@ -605,7 +652,92 @@
       mode: 'cli',
       theme: 'theme-light-violet',
       search: '',
+      brief: '',
     };
+
+    // Brief-шаблоны под отдельные блоки. При нажатии «+ шаблон» собираются
+    // куски для выбранных блоков в один структурированный ТЗ.
+    const BRIEF_BY_SLUG = {
+      'hero-01': '### Шапка курса\n• Название курса: \n• Лид (1 предложение, что даст курс): \n• 3 буллета преимуществ:\n  – \n  – \n  – \n• CTA-кнопки: «Записаться на курс» / «Узнать подробнее»\n• Скидка: ',
+      'hero-02': '### Шапка курса с формой\n• Название курса: \n• Лид: \n• 4 преимущества (короткие, 1 строка каждое):\n  – \n  – \n  – \n  – \n• Скидка/срок акции: ',
+      'hero-03': '### Тёмная шапка (IT)\n• Название курса: \n• Лид: \n• 3 буллета:\n  – \n  – \n  – \n• 6 карточек снизу (короткие тезисы): \n  – \n  – \n  – \n  – \n  – \n  – ',
+      'hero-04': '### Шапка с центральной карточкой\n• Название курса: \n• Лид: \n• 3 буллета:\n  – \n  – \n  – \n• 4 карточки преимуществ снизу: \n  – \n  – \n  – \n  – ',
+      'target-01': '### Для кого курс\n• 3 группы целевой аудитории, по каждой:\n  1. Заголовок группы: \n     Описание (2-3 предложения): \n  2. Заголовок: \n     Описание: \n  3. Заголовок: \n     Описание: ',
+      'target-02': '### Для кого курс (текст)\n• 3 группы ЦА, по каждой:\n  1. Заголовок: \n     Описание: \n     Какой тариф подойдёт: \n  2. Заголовок / Описание / Тариф: \n  3. Заголовок / Описание / Тариф: ',
+      'pain-01':   '### Боли и решение\n• Главное обещание (1 предложение): \n• 3 буллет-карточки (заголовок + 1 строка): \n  – \n  – \n  – \n• Подкрепляющая статистика: ',
+      'benefits-01':'### Что вы получите\n• 3 ключевых результата:\n  – \n  – \n  – ',
+      'text-01':   '### Текст о рынке\n• Заголовок (1 строка): \n• 3-4 абзаца текста о ситуации на рынке и почему стоит идти в профессию.',
+      'program-01':'### Программа курса\n• Счётчики: N интерактивных уроков / N кейсов / N практических заданий / N квизов\n• Модули (4-8 шт), по каждому:\n  – Название модуля + N уроков\n  – 3-5 пунктов содержания',
+      'program-02':'### Программа курса (с PDF)\n• Метрики: N уроков / N академических часов / доступ навсегда\n• Модули с раскрытой темой (название + 8-12 буллетов содержания + 1-2 практические задания)',
+      'faq-01':    '### FAQ\n• 6-8 пар вопрос → ответ. По каждой:\n  Вопрос: \n  Ответ: ',
+      'format-01': '### Как проходит обучение\n• 4 формата обучения с короткими описаниями (1 — теория в удобное время, 2 — тренажёры, 3 — обратная связь, 4 — домашние задания).',
+      'mentor-01': '### Куратор\n• Главное обещание (заголовок и 1 абзац): \n• 2 примера переписки куратор/студент: \n• Поля формы консультации: имя, телефон, email',
+      'mentor-02': '### Личный ментор\n• Тариф, в котором ментор доступен: \n• Главный заголовок: \n• 5 тегов (короткие фразы): \n• 5 типов встреч с ментором (название + краткое описание).',
+      'skills-01': '### Навыки и инструменты\n• Роль выпускника: \n• 8-12 буллетов «Что умею»: \n  – \n  – \n• Инструменты (через запятую, тегами): ',
+      'projects-01':'### Проекты\n• Количество проектов: \n• 5-7 проектов слайдером (название + 1-2 предложения).',
+      'projects-02':'### Проекты (списком)\n• 9 проектов, по каждому:\n  – Название проекта\n  – 1-2 предложения чем будет полезен',
+      'stats-01':  '### Результаты обучения\n• 3 крупных процента/числа + подпись к каждому: \n• 5-6 пунктов карьерной поддержки (короткие тезисы).',
+      'stats-02':  '### Зарплаты\n• Средняя зарплата + год: \n• 3 уровня: Начинающий / Специалист / Старший — суммы.\n• Источник данных: ',
+      'experts-01':'### Преподаватели\n• 4-6 экспертов, по каждому:\n  – ФИО\n  – Опыт + текущая должность\n  – Регалии (2-3 строки)',
+      'graduates-01':'### Истории выпускников\n• 4 короткие истории «кем был → кем стал», по каждой:\n  – Имя, профессия до → профессия после\n  – Текст истории (3-5 строк)',
+      'graduates-02':'### Отзывы студентов\n• 4 отзыва, по каждому:\n  – Ник/имя, рейтинг\n  – Заголовок отзыва\n  – Текст отзыва (3-5 строк)',
+      'ratings-01':'### Рейтинги агрегаторов\n• 5 агрегаторов: название, рейтинг (4.7+), кол-во отзывов.',
+      'partners-01':'### Компании-партнёры\n• 6-8 названий компаний которым доверяют обучать сотрудников.',
+      'trust-01':  '### Цифры о компании\n• Заголовок («... — это про доверие»): \n• 4 крупных числа + подпись (студенты / лет на рынке / курсов / место в рейтинге).',
+      'diploma-01':'### Диплом\n• Заголовок + 1 абзац описания: \n• 3 буллета: что подтверждает диплом, где принимается.',
+      'diploma-02':'### Два документа\n• Документ 1: название + 1 абзац описания.\n• Документ 2: название + 1 абзац описания.',
+      'pricing-01':'### Стоимость (один тариф)\n• Название тарифа: \n• Полная цена / цена со скидкой / рассрочка/мес: \n• 3 буллета что входит в тариф.',
+      'pricing-02':'### Стоимость (два трека)\n• Трек 1 «...»: длительность, N часов, N проектов, полная цена, скидка, рассрочка, 3 буллета.\n• Трек 2 «...»: то же самое.',
+      'employer-01':'### Оплата работодателем\n• Заголовок: \n• Краткое описание (50/50, 75/25 или 100%): \n• 3 буллета «что сделаем» после заявки.',
+      'cta-01':    '### Форма заявки\n• Заголовок: \n• Поля: имя, телефон, email\n• Текст кнопки: ',
+      'cta-02':    '### Обратный звонок\n• Заголовок: \n• Подзаголовок: \n• Поля: имя, телефон\n• Текст кнопки: ',
+      'sticky-01': '### Sticky-плашка с ценой\n• Название курса (короткое): \n• Старая цена / новая цена: \n• Рассрочка/мес: ',
+    };
+
+    // ── Persist: localStorage + URL state ───────────────────────────────
+    const STORAGE_KEY = 'eduson-constructor-v1';
+
+    function pathToSlug(path) { return /\/([\w-]+)\.html$/.exec(path)?.[1] || null; }
+    function slugToPath(slug) {
+      for (const g of CATALOG) for (const it of g.items) if (it.slug === slug) return it.path;
+      return null;
+    }
+
+    function persistState() {
+      const data = { selected: state.selected, theme: state.theme, mode: state.mode, brief: state.brief };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+      const params = new URLSearchParams();
+      const slugs = state.selected.map(pathToSlug).filter(Boolean);
+      if (slugs.length) params.set('b', slugs.join(','));
+      if (state.theme === 'theme-dark-orange') params.set('t', 'dark');
+      const qs = params.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    }
+
+    function restoreState() {
+      // URL имеет приоритет (для shared-ссылок)
+      const urlParams = new URLSearchParams(location.search);
+      const urlBlocks = urlParams.get('b');
+      if (urlBlocks) {
+        state.selected = urlBlocks.split(',').map(slugToPath).filter(Boolean);
+        if (urlParams.get('t') === 'dark') state.theme = 'theme-dark-orange';
+        // brief из localStorage всё равно подхватываем (не в URL по соображениям длины)
+        try {
+          const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          if (d.brief) state.brief = d.brief;
+          if (d.mode) state.mode = d.mode;
+        } catch (e) {}
+        return;
+      }
+      // fallback — полностью localStorage
+      try {
+        const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        if (Array.isArray(d.selected)) state.selected = d.selected.filter(p => CATALOG.some(g => g.items.some(it => it.path === p)));
+        if (d.theme === 'theme-dark-orange' || d.theme === 'theme-light-violet') state.theme = d.theme;
+        if (d.mode === 'cli' || d.mode === 'browser') state.mode = d.mode;
+        if (typeof d.brief === 'string') state.brief = d.brief;
+      } catch (e) {}
+    }
 
     const BODY_RE = /<body[^>]*>([\s\S]*?)<\/body>/i;
     const HEAD_RE = /<head[^>]*>([\s\S]*?)<\/head>/i;
@@ -732,6 +864,7 @@
       if (card) card.classList.toggle('is-selected', shouldSelect);
       renderSelected();
       updateCounter();
+      persistState();
     }
 
     function moveSelected(path, dir) {
@@ -741,6 +874,7 @@
       if (newIdx < 0 || newIdx >= state.selected.length) return;
       [state.selected[idx], state.selected[newIdx]] = [state.selected[newIdx], state.selected[idx]];
       renderSelected();
+      persistState();
     }
 
     function renderSelected() {
@@ -809,10 +943,8 @@
       const slugs = PRESETS[name] || [];
       state.selected = [];
       document.querySelectorAll('.ctr-card.is-selected').forEach(c => c.classList.remove('is-selected'));
-      const slugToPath = {};
-      CATALOG.forEach(g => g.items.forEach(it => slugToPath[it.slug] = it.path));
       slugs.forEach(slug => {
-        const path = slugToPath[slug];
+        const path = slugToPath(slug);
         if (path) {
           state.selected.push(path);
           const card = document.querySelector(`[data-path="${path}"]`);
@@ -821,6 +953,7 @@
       });
       renderSelected();
       updateCounter();
+      persistState();
       showToast(`✓ Загружен пресет: ${state.selected.length} блоков`, 'success');
     }
 
@@ -830,6 +963,30 @@
       document.querySelectorAll('.ctr-card.is-selected').forEach(c => c.classList.remove('is-selected'));
       renderSelected();
       updateCounter();
+      persistState();
+    }
+
+    function fillBriefTemplate() {
+      if (state.selected.length === 0) { showToast('Сначала выберите блоки', 'error'); return; }
+      const parts = state.selected.map(path => {
+        const slug = pathToSlug(path);
+        return BRIEF_BY_SLUG[slug] || `### ${getItemByPath(path)?.name || slug}\n• `;
+      });
+      const ta = document.getElementById('briefInput');
+      if (state.brief.trim().length > 0) {
+        if (!confirm('В поле ТЗ уже есть текст — заменить шаблоном?')) return;
+      }
+      state.brief = parts.join('\n\n') + '\n';
+      ta.value = state.brief;
+      updateBriefCounter();
+      persistState();
+      showToast('✓ Шаблон ТЗ сгенерирован, заполните пункты', 'success');
+    }
+
+    function updateBriefCounter() {
+      const c = document.getElementById('briefCounter');
+      const len = state.brief.length;
+      c.textContent = len > 0 ? `${len.toLocaleString('ru-RU')} символов · сохранено в этом браузере` : '';
     }
 
     function getOrderedSelected() {
@@ -881,7 +1038,7 @@
         '10) Сохрани результат в index.html в корне.',
         '',
         'ТЗ:',
-        '<сюда продакт вставит свой структурированный текст>',
+        state.brief.trim() || '<сюда продакт вставит свой структурированный текст>',
         '',
       ].join('\n');
     }
@@ -947,7 +1104,7 @@
         '3) Верни полный HTML-файл одним блоком кода, готовым к сохранению как index.html.',
         '',
         'ТЗ:',
-        '<сюда продакт вставит свой структурированный текст>',
+        state.brief.trim() || '<сюда продакт вставит свой структурированный текст>',
         '',
         '--- HTML ---',
         html,
@@ -957,6 +1114,67 @@
 
     async function buildPrompt() {
       return state.mode === 'cli' ? buildModeA() : await buildModeB();
+    }
+
+    function buildPreviewWrapper(landingUrl) {
+      // Обёрточная страница с переключателем размера 360 / 768 / 1440.
+      return `<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Превью сборки · Eduson</title>
+  <style>
+    body { margin: 0; font-family: 'Inter', -apple-system, system-ui, sans-serif; background: #F3F3F6; color: #1E1E20; min-height: 100vh; display: flex; flex-direction: column; }
+    .pw-bar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #E6E6EC; padding: 12px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .pw-bar h1 { font-size: 14px; margin: 0; font-weight: 600; }
+    .pw-bar .spacer { flex: 1; }
+    .pw-toggle { display: inline-flex; gap: 4px; padding: 4px; background: #F3F3F6; border-radius: 100px; }
+    .pw-toggle button { border: 0; background: transparent; padding: 8px 14px; font-size: 13px; font-weight: 500; border-radius: 100px; cursor: pointer; color: #88888F; display: inline-flex; align-items: center; gap: 6px; }
+    .pw-toggle button.is-active { background: #fff; color: #1E1E20; box-shadow: 0 2px 6px rgba(0,0,0,0.06); font-weight: 600; }
+    .pw-toggle svg { width: 14px; height: 14px; }
+    .pw-stage { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 24px; }
+    .pw-frame { background: #fff; box-shadow: 0 12px 32px rgba(15,15,18,0.08); border-radius: 12px; overflow: hidden; transition: width 250ms ease, max-width 250ms ease; }
+    .pw-frame iframe { display: block; width: 100%; height: calc(100vh - 130px); border: 0; }
+    .pw-frame[data-size="desktop"] { width: 100%; max-width: 1440px; }
+    .pw-frame[data-size="tablet"]  { width: 768px; max-width: 768px; }
+    .pw-frame[data-size="mobile"]  { width: 360px; max-width: 360px; }
+    @media (max-width: 1180px) { .pw-frame[data-size="desktop"] { max-width: 100%; } }
+    @media (max-width: 800px)  { .pw-frame[data-size="tablet"]  { max-width: 100%; width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="pw-bar">
+    <h1>Превью собранного лендинга</h1>
+    <div class="spacer"></div>
+    <div class="pw-toggle" role="tablist">
+      <button data-size="desktop" class="is-active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>Desktop
+      </button>
+      <button data-size="tablet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></svg>Tablet
+      </button>
+      <button data-size="mobile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></svg>Mobile
+      </button>
+    </div>
+  </div>
+  <div class="pw-stage">
+    <div class="pw-frame" data-size="desktop" id="frame">
+      <iframe src="${landingUrl}" title="Собранный лендинг"></iframe>
+    </div>
+  </div>
+  <script>
+    const frame = document.getElementById('frame');
+    document.querySelectorAll('.pw-toggle button').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.pw-toggle button').forEach(x => x.classList.toggle('is-active', x === b));
+        frame.dataset.size = b.dataset.size;
+      });
+    });
+  </script>
+</body>
+</html>`;
     }
 
     async function buildAssembledHtml() {
@@ -1065,12 +1283,29 @@
     document.getElementById('btnPreview').addEventListener('click', () => {
       if (state.selected.length === 0) return showToast('Сначала выберите хотя бы один блок', 'error');
       withErrorGuard(async () => {
-        const html = await buildAssembledHtml();
-        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        window.open(url, '_blank');
-        setTimeout(() => URL.revokeObjectURL(url), 60_000);
+        const landingHtml = await buildAssembledHtml();
+        const landingBlob = new Blob([landingHtml], { type: 'text/html;charset=utf-8' });
+        const landingUrl = URL.createObjectURL(landingBlob);
+        const wrapperHtml = buildPreviewWrapper(landingUrl);
+        const wrapperBlob = new Blob([wrapperHtml], { type: 'text/html;charset=utf-8' });
+        const wrapperUrl = URL.createObjectURL(wrapperBlob);
+        window.open(wrapperUrl, '_blank');
+        // Лендинг живёт пока открыта вкладка (iframe ссылается на blob);
+        // wrapper можно отозвать сразу после открытия — он уже отрисован.
+        setTimeout(() => URL.revokeObjectURL(wrapperUrl), 5_000);
+        setTimeout(() => URL.revokeObjectURL(landingUrl), 600_000);
       });
+    });
+
+    document.getElementById('btnShare').addEventListener('click', async () => {
+      if (state.selected.length === 0) return showToast('Сначала выберите блоки', 'error');
+      const url = location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('✓ Ссылка с выбором скопирована — отправьте коллеге', 'success');
+      } catch (e) {
+        showToast('Не удалось скопировать — URL: ' + url.slice(0, 60) + '…', 'error');
+      }
     });
 
     document.querySelectorAll('#themeRadios input').forEach(r => {
@@ -1078,6 +1313,7 @@
         state.theme = r.value;
         document.querySelectorAll('#themeRadios label').forEach(l => l.classList.toggle('is-active', l.querySelector('input').checked));
         updateCounter();
+        persistState();
       });
     });
     document.querySelectorAll('#modeRadios input').forEach(r => {
@@ -1089,6 +1325,7 @@
           ? '<span><b>Claude Code CLI</b> — компактный промт ~1.5 KB со ссылками на файлы. Только для CLI, запущенного в этом проекте.</span>'
           : '<span><b>claude.ai (браузер)</b> — полный inline HTML с Unsplash-картинками. Большой (~30–100 KB) — лучше «Скачать .txt» и приложить файлом.</span>';
         updateCounter();
+        persistState();
       });
     });
 
@@ -1098,13 +1335,48 @@
       searchInput.value = ''; state.search = ''; applySearch(); searchInput.focus();
     });
 
+    // Brief textarea
+    const briefInput = document.getElementById('briefInput');
+    briefInput.addEventListener('input', () => {
+      state.brief = briefInput.value;
+      updateBriefCounter();
+      // Throttle persist чтобы не дёргать localStorage на каждой клавише
+      clearTimeout(briefInput._t);
+      briefInput._t = setTimeout(persistState, 300);
+    });
+    document.getElementById('briefFill').addEventListener('click', fillBriefTemplate);
+
     document.querySelectorAll('[data-preset]').forEach(b =>
       b.addEventListener('click', () => applyPreset(b.dataset.preset)));
     document.getElementById('btnClearAll').addEventListener('click', clearAll);
 
+    // ── Старт: восстановить состояние, применить к UI, отрисовать ──
+    restoreState();
     renderCatalog();
+    // Применить state к UI:
+    state.selected.forEach(p => {
+      const card = document.querySelector(`[data-path="${p}"]`);
+      if (card) card.classList.add('is-selected');
+    });
+    document.querySelectorAll('#themeRadios input').forEach(r => {
+      r.checked = (r.value === state.theme);
+      r.closest('label').classList.toggle('is-active', r.checked);
+    });
+    document.querySelectorAll('#modeRadios input').forEach(r => {
+      r.checked = (r.value === state.mode);
+      r.closest('label').classList.toggle('is-active', r.checked);
+    });
+    if (state.mode === 'browser') {
+      document.getElementById('modeInfo').innerHTML = '<span><b>claude.ai (браузер)</b> — полный inline HTML с Unsplash-картинками. Большой (~30–100 KB) — лучше «Скачать .txt» и приложить файлом.</span>';
+    }
+    briefInput.value = state.brief;
+    updateBriefCounter();
     renderSelected();
+    updateCounter();
     preloadAll();
+    if (state.selected.length > 0) {
+      showToast(`Восстановлено: ${state.selected.length} блоков`, 'success');
+    }
   })();
   </script>
 </body>
