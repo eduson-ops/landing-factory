@@ -744,7 +744,22 @@
     const STYLE_RE = /<style[^>]*>([\s\S]*?)<\/style>/gi;
     const STRIP_PREVIEW_RE = /<script\s[^>]*data-preview-only[^>]*>[\s\S]*?<\/script>/gi;
     const STRIP_COMPONENTS_RE = /<script\s+src=["'][^"']*components\.js["'][^>]*>\s*<\/script>/gi;
-    const IMG_PATH_RE = /\.\.\/\.\.\/img\/([\w-.]+)/g;
+    const IMG_PLACEHOLDER_RE = /\.\.\/\.\.\/img\/(placeholder\.svg|hero-placeholder\.jpg|portrait-placeholder\.jpg)/g;
+    const IMG_ANY_RE = /\.\.\/\.\.\/img\//g;
+    // Корректный base-URL — пригоден и локально (file:// / localhost), и на GitHub Pages,
+    // т.к. учитывает pathname директории, в которой лежит constructor.html.
+    const BASE_PATH = location.origin + location.pathname.replace(/\/[^/]*$/, '');
+
+    // Mode B: известные плейсхолдеры → Unsplash; всё остальное под img/ (включая brands/) → абсолютный URL.
+    function rewriteImgPathsModeB(html) {
+      html = html.replace(IMG_PLACEHOLDER_RE, (_, name) => IMG_MAP[name] || IMG_MAP['placeholder.svg']);
+      html = html.replace(IMG_ANY_RE, `${BASE_PATH}/blocks/img/`);
+      return html;
+    }
+    // Превью сборки: всё img/ → абсолютный URL на Pages/локалхост, плейсхолдеры оставляем нативные.
+    function rewriteImgPathsPreview(html) {
+      return html.replace(IMG_ANY_RE, `${BASE_PATH}/blocks/img/`);
+    }
 
     function extractInlineCss(html) {
       const headMatch = html.match(HEAD_RE);
@@ -1053,7 +1068,7 @@
         let body = (it.html.match(BODY_RE) || ['', ''])[1];
         body = body.replace(STRIP_PREVIEW_RE, '');
         body = body.replace(STRIP_COMPONENTS_RE, '');
-        body = body.replace(IMG_PATH_RE, (_, name) => IMG_MAP[name] || IMG_MAP['placeholder.svg']);
+        body = rewriteImgPathsModeB(body);
         return `\n<!-- ${it.path} -->\n${body.trim()}\n`;
       }).join('\n');
       const inlineBlockCss = blockCss.join('\n\n');
@@ -1187,12 +1202,12 @@
         let body = (it.html.match(BODY_RE) || ['', ''])[1];
         body = body.replace(STRIP_PREVIEW_RE, '');
         body = body.replace(STRIP_COMPONENTS_RE, '');
-        body = body.replace(IMG_PATH_RE, (_, name) => `/blocks/img/${name}`);
+        body = rewriteImgPathsPreview(body);
         return `\n<!-- ${it.path} -->\n${body.trim()}\n`;
       }).join('\n');
       const inlineBlockCss = blockCss.join('\n\n');
 
-      const base = location.origin;
+      const base = BASE_PATH;
       return [
         '<!DOCTYPE html>',
         '<html lang="ru">',
