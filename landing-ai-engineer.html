@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курс ИИ-инженер — Eduson Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="blocks/css/tokens.css">
+  <link rel="stylesheet" href="blocks/css/themes.css">
+  <link rel="stylesheet" href="blocks/css/base.css">
+  <link rel="stylesheet" href="blocks/css/components.css">
+  <script src="blocks/js/components.js" defer></script>
+  <style>
+/* ─── blocks/01-hero/hero-05-bg-photo.html ─── */
+.hero5 {
+      position: relative;
+      min-height: 560px;
+      padding: 64px 0 80px;
+      background-image: url("../img/hero-placeholder.jpg");
+      background-size: cover;
+      background-position: center right;
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero5::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(15,15,18,0.78) 0%, rgba(15,15,18,0.55) 45%, rgba(15,15,18,0.15) 100%);
+      z-index: 1;
+    }
+    .hero5 > .container { position: relative; z-index: 2; }
+    .hero5-grid { display: grid; grid-template-columns: minmax(0, 0.58fr) 1fr; gap: 32px; align-items: center; }
+    .hero5-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 13px; font-weight: var(--fw-medium);
+      margin-bottom: 18px;
+    }
+    .hero5-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent-yellow); }
+    .hero5 h1 {
+      font-size: clamp(36px, 5.2vw, 60px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+    .hero5-lead {
+      font-size: 18px; line-height: 1.5;
+      color: rgba(255,255,255,0.86);
+      max-width: 520px;
+      margin-bottom: 30px;
+    }
+    .hero5-meta { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 30px; }
+    .hero5-meta-item {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.86);
+    }
+    .hero5-meta-item svg { width: 18px; height: 18px; color: var(--color-accent-yellow); }
+    .hero5-cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero5-cta-row .btn--primary { background: var(--color-accent-yellow); color: var(--color-cta-dark); }
+    .hero5-cta-row .btn--ghost { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .hero5-cta-row .btn--ghost:hover { background: rgba(255,255,255,0.12); }
+
+    .hero5-badges {
+      position: absolute; right: 24px; bottom: 24px;
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: flex-end;
+      z-index: 2;
+    }
+    .hero5-discount {
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-weight: var(--fw-black);
+      display: inline-flex; flex-direction: column; align-items: center;
+      line-height: 1.1;
+    }
+    .hero5-discount big { font-size: 22px; }
+    .hero5-discount small { font-size: 11px; opacity: 0.85; margin-top: 2px; font-weight: var(--fw-medium); }
+    .hero5-rating {
+      background: rgba(255,255,255,0.96);
+      color: var(--color-text);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 13px;
+      box-shadow: var(--shadow-pop);
+    }
+    .hero5-rating b { font-size: 22px; font-weight: var(--fw-black); line-height: 1; }
+    .hero5-rating .stars { color: #FFB400; letter-spacing: 0.5px; }
+
+    @media (max-width: 992px) {
+      .hero5 { background-position: center; }
+      .hero5::before { background: linear-gradient(180deg, rgba(15,15,18,0.55) 0%, rgba(15,15,18,0.82) 100%); }
+      .hero5-grid { grid-template-columns: 1fr; }
+      .hero5-badges { position: static; flex-direction: row; align-items: center; margin-top: 24px; }
+    }
+    @media (max-width: 560px) {
+      .hero5 { min-height: 0; padding: 48px 0 60px; }
+      .hero5 h1 { font-size: clamp(28px, 8vw, 40px); }
+      .hero5-cta-row .btn { width: 100%; }
+      .hero5-badges { flex-direction: column; align-items: flex-start; }
+    }
+/* ─── blocks/18-text-section/text-01-narrative.html ─── */
+.text-narrative { padding: 64px 0 72px; }
+    .text-narrative-inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .text-narrative h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 28px;
+    }
+    .text-narrative p {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--color-text);
+      margin-bottom: 18px;
+    }
+    .text-narrative p:last-child { margin-bottom: 0; }
+    .text-narrative p b { font-weight: var(--fw-bold); }
+/* ─── blocks/09-result-stats/stats-02-salary.html ─── */
+.salary { padding: 64px 0 72px; }
+    .salary h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 12px;
+      max-width: 880px;
+    }
+    .salary .subtitle {
+      color: var(--color-text-muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+    }
+    .salary .subtitle b { color: var(--color-primary); font-weight: var(--fw-bold); }
+
+    .salary-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .salary-avg {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .salary-avg .num {
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: var(--fw-black);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .salary-avg .cap {
+      margin-top: 14px;
+      font-size: 16px;
+      opacity: 0.92;
+      line-height: 1.5;
+    }
+
+    .salary-levels {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .salary-level {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow-card);
+    }
+    .salary-level h4 { font-size: 17px; font-weight: var(--fw-semibold); }
+    .salary-level .price { font-size: 24px; font-weight: var(--fw-extrabold); color: var(--color-text); }
+
+    .salary-source {
+      margin-top: 18px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .salary-grid { grid-template-columns: 1fr; }
+    }
+/* ─── blocks/02-target-audience/target-02-cards-text.html ─── */
+.target2 { padding: 64px 0 72px; }
+    .target2 h2 {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 36px;
+    }
+
+    .target2-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .target2-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column;
+    }
+    .target2-card .icon-circle { margin-bottom: 16px; }
+    .target2-card h3 { font-size: 18px; margin-bottom: 12px; line-height: 1.3; }
+    .target2-card p { font-size: 14px; color: var(--color-text); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+
+    .target2-conclusion {
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      border-radius: var(--radius-input);
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: var(--fw-semibold);
+      margin-top: auto;
+    }
+
+    @media (max-width: 992px) { .target2-grid { grid-template-columns: 1fr; } }
+/* ─── blocks/23-ai-tools/ai-tools-01-grid.html ─── */
+.aitools { padding: 64px 0 72px; }
+    .aitools-head { text-align: center; max-width: 720px; margin: 0 auto 36px; }
+    .aitools-head h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 12px; }
+    .aitools-head h2 .accent { color: var(--color-primary); }
+    .aitools-head p { color: var(--color-text-muted); font-size: 16px; line-height: 1.55; }
+
+    .aitools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .ai-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px 18px 18px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+      transition: transform var(--tr-base), box-shadow var(--tr-base);
+    }
+    .ai-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+    .ai-card .ai-logo {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .ai-card .ai-logo svg { width: 24px; height: 24px; }
+    .ai-card h3 { font-size: 16px; font-weight: var(--fw-semibold); margin: 0; }
+    .ai-card p { font-size: 13px; color: var(--color-text-muted); margin: 0; line-height: 1.5; }
+
+    @media (max-width: 992px) { .aitools-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .aitools-grid { grid-template-columns: 1fr; } }
+/* ─── blocks/19-skills/skills-01-table.html ─── */
+.skills { padding: 64px 0 72px; }
+    .skills h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 32px;
+    }
+
+    .skills-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: 36px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 18px;
+    }
+    .skills-left {
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .skills-photo {
+      aspect-ratio: 3 / 4;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .skills-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .skills-role {
+      font-size: 22px;
+      font-weight: var(--fw-bold);
+      text-align: center;
+    }
+
+    .skills-right h3 {
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .skills-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .skill-item svg {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      color: var(--color-primary);
+      margin-top: 3px;
+    }
+
+    .skills-tools {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .skills-tools h3 { font-size: 20px; margin-bottom: 14px; }
+    .tools-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tools-cloud .pill-tag { font-size: 13px; padding: 7px 14px; }
+
+    @media (max-width: 768px) {
+      .skills-card { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+      .skills-photo { aspect-ratio: 4 / 3; max-width: 280px; margin: 0 auto; }
+    }
+/* ─── blocks/05-program/program-02-accordion-pdf.html ─── */
+.prog2 { padding: 56px 0 80px; }
+
+    .prog2-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .prog2-head h2 { font-size: clamp(32px, 4.4vw, 56px); }
+
+    .prog2-pdf {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-cta);
+      font-weight: var(--fw-semibold);
+      font-size: 15px;
+    }
+    .prog2-pdf svg { width: 22px; height: 22px; color: #fff; }
+
+    .prog2-meta {
+      display: flex; flex-wrap: wrap; gap: 22px;
+      margin-bottom: 28px;
+      color: var(--color-text-muted);
+      font-size: 15px;
+    }
+    .prog2-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .prog2-meta svg { width: 18px; height: 18px; color: var(--color-primary); }
+
+    .prog2-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .prog2-item + .prog2-item { border-top: 1px solid var(--color-border); }
+
+    .prog2-item-head {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 28px;
+      cursor: pointer;
+    }
+    .prog2-item-head h3 { font-size: 20px; font-weight: var(--fw-semibold); flex: 1; margin: 0; }
+
+    .prog2-toggle {
+      width: 32px; height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--color-bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base), background var(--tr-base);
+    }
+    .prog2-item.is-open .prog2-toggle { transform: rotate(180deg); background: var(--color-surface-soft); color: var(--color-primary); }
+
+    .prog2-item-body {
+      display: none;
+      padding: 0 28px 26px;
+    }
+    .prog2-item.is-open { background: var(--color-bg); }
+    .prog2-item.is-open .prog2-item-body { display: block; background: var(--color-surface); margin: 4px 12px 12px; padding: 22px 24px; border-radius: var(--radius-md); }
+
+    .prog2-body-summary {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      align-items: flex-start; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .prog2-body-summary p { color: var(--color-text-muted); max-width: 540px; font-size: 14px; }
+    .prog2-body-summary .meta {
+      display: flex; gap: 16px; color: var(--color-text-muted); font-size: 13px;
+      align-items: center; flex-shrink: 0;
+    }
+    .prog2-body-summary .meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .prog2-body-summary .meta svg { width: 16px; height: 16px; }
+
+    .prog2-topics {
+      list-style: disc;
+      columns: 2;
+      column-gap: 32px;
+      padding-left: 22px;
+      margin: 0 0 16px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+    .prog2-topics li { break-inside: avoid; }
+
+    .prog2-tasks { display: flex; gap: 8px; flex-wrap: wrap; }
+    .prog2-task {
+      display: inline-flex; align-items: center;
+      padding: 7px 14px;
+      background: rgba(255, 213, 59, 0.4);
+      color: #1E1E20;
+      border-radius: var(--radius-pill);
+      font-weight: var(--fw-medium);
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .prog2-head { flex-direction: column; align-items: flex-start; }
+      .prog2-topics { columns: 1; }
+      .prog2-item-head { padding: 18px 18px; gap: 12px; }
+      .prog2-item.is-open .prog2-item-body { margin: 4px 8px 10px; padding: 18px; }
+    }
+/* ─── blocks/08-projects/projects-01-slider.html ─── */
+.projects { padding: 64px 0 72px; }
+    .projects h2 {
+      max-width: 880px; margin: 0 auto 32px;
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+    }
+    .projects h2 .accent { color: var(--color-primary); }
+
+    .slider-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 320px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+    }
+    .slider-track > * { scroll-snap-align: start; }
+
+    .project-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column;
+    }
+    .project-photo { aspect-ratio: 4 / 3; position: relative; }
+    .project-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .project-photo .play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--color-accent-yellow);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #1E1E20;
+    }
+    .project-body { padding: 18px 18px 22px; }
+    .project-body h3 { font-size: 14px; font-weight: var(--fw-semibold); line-height: 1.45; }
+
+    .slider-arrows {
+      display: flex; gap: 12px; justify-content: center; margin-top: 18px;
+    }
+    .slider-arrows button {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .slider-arrows button:hover { background: var(--color-surface-soft); color: var(--color-primary); }
+/* ─── blocks/13-diploma/diploma-02-two-docs.html ─── */
+.diploma2 { padding: 64px 0 72px; }
+    .diploma2 h2 {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 40px;
+    }
+
+    .diploma2-grid {
+      display: flex; flex-direction: column;
+      gap: 28px;
+    }
+    .diploma2-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .diploma2-row.reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+    .diploma2-row.reverse .diploma2-photo { order: 2; }
+    .diploma2-row.reverse .diploma2-text  { order: 1; }
+
+    .diploma2-photo {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .diploma2-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    .diploma2-text h3 { font-size: 24px; margin-bottom: 12px; }
+    .diploma2-text p { color: var(--color-text-muted); font-size: 15px; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .diploma2-row, .diploma2-row.reverse { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
+      .diploma2-row.reverse .diploma2-photo { order: 0; }
+      .diploma2-row.reverse .diploma2-text  { order: 0; }
+    }
+/* ─── blocks/10-experts/experts-01-slider.html ─── */
+.experts { padding: 64px 0 72px; }
+    .experts-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 24px; margin-bottom: 28px;
+    }
+    .experts-head h2 { font-size: clamp(28px, 4vw, 44px); max-width: 720px; }
+
+    .experts-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(180px, 220px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+    }
+    .experts-track > * { scroll-snap-align: start; }
+    .expert-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .expert-photo { aspect-ratio: 1 / 1; }
+    .expert-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+    .expert-body { padding: 16px 18px 20px; }
+    .expert-body h3 { font-size: 16px; font-weight: var(--fw-semibold); margin-bottom: 6px; }
+    .expert-body p { font-size: 13px; color: var(--color-text-muted); line-height: 1.45; }
+
+    .slider-arrows { display: flex; gap: 8px; }
+    .slider-arrows button {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .slider-arrows button:hover { color: var(--color-primary); }
+
+    @media (max-width: 768px) {
+      .experts-head { flex-direction: column; align-items: flex-start; }
+    }
+/* ─── blocks/12-ratings/ratings-01-aggregators.html ─── */
+.rate { padding: 56px 0 64px; }
+    .rate-head { text-align: center; margin-bottom: 24px; }
+    .rate-head h2 { font-size: clamp(26px, 3.6vw, 40px); }
+    .rate-head p { color: var(--color-text-muted); margin-top: 6px; font-size: 14px; }
+
+    .rate-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .rate-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .rate-logo {
+      height: 26px;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-weight: var(--fw-bold);
+      font-size: 14px;
+    }
+    .rate-logo .dot { width: 12px; height: 12px; border-radius: 3px; }
+    .rate-card .rating-line { color: var(--color-text-muted); font-size: 12px; }
+    .rate-card .rating-line b { color: var(--color-text); font-weight: var(--fw-bold); font-size: 14px; }
+    .rate-card .rating-num { color: var(--color-text-muted); font-size: 11px; margin-top: 4px; }
+
+    @media (max-width: 768px) { .rate-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .rate-grid { grid-template-columns: 1fr; } }
+/* ─── blocks/21-partners/partners-01-logos.html ─── */
+.partners { padding: 56px 0 64px; }
+    .partners h2 {
+      text-align: center;
+      font-size: clamp(22px, 2.6vw, 30px);
+      margin-bottom: 28px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .partners-strip {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 22px 28px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .partners-track {
+      display: flex; align-items: center; gap: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .partner-logo {
+      font-weight: var(--fw-extrabold);
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      opacity: 0.75;
+      transition: opacity var(--tr-base);
+    }
+    .partner-logo:hover { opacity: 1; }
+    .partner-logo.coral { color: #E94B4F; }
+    .partner-logo.green { color: #00C18A; }
+    .partner-logo.yellow { color: #FFC700; }
+    .partner-logo.red { color: #FF2D55; }
+    .partner-logo.blue { color: #0066FF; }
+    .partner-logo.dark { color: #1E1E20; }
+
+    @media (max-width: 640px) {
+      .partners-track { gap: 22px; }
+      .partner-logo { font-size: 18px; }
+    }
+/* ─── blocks/20-trust/trust-01-stats-hero.html ─── */
+.trust { padding: 56px 0 72px; }
+    .trust-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #1B1B20;
+      color: #fff;
+      min-height: 420px;
+      padding: 56px 40px 28px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .trust-bg {
+      position: absolute; inset: 0;
+      background: var(--color-surface-soft) center/cover no-repeat;
+    }
+    .trust-bg .placeholder-photo { width: 100%; height: 100%; border-radius: 0; opacity: 0.45; }
+    .trust-card::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(15,15,18,0.30) 0%, rgba(15,15,18,0.80) 70%, rgba(15,15,18,0.95) 100%);
+    }
+    .trust-content { position: relative; z-index: 1; }
+
+    .trust-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .trust-head h2 {
+      color: #fff;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 12px;
+    }
+    .trust-head p {
+      color: rgba(255,255,255,0.78);
+      font-size: 15px;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .trust-num-card {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+    }
+    .trust-num-card .num {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .trust-num-card .cap {
+      font-size: 13px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 768px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-card { padding: 36px 22px 20px; }
+    }
+    @media (max-width: 420px) {
+      .trust-grid { grid-template-columns: 1fr; }
+    }
+/* ─── blocks/22-employer/employer-01-cta.html ─── */
+.employer { padding: 56px 0 72px; }
+    .employer-card {
+      background: #1E1E20;
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .employer-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .employer-head h2 {
+      color: #fff;
+      font-size: clamp(26px, 3.6vw, 40px);
+      margin-bottom: 14px;
+    }
+    .employer-head p {
+      color: rgba(255,255,255,0.78);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .employer-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 28px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .employer-inner {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      color: var(--color-text);
+    }
+    .employer-inner h3 { font-size: 18px; margin-bottom: 14px; }
+    .employer-inner ul { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
+    .employer-inner li { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+    .employer-inner li::before {
+      content: "";
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--color-accent-yellow);
+      flex-shrink: 0;
+    }
+    .employer-inner .btn { width: 100%; }
+
+    .employer-illu {
+      position: relative;
+      min-height: 220px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .employer-illu .folder {
+      background: var(--color-accent-yellow);
+      color: #1E1E20;
+      width: 180px; height: 180px;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 88px;
+      font-weight: var(--fw-black);
+      transform: rotate(-8deg);
+      box-shadow: 0 12px 32px rgba(255, 213, 59, 0.25);
+      position: relative;
+    }
+    .employer-illu .folder::before {
+      content: "";
+      position: absolute; top: -12px; left: 16px;
+      width: 80px; height: 20px;
+      background: var(--color-accent-yellow);
+      border-radius: 6px 6px 0 0;
+    }
+    .employer-illu .badge {
+      position: absolute;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.95);
+      color: #1E1E20;
+      font-weight: var(--fw-bold);
+      font-size: 13px;
+      border-radius: 10px;
+    }
+    .employer-illu .badge.b1 { top: 12px; right: 20px; transform: rotate(8deg); }
+    .employer-illu .badge.b2 { bottom: 14px; left: 0; transform: rotate(-6deg); }
+    .employer-illu .badge.b3 { top: 50%; right: 0; transform: translateY(-50%) rotate(3deg); }
+
+    .employer-foot {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      margin-top: 22px;
+    }
+
+    @media (max-width: 768px) {
+      .employer-card { padding: 28px; }
+      .employer-body { grid-template-columns: 1fr; }
+      .employer-illu .folder { width: 140px; height: 140px; font-size: 64px; }
+    }
+/* ─── blocks/14-pricing/pricing-02-two-tracks.html ─── */
+.pricing2 { padding: 64px 0 80px; }
+    .pricing2-head {
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .pricing2-head h2 { font-size: clamp(28px, 4vw, 44px); }
+    .pricing2-subtitle {
+      color: var(--color-text-muted);
+      font-size: 15px;
+      max-width: 720px;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .pricing2-subtitle b { color: var(--color-text); font-weight: var(--fw-bold); }
+
+    .pricing2-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .pricing2-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pricing2-track {
+      background: var(--color-surface-soft);
+      color: var(--color-primary);
+      padding: 12px 16px;
+      border-radius: var(--radius-pill);
+      font-weight: var(--fw-semibold);
+      align-self: flex-start;
+      font-size: 14px;
+    }
+
+    .pricing2-price-old { color: var(--color-text-muted); text-decoration: line-through; font-size: 14px; }
+    .pricing2-price-now {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .pricing2-price-now small {
+      font-size: 14px; font-weight: var(--fw-medium);
+      color: var(--color-text-muted);
+      margin-left: 6px;
+    }
+
+    .pricing2-stats { display: flex; gap: 18px; flex-wrap: wrap; }
+    .pricing2-stats span {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+    .pricing2-stats svg { width: 16px; height: 16px; color: var(--color-primary); }
+
+    .pricing2-desc { color: var(--color-text); font-size: 14px; line-height: 1.55; }
+
+    .pricing2-points { display: flex; flex-direction: column; gap: 8px; }
+    .pricing2-point { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+    .pricing2-point svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; }
+
+    .pricing2-card .btn { margin-top: auto; }
+
+    @media (max-width: 768px) { .pricing2-grid { grid-template-columns: 1fr; } }
+/* ─── blocks/15-faq/faq-01-accordion.html ─── */
+.faq { padding: 64px 0 88px; }
+    .faq h2 {
+      text-align: center;
+      font-size: clamp(32px, 4.4vw, 56px);
+      margin-bottom: 56px;
+    }
+
+    .faq-list {
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--color-surface);
+      border-radius: var(--radius-pill);
+      transition: border-radius var(--tr-base);
+      overflow: hidden;
+    }
+    .faq-item.is-open { border-radius: var(--radius-md); }
+
+    .faq-head {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 30px;
+      cursor: pointer;
+    }
+    .faq-head h3 {
+      font-size: 16px; font-weight: var(--fw-medium);
+      flex: 1; margin: 0;
+    }
+
+    .faq-toggle {
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted);
+      transition: transform var(--tr-base), color var(--tr-base);
+    }
+    .faq-item.is-open .faq-toggle { transform: rotate(45deg); color: var(--color-primary); }
+
+    .faq-body {
+      display: none;
+      padding: 0 30px 24px;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .faq-item.is-open .faq-body { display: block; }
+
+    @media (max-width: 640px) {
+      .faq-head { padding: 18px 22px; }
+      .faq-body { padding: 0 22px 20px; }
+    }
+/* ─── blocks/16-cta-form/cta-01-inline.html ─── */
+.cta1 { padding: 56px 0 64px; }
+    .cta1-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-card);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .cta1-card h3 { font-size: 22px; margin-bottom: 18px; }
+    .cta1-card form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+    }
+    .cta1-card .checkbox { font-size: 13px; margin-top: 14px; color: var(--color-text-muted); }
+
+    @media (max-width: 992px) {
+      .cta1-card form { grid-template-columns: 1fr 1fr; }
+      .cta1-card form .btn { grid-column: span 2; }
+    }
+    @media (max-width: 560px) {
+      .cta1-card form { grid-template-columns: 1fr; }
+      .cta1-card form .btn { grid-column: auto; }
+    }
+  </style>
+</head>
+<body class="theme-light-violet">
+<!-- blocks/01-hero/hero-05-bg-photo.html -->
+<section class="hero5">
+    <div class="container">
+      <div class="hero5-grid">
+        <div class="hero5-left">
+          <span class="hero5-eyebrow">Онлайн-курс · старт в любой день</span>
+          <h1>ИИ-инженер</h1>
+          <p class="hero5-lead">За 4–9 месяцев освоите профессию ИИ-инженера: ускоренный трек если знаете Python, или с вводным блоком с нуля.</p>
+
+          <div class="hero5-meta">
+            <span class="hero5-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              с нуля за 4–9 месяцев
+            </span>
+            <span class="hero5-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              Доступ навсегда
+            </span>
+            <span class="hero5-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Диплом гос. образца
+            </span>
+          </div>
+
+          <div class="hero5-cta-row">
+            <button class="btn btn--primary btn--lg">Записаться со скидкой
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </button>
+            <button class="btn btn--ghost btn--lg">Получить консультацию</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero5-badges">
+      <div class="hero5-discount"><big>−60%</big><small>до конца недели</small></div>
+      <div class="hero5-rating">
+        <b>4.8</b>
+        <div>
+          <div class="stars">★★★★★</div>
+          <span style="color: var(--color-text-muted)">3 700 студентов</span>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/18-text-section/text-01-narrative.html -->
+<section class="text-narrative">
+    <div class="container">
+      <div class="text-narrative-inner">
+        <h2>Займите нишу ИИ, пока рынок активно формируется</h2>
+        <p>Компании внедряют большие языковые модели (LLM), автоматизируют поддержку, аналитику, внутренние сервисы — и ищут специалистов, которые умеют создавать ИИ-агентов и строить работающие системы на основе нейросетей.</p>
+        <p>Спрос на ИИ-инженеров растёт быстрее, чем успевает формироваться рынок. При этом вход в профессию пока остаётся доступным: <b>многие задачи можно решать без сложной математики</b> — через программный интерфейс API и готовые модели.</p>
+        <p>Для разработчиков это возможность расширить стек, работать с более сложными задачами и претендовать на рост дохода без смены профессии.</p>
+        <p>Для специалистов без ИТ-бэкграунда — шанс попасть в востребованную сферу с низким порогом входа.</p>
+      </div>
+    </div>
+  </section>
+<!-- blocks/09-result-stats/stats-02-salary.html -->
+<section class="salary">
+    <div class="container">
+      <h2>Специалисты по ИИ — в топе востребованных профессий на ближайшие годы</h2>
+      <p class="subtitle">Спрос на них за год вырос <b>в 2 раза</b>.</p>
+
+      <div class="salary-grid">
+        <div class="salary-avg">
+          <div class="num">232 000 ₽</div>
+          <div class="cap">средняя зарплата ИИ-инженера в 2026 году</div>
+        </div>
+        <div class="salary-levels">
+          <div class="salary-level"><h4>Начинающий</h4><span class="price">113 000 ₽</span></div>
+          <div class="salary-level"><h4>Специалист</h4><span class="price">229 000 ₽</span></div>
+          <div class="salary-level"><h4>Старший специалист</h4><span class="price">384 000 ₽</span></div>
+        </div>
+      </div>
+
+      <p class="salary-source">* По данным HeadHunter</p>
+    </div>
+  </section>
+<!-- blocks/02-target-audience/target-02-cards-text.html -->
+<section class="target2">
+    <div class="container">
+      <h2>Кому подойдёт курс</h2>
+
+      <div class="target2-grid">
+        <div class="target2-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 14 15 20 7"/></svg></span>
+          <h3>ИТ-специалистам, которые хотят перейти в ИИ</h3>
+          <p>Если вы уже пишете на Python, курс даст быстрый доступ к ИИ-стеку без повторения базы. Вы разберётесь в LLM, технологии RAG, агентах, соберёте проекты для портфолио и сможете претендовать на позиции ИИ-инженера с более высоким доходом.</p>
+          <div class="target2-conclusion">Подойдёт ускоренный тариф без вводного блока</div>
+        </div>
+        <div class="target2-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
+          <h3>Специалистам без ИТ-бэкграунда, которые хотят войти в новую профессию</h3>
+          <p>Курс проведёт вас от нуля до уровня крепкого специалиста: от основ Python и API до создания собственных ИИ-систем и проектов для портфолио.</p>
+          <div class="target2-conclusion">Подойдёт полный тариф — с вводным блоком по Python</div>
+        </div>
+        <div class="target2-card">
+          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+          <h3>Аналитикам и специалистам по данным, которым не хватает LLM-стека</h3>
+          <p>Если вы уже работаете с данными или классическим ML, но не закрываете требования вакансий по LLM — курс поможет быстро устранить этот разрыв. Вы освоите RAG, агентов, дообучение моделей.</p>
+          <div class="target2-conclusion">Подойдёт ускоренный тариф без вводного блока</div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/23-ai-tools/ai-tools-01-grid.html -->
+<section class="aitools">
+    <div class="container">
+      <div class="aitools-head">
+        <h2>Нейросети-помощники <span class="accent">в работе</span></h2>
+        <p>Освоите ключевые ИИ-инструменты и научитесь подключать их в ежедневные задачи.</p>
+      </div>
+
+      <div class="aitools-grid">
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
+          <h3>GPT-4o · GigaChat · DeepSeek</h3>
+          <p>Чат-модели для разработки и интеграций</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+          <h3>LangChain · LangGraph · CrewAI</h3>
+          <p>Фреймворки агентов и оркестрации цепочек</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+          <h3>Hugging Face · Llama · Mistral</h3>
+          <p>Open-source модели и fine-tuning под задачу</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4z"/><path d="M4 12h10v4H4z"/><path d="M4 20h6"/></svg></span>
+          <h3>FastAPI · Docker · n8n</h3>
+          <p>Развёртывание ИИ-сервисов в продакшен</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></span>
+          <h3>Chroma · Qdrant</h3>
+          <p>Векторные базы под retrieval-augmented generation</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M14 8h7V1"/></svg></span>
+          <h3>Python · SQL · JSON · Git</h3>
+          <p>Базовый стек, идущий вводным блоком при необходимости</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+          <h3>RAG и агентные системы</h3>
+          <p>Архитектура решений на стыке моделей и данных</p>
+        </div>
+        <div class="ai-card">
+          <span class="ai-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          <h3>Dify · Vector DB · API-интеграции</h3>
+          <p>Связка моделей с внешними сервисами и фронтом</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/19-skills/skills-01-table.html -->
+<section class="skills">
+    <div class="container">
+      <h2>Ваши навыки после обучения</h2>
+
+      <div class="skills-card">
+        <div class="skills-left">
+          <div class="skills-photo"><div class="placeholder-photo placeholder-photo--portrait"></div></div>
+          <div class="skills-role">ИИ-инженер</div>
+        </div>
+        <div class="skills-right">
+          <h3>Навыки</h3>
+          <div class="skills-list">
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Понимаю, как устроены LLM, умею делать запросы к API на Python, составлять промпты разного уровня сложности и выбирать модель под задачу.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею проектировать, собирать и оценивать RAG-системы, которые соответствуют всем требованиям.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Создаю ИИ-агентов как на коде, так и без разработки.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Разворачиваю ИИ-сервисы через FastAPI, собираю мультиагентные системы и настраиваю интеграцию с внешними сервисами.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею дообучать модели с открытым исходным кодом и оценивать результат.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Собираю веб-интерфейсы для LLM-приложений на Streamlit или Gradio и подключаю их к бэкенду через FastAPI.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Запускаю сервисы через Docker, веду репозиторий на GitHub, пишу документацию по стандартам.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Умею писать SQL-запросы и работать с данными.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Знаю, как снизить галлюцинации с помощью guardrails.</div>
+            <div class="skill-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Учитываю 152-ФЗ и этические ограничения при проектировании ИИ-решений.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-tools">
+        <h3>Инструменты</h3>
+        <div class="tools-cloud">
+          <span class="pill-tag">Python</span><span class="pill-tag">SQL</span><span class="pill-tag">JSON</span>
+          <span class="pill-tag">OpenAI API (GPT-4o)</span><span class="pill-tag">GigaChat API</span><span class="pill-tag">DeepSeek</span>
+          <span class="pill-tag">Llama</span><span class="pill-tag">Mistral</span><span class="pill-tag">Hugging Face</span>
+          <span class="pill-tag">LangChain</span><span class="pill-tag">LangGraph</span><span class="pill-tag">CrewAI</span>
+          <span class="pill-tag">Embeddings</span><span class="pill-tag">cosine similarity</span>
+          <span class="pill-tag">Chroma</span><span class="pill-tag">Qdrant</span>
+          <span class="pill-tag">LoRA</span><span class="pill-tag">QLoRA</span><span class="pill-tag">MLflow</span>
+          <span class="pill-tag">FastAPI</span><span class="pill-tag">Docker</span><span class="pill-tag">Swagger UI</span>
+          <span class="pill-tag">Streamlit</span><span class="pill-tag">Gradio</span>
+          <span class="pill-tag">n8n</span><span class="pill-tag">Dify</span>
+          <span class="pill-tag">Pandas</span><span class="pill-tag">Jupyter Notebook</span>
+          <span class="pill-tag">Git</span><span class="pill-tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/05-program/program-02-accordion-pdf.html -->
+<section class="prog2">
+    <div class="container">
+      <div class="prog2-head">
+        <h2>Программа обучения</h2>
+        <a href="#" class="prog2-pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+          </svg>
+          Скачать полную версию в ПДФ
+        </a>
+      </div>
+
+      <div class="prog2-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>286 интерактивных уроков</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>334 академических часа</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6zM6 6c-2 0-3 2-3 6s1 6 3 6 3-2 3-6-1-6-3-6z"/></svg>Доступ навсегда</span>
+      </div>
+
+      <div class="prog2-card" data-accordion="single">
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>1. Введение в профессию Python-разработчик</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>2. Введение в IT</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>3. Основы программирования</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item is-open" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>4. Начало работы с Python</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body">
+            <div class="prog2-body-summary">
+              <p>Напишете свой первый код на Python. Узнаете о стандартах оформления кода. Научитесь работать в IDE PyCharm.</p>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>15 занятий</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>8 часов</span>
+              </div>
+            </div>
+            <ul class="prog2-topics">
+              <li>Введение в языки программирования</li>
+              <li>Подключение к Гитхаб (GitHub) из PyCharm</li>
+              <li>Язык программирования Python</li>
+              <li>Установка Visual Studio Code</li>
+              <li>Методология изучения Python</li>
+              <li>Подключение к Гитхаб (GitHub) из Visual Studio Code и загрузка проектов</li>
+              <li>Установка Python и вывод фразы «Hello, world!»</li>
+              <li>Настройка окружения</li>
+              <li>IDE для работы с Python</li>
+              <li>Работа с системой контроля версий Гит (Git)</li>
+              <li>IDE PyCharm для работы с Python</li>
+              <li>Стандарты PEP 8 и их применение</li>
+            </ul>
+            <div class="prog2-tasks">
+              <span class="prog2-task">1 практическое задание</span>
+              <span class="prog2-task">1 учебный материал</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>5. Типы данных в Python</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+
+        <div class="prog2-item" data-accordion-item>
+          <div class="prog2-item-head" data-accordion-head>
+            <h3>6. Функции</h3>
+            <span class="prog2-toggle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="prog2-item-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/08-projects/projects-01-slider.html -->
+<section class="projects">
+    <div class="container">
+      <h2>Вы отработаете навыки тестирования <span class="accent">на 21 проекте</span></h2>
+
+      <div data-slider>
+        <div class="slider-track" data-slider-track>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div><span class="play"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span></div>
+            <div class="project-body"><h3>Создадите чек-листы и сценарии тест-проверки для приложения Todoist</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Составите технический отчёт по итогам тестирования сайта</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Составите план тестов, сценариев и технический отчёт по сайту Triangle-ru</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Соберёте регрессионную модель для платёжной формы</h3></div>
+          </div>
+          <div class="project-card" data-slider-item>
+            <div class="project-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+            <div class="project-body"><h3>Опишете API-контракты микросервиса доставки</h3></div>
+          </div>
+        </div>
+
+        <div class="slider-arrows">
+          <button data-slider-arrow="prev" aria-label="Назад"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button data-slider-arrow="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/13-diploma/diploma-02-two-docs.html -->
+<section class="diploma2">
+    <div class="container">
+      <h2>Каждый выпускник программы получит два документа</h2>
+
+      <div class="diploma2-grid">
+        <div class="diploma2-row">
+          <div class="diploma2-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+          <div class="diploma2-text">
+            <h3>Удостоверение о повышении квалификации</h3>
+            <p>У вас будет официальный документ, который подтвердит ваши навыки и поможет в карьерном росте. В зависимости от выбранного трека — удостоверение о повышении квалификации или диплом о профессиональной переподготовке.</p>
+          </div>
+        </div>
+        <div class="diploma2-row reverse">
+          <div class="diploma2-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+          <div class="diploma2-text">
+            <h3>Диплом о прохождении курса</h3>
+            <p>После прохождения всех уроков и выполнения практических кейсов курса вы получите официальный диплом Академии Эдюсон.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/10-experts/experts-01-slider.html -->
+<section class="experts">
+    <div class="container">
+      <div class="experts-head">
+        <h2>При поддержке аналитиков-практиков из крупных компаний</h2>
+        <div class="slider-arrows">
+          <button data-slider-arrow="prev" aria-label="Назад"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button data-slider-arrow="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+
+      <div data-slider>
+        <div class="experts-track" data-slider-track>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Андрон Алексанян</h3><p>6+ лет в аналитике и бизнесе. CEO платформы IT&nbsp;Resume</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Любовь Бурцева</h3><p>4+ года опыта. Бэкенд-разработчик в «Рамблере». Ментор по Python</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Илья Чумаченков</h3><p>8+ лет в управлении проектами. Эксперт по нейросетям, основатель IIMATES</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Александр Шамша</h3><p>Менеджер продуктов в Академии Эдюсон. Внедряет ИИ-инструменты</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Мария Кузнецова</h3><p>Tech Lead, X5 Tech</p></div>
+          </div>
+          <div class="expert-card" data-slider-item>
+            <div class="expert-photo"><div class="placeholder-photo placeholder-photo--square"></div></div>
+            <div class="expert-body"><h3>Артём Волков</h3><p>BI Architect, Авито</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/12-ratings/ratings-01-aggregators.html -->
+<section class="rate">
+    <div class="container">
+      <div class="rate-head">
+        <h2>Студенты любят наши курсы</h2>
+        <p>Средний рейтинг 4.8</p>
+      </div>
+      <div class="rate-grid">
+        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#FFD600"></span>Яндекс Карты</div><div class="rating-line">Рейтинг: <b>5</b></div><div class="rating-num">160 отзывов</div></div>
+        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#33C25E"></span>Сравни</div><div class="rating-line">Рейтинг: <b>4.85</b></div><div class="rating-num">740 отзывов</div></div>
+        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#212121"></span>Хабр Курсы</div><div class="rating-line">Рейтинг: <b>4.97</b></div><div class="rating-num">320 отзывов</div></div>
+        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#26A569"></span>2GIS</div><div class="rating-line">Рейтинг: <b>4.9</b></div><div class="rating-num">195 отзывов</div></div>
+        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#7B61FF"></span>tutortop</div><div class="rating-line">Рейтинг: <b>4.89</b></div><div class="rating-num">560 отзывов</div></div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/21-partners/partners-01-logos.html -->
+<section class="partners">
+    <div class="container">
+      <h2>Лидирующие компании доверяют Академии Эдюсон обучение своих сотрудников</h2>
+      <div class="partners-strip">
+        <div class="partners-track">
+          <span class="partner-logo">СБЕР</span>
+          <span class="partner-logo coral">М.Видео</span>
+          <span class="partner-logo yellow">билайн</span>
+          <span class="partner-logo red">Ростелеком</span>
+          <span class="partner-logo green">Avito</span>
+          <span class="partner-logo blue">X5 Group</span>
+          <span class="partner-logo dark">Ozon</span>
+          <span class="partner-logo">VK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/20-trust/trust-01-stats-hero.html -->
+<section class="trust">
+    <div class="container">
+      <div class="trust-card">
+        <div class="trust-bg"><div class="placeholder-photo placeholder-photo--wide"></div></div>
+        <div class="trust-content">
+          <div class="trust-head">
+            <h2>Академия Эдюсон — это про доверие</h2>
+            <p>Мы собрали лучших экспертов со всего мира, сделали удобную платформу, пригласили опытных кураторов — и вот что получилось:</p>
+          </div>
+          <div class="trust-grid">
+            <div class="trust-num-card"><div class="num">750 000</div><div class="cap">студентов проходят обучение на 2025 год</div></div>
+            <div class="trust-num-card"><div class="num">13+</div><div class="cap">лет обучаем компании и людей</div></div>
+            <div class="trust-num-card"><div class="num">75+</div><div class="cap">курсов-профессий выпустили с 2013 года</div></div>
+            <div class="trust-num-card"><div class="num">№1</div><div class="cap">в дополнительном обучении по версии Smart Ranking</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/22-employer/employer-01-cta.html -->
+<section class="employer">
+    <div class="container">
+      <div class="employer-card">
+        <div class="employer-head">
+          <h2>Этот курс может оплатить ваш работодатель</h2>
+          <p>Оплату может взять на себя ваш работодатель или любое юрлицо — полностью или частично (50/50 или 75/25). Также подходит собственникам, которые оформляют обучение от своей компании.</p>
+        </div>
+
+        <div class="employer-body">
+          <div class="employer-inner">
+            <h3>Оставьте заявку — и мы:</h3>
+            <ul>
+              <li>Поделимся презентацией</li>
+              <li>Расскажем о курсе и ответим на вопросы</li>
+              <li>Подготовим договор и счёт</li>
+            </ul>
+            <button class="btn btn--dark">Оставить заявку</button>
+          </div>
+
+          <div class="employer-illu">
+            <div class="folder">%</div>
+            <span class="badge b1">50/50</span>
+            <span class="badge b2">100</span>
+            <span class="badge b3">75/25</span>
+          </div>
+        </div>
+
+        <p class="employer-foot">Для организаций возможны индивидуальные условия при обучении нескольких сотрудников.</p>
+      </div>
+    </div>
+  </section>
+<!-- blocks/14-pricing/pricing-02-two-tracks.html -->
+<section class="pricing2">
+    <div class="container">
+      <div class="pricing2-head">
+        <h2>Форматы обучения</h2>
+        <span class="badge-yellow">−60% до 11 мая</span>
+      </div>
+      <p class="pricing2-subtitle">Обучение можно оплатить сразу или воспользоваться <b>беспроцентной рассрочкой на 24 месяца</b>. Мы свяжемся с вами и поможем выбрать наилучшие условия обучения.</p>
+
+      <div class="pricing2-grid">
+        <div class="pricing2-card">
+          <span class="pricing2-track">Трек «ИТ-специалист»</span>
+          <div>
+            <div class="pricing2-price-old">9 895 ₽/мес</div>
+            <div class="pricing2-price-now">3 958 ₽<small>в месяц в рассрочку</small></div>
+          </div>
+          <div class="pricing2-stats">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>4–5 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>N часов</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>9 проектов</span>
+          </div>
+          <p class="pricing2-desc">Наложите LLM-стек поверх имеющейся базы — не придётся терять время на изучение того, что вы уже знаете.</p>
+          <div class="pricing2-points">
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Полная цена: 237 500 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Цена со скидкой 60%: 95 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>15% теории и 85% практики</div>
+          </div>
+          <button class="btn btn--dark">Оставить заявку</button>
+        </div>
+
+        <div class="pricing2-card">
+          <span class="pricing2-track">Трек «С нуля»</span>
+          <div>
+            <div class="pricing2-price-old">13 541 ₽/мес</div>
+            <div class="pricing2-price-now">5 417 ₽<small>в месяц в рассрочку</small></div>
+          </div>
+          <div class="pricing2-stats">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>7–9 месяцев</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>N часов</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>9 проектов</span>
+          </div>
+          <p class="pricing2-desc">Освоите навыки работы с ИИ с нуля: начнёте с основ Python и постепенно перейдёте к LLM и агентам.</p>
+          <div class="pricing2-points">
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Полная цена: 325 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Цена со скидкой 60%: 130 000 ₽</div>
+            <div class="pricing2-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Вводный блок по Python + Pandas + API</div>
+          </div>
+          <button class="btn btn--dark">Оставить заявку</button>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/15-faq/faq-01-accordion.html -->
+<section class="faq">
+    <div class="container">
+      <h2>Часто задаваемые вопросы</h2>
+
+      <div class="faq-list" data-accordion="single">
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Мне нужно знать язык Python, чтобы пройти курс «ИИ-инженер»?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Нет, начинать можно без опыта. Для этого есть трек с вводным блоком по Python, API и базовой работе с данными. Сложной математики не будет — мы объясняем модели на понятных примерах и через практику. А если вы уже знаете Python, можно сразу идти по ускоренному треку.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>С чего начинается обучение для новичков?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">С базовых вещей: Python, работы с API, структуры ИТ-систем и понимания того, как устроены нейросети. Дальше быстро переходите к практике — пишете простые скрипты и собираете полноценные приложения.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Есть ли на этом курсе гарантия трудоустройства?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Нет. Но вы получите всё для успешной карьеры: на выходе у вас будет портфолио с 9 проектами и удостоверение о повышении квалификации или диплом о профпереподготовке.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Чем работа специалиста по ИИ отличается от задач аналитика или разработчика?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">ИИ-инженер действует на стыке разработки и работы с данными: проектирует системы с моделями — RAG, агентов, дообучения. В отличие от аналитика — реализует логику. В отличие от разработчика — управляет неопределённостью моделей.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Есть ли у вас рассрочка без переплат?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">Да. Беспроцентная рассрочка на 24 месяца — оформить можно при подаче заявки. Стоимость делится на равные ежемесячные платежи без переплат и скрытых процентов.</div>
+        </div>
+
+        <div class="faq-item" data-accordion-item>
+          <div class="faq-head" data-accordion-head>
+            <h3>Какие инструменты я изучу на курсе?</h3>
+            <span class="faq-toggle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div class="faq-body">GPT-4o (OpenAI API), GigaChat, DeepSeek, Llama, Mistral, Hugging Face. Фреймворки LangChain, LangGraph, CrewAI. Векторные базы Chroma, Qdrant. Запуск и интеграции: FastAPI, Docker, n8n, Dify. База: Python, SQL, JSON, Git, GitHub.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- blocks/16-cta-form/cta-01-inline.html -->
+<section class="cta1">
+    <div class="container">
+      <div class="cta1-card">
+        <h3>Есть вопросы? Закажи бесплатную консультацию</h3>
+        <form data-cta-form>
+          <div class="field"><input type="text" placeholder="Имя"></div>
+          <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
+          <div class="field"><input type="email" placeholder="Электронная почта"></div>
+          <button class="btn btn--dark">Отправить заявку</button>
+        </form>
+        <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

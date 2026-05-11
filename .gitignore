@@ -3,8 +3,8 @@ refrences/
 voice-promt.txt
 Ленд*.pdf
 
-# Build artefacts — переcобирается из блоков
-landing-ai-engineer.html
+# Build artefacts — пересобирается из блоков через build-ai-engineer.py
+# landing-ai-engineer.html — публикуем на Pages как превью v9-пресета
 
 # Локальный research — сырые выгрузки страниц eduson.academy, не пушим
 research/
