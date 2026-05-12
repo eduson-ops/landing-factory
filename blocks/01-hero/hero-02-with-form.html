@@ -1,6 +1,13 @@
 <!doctype html>
-<!-- hero-02-with-form: hero + форма консультации справа + 4 мини-преимущества снизу.
-     Ref: refrences/Снимок экрана 2026-05-11 144951.png («Менеджер проектов») -->
+<!-- hero-02-with-form: pixel-target — скрин Eduson «Менеджер проектов».
+     Состав:
+       0) Trust-bar (4 белые pill-плашки с иконками сверху)
+       1) Основной 3-колоночный hero:
+          – Card 1 (info): eyebrow / h1 / yellow-pill / lead / dark gift-promo / DARK CTA
+          – Card 2 (photo): фото на всю карточку + yellow square -60% top-left
+            + rating-плашка по нижнему краю
+          – Card 3 (form): заголовок + 3 input + чекбокс + промокод-линк + secondary CTA
+       2) 6 мелких карточек преимуществ 3×2 внизу. -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -12,163 +19,426 @@
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <style>
-    .hero2 { padding: 48px 0 32px; }
+    .hero2 { padding: 28px 0 48px; }
 
-    .hero2-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 32px;
-      align-items: start;
+    /* ── 0. Trust-bar (4 pill-плашки) ─────────────────────────────────── */
+    .hero2-trust {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px;
     }
-
-    .hero2-left h1 { margin-bottom: 14px; font-size: clamp(34px, 4.4vw, 52px); }
-    .hero2-eyebrow { color: var(--color-text-muted); font-size: 14px; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px; }
-    .hero2-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
-    .hero2-lead { font-size: 17px; color: var(--color-text); margin-bottom: 22px; max-width: 520px; }
-    .hero2-lead b { font-weight: var(--fw-bold); }
-
-    .hero2-meta {
-      display: flex; gap: 18px; flex-wrap: wrap;
-      margin-bottom: 22px;
-      align-items: center;
+    .hero2-trust-item {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px;
+      background: var(--color-surface);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-card);
+      font-size: 13px;
+      font-weight: var(--fw-medium);
+      color: var(--color-text);
+      flex: 1 1 auto;
     }
-    .hero2-meta-item { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--color-text-muted); }
-    .hero2-meta-item svg { color: var(--color-primary); width: 18px; height: 18px; }
-
-    .hero2-visual {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
+    .hero2-trust-item svg {
+      width: 18px; height: 18px;
+      color: var(--color-text);
+      flex: 0 0 auto;
+    }
+    .hero2-trust-item .info {
+      width: 16px; height: 16px;
+      border-radius: 50%;
       background: var(--color-surface-soft);
-      margin-bottom: 22px;
+      color: var(--color-text-muted);
+      font-size: 11px; font-style: italic;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 4px;
     }
-    .hero2-visual .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
+
+    /* ── 1. Основной 3-колоночный hero ────────────────────────────────── */
+    .hero2-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr) minmax(0, 1.05fr);
+      gap: 12px;
+    }
+    .hero2-card {
+      background: var(--color-surface);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    /* ── 1a. Левая инфо-карточка ──────────────────────────────────────── */
+    .hero2-card--info {
+      padding: 28px;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+    .hero2-card--info .eyebrow {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1;
+    }
+    .hero2-card--info h1 {
+      margin: 0;
+      font-size: clamp(32px, 3.4vw, 44px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+    .hero2-pill {
+      align-self: flex-start;
+      padding: 8px 16px;
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: var(--fw-bold);
+      line-height: 1;
+    }
+    .hero2-card--info .lead {
+      margin: 0;
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.45;
+    }
+    .hero2-card--info .lead b { font-weight: var(--fw-bold); }
+
+    .hero2-gift {
+      margin-top: auto;
+      background: var(--color-cta-dark);
+      color: #fff;
+      border-radius: 22px;
+      padding: 12px 16px 12px 12px;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .hero2-gift .ico {
+      flex: 0 0 auto;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #2A2A30;
+      color: var(--color-accent-yellow);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .hero2-gift .ico svg { width: 22px; height: 22px; }
+    .hero2-gift .txt { display: flex; flex-direction: column; gap: 2px; line-height: 1.25; }
+    .hero2-gift strong { font-size: 13px; font-weight: var(--fw-bold); color: #fff; }
+    .hero2-gift small { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+    .hero2-cta-dark {
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--color-cta-dark);
+      color: #fff;
+      border: 0;
+      border-radius: var(--radius-pill);
+      font-size: 15px;
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+      text-align: center;
+      transition: background var(--tr-base), transform var(--tr-base);
+    }
+    .hero2-cta-dark:hover { background: #1E1E20; transform: translateY(-1px); }
+
+    /* ── 1b. Средняя фото-карточка ────────────────────────────────────── */
+    .hero2-card--photo {
+      position: relative;
+      padding: 0;
+      min-height: 480px;
+    }
+    .hero2-card--photo .placeholder-photo {
+      width: 100%; height: 100%;
+      min-height: 480px;
+      border-radius: 0;
+    }
     .hero2-discount {
-      position: absolute; top: 16px; right: 16px;
+      position: absolute;
+      left: 20px; top: 20px;
+      width: 96px; height: 96px;
+      border-radius: 18px;
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; line-height: 1;
+    }
+    .hero2-discount .pct {
+      font-size: 24px;
+      font-weight: var(--fw-black);
+      letter-spacing: -0.02em;
+    }
+    .hero2-discount .until {
+      font-size: 11px;
+      font-weight: var(--fw-medium);
+      margin-top: 5px;
     }
     .hero2-rating {
-      position: absolute; bottom: 16px; left: 16px;
+      position: absolute;
+      left: 50%; bottom: 20px;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px 18px;
+      box-shadow: 0 8px 20px rgba(15,15,18,0.12);
+      display: flex; align-items: center; gap: 12px;
+      max-width: 88%;
+    }
+    .hero2-rating b { font-size: 24px; font-weight: var(--fw-black); line-height: 1; }
+    .hero2-rating-right { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
+    .hero2-rating-right .stars { color: var(--color-accent-yellow); font-size: 13px; letter-spacing: 1px; }
+    .hero2-rating-right .meta { color: var(--color-text-muted); font-size: 11px; line-height: 1.3; }
+
+    /* ── 1c. Правая форма ─────────────────────────────────────────────── */
+    .hero2-card--form {
+      padding: 28px 24px;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+    .hero2-card--form h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: var(--fw-bold);
+      line-height: 1.2;
+      text-align: center;
+      color: var(--color-text);
+    }
+    .hero2-card--form .field {
+      width: 100%;
+    }
+    .hero2-card--form .field input,
+    .hero2-card--form .field-phone input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--color-text);
       background: var(--color-surface);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      box-shadow: var(--shadow-pop);
-      display: inline-flex; align-items: center; gap: 10px;
+      transition: border-color var(--tr-base);
+    }
+    .hero2-card--form input:focus { outline: none; border-color: var(--color-primary); }
+    .hero2-card--form .field-phone {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .hero2-card--form .field-phone .flag {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 0 12px;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+    .hero2-card--form .field-phone .flag::before {
+      content: "";
+      display: inline-block;
+      width: 18px; height: 13px;
+      background: linear-gradient(180deg, #fff 0%, #fff 33%, #0A4FBA 33%, #0A4FBA 66%, #D8211D 66%, #D8211D 100%);
+      border-radius: 2px;
+    }
+    .hero2-card--form .field-phone input { border: 0; flex: 1; }
+    .hero2-card--form .checkbox {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .hero2-card--form .checkbox input { margin-top: 2px; }
+    .hero2-card--form .promo {
+      text-align: center;
       font-size: 13px;
+      color: var(--color-text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      background: none; border: 0; font-family: inherit;
     }
-    .hero2-rating b { font-size: 22px; font-weight: var(--fw-black); line-height: 1; }
-
-    .hero2-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    /* Form card */
-    .form-card {
-      background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      box-shadow: var(--shadow-card);
+    .hero2-card--form .cta-secondary {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--color-surface-soft);
+      color: var(--color-text);
+      border: 0;
+      border-radius: var(--radius-pill);
+      font-size: 15px;
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+      transition: background var(--tr-base);
     }
-    .form-card h3 { font-size: 22px; margin-bottom: 6px; }
-    .form-card p.note { color: var(--color-text-muted); font-size: 14px; margin-bottom: 18px; }
-    .form-card form { display: flex; flex-direction: column; gap: 12px; }
+    .hero2-card--form .cta-secondary:hover { background: #E7E7EA; }
 
-    /* Bottom benefits */
+    /* ── 2. Низ — 6 карточек преимуществ 3×2 ──────────────────────────── */
     .hero2-bottom {
-      margin-top: 36px;
+      margin-top: 16px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
-    .hero2-bottom .card {
-      padding: 22px;
-      border-radius: var(--radius-md);
+    .hero2-bcard {
+      background: var(--color-surface);
+      border-radius: 20px;
+      box-shadow: var(--shadow-card);
+      padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 12px;
     }
-    .hero2-bottom .card h4 { font-size: 16px; line-height: 1.3; margin: 14px 0 4px; }
-    .hero2-bottom .card p { font-size: 13px; color: var(--color-text-muted); margin: 0; line-height: 1.45; }
+    .hero2-bcard .ico {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: #EEEBFF;
+      color: var(--color-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .hero2-bcard .ico svg { width: 20px; height: 20px; }
+    .hero2-bcard h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: var(--fw-bold);
+      line-height: 1.3;
+      color: var(--color-text);
+    }
+    .hero2-bcard p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--color-text-muted);
+    }
+    .hero2-bcard p b { color: var(--color-text); font-weight: var(--fw-bold); }
 
-    @media (max-width: 992px) {
-      .hero2-top { grid-template-columns: 1fr; }
+    /* ── Адаптив ──────────────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .hero2-row { grid-template-columns: 1fr 1fr; }
+      .hero2-card--form { grid-column: span 2; }
       .hero2-bottom { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 560px) {
+    @media (max-width: 720px) {
+      .hero2-row { grid-template-columns: 1fr; }
+      .hero2-card--form { grid-column: auto; }
+      .hero2-card--photo { min-height: 380px; }
+      .hero2-card--photo .placeholder-photo { min-height: 380px; }
       .hero2-bottom { grid-template-columns: 1fr; }
-      .hero2-cta-row .btn { width: 100%; }
+      .hero2-trust { gap: 6px; }
+      .hero2-trust-item { font-size: 12px; padding: 8px 12px; }
     }
   </style>
 </head>
 <body class="theme-light-violet">
   <section class="hero2">
     <div class="container">
-      <div class="hero2-top">
-        <div class="hero2-left">
-          <span class="hero2-eyebrow">Онлайн-курс</span>
-          <h1>Менеджер проектов</h1>
-          <p class="hero2-lead">Зарабатывайте от 100 000 ₽ на удалённой работе, где не нужно писать код.</p>
 
-          <div class="hero2-meta">
-            <span class="hero2-meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              с нуля за 3 месяца
-            </span>
-            <span class="hero2-meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              Доступ навсегда
-            </span>
-          </div>
+      <!-- 0. Trust-bar -->
+      <div class="hero2-trust">
+        <span class="hero2-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3V5a2 2 0 0 1 2-2zm0 2v1h6V5H9z"/></svg>
+          Более 750 000 студентов
+        </span>
+        <span class="hero2-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-9 12-5-5 1.4-1.4L12 13.2l5.6-5.6L19 9z"/></svg>
+          Найдёте работу, или вернём деньги
+        </span>
+        <span class="hero2-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.5 6 6.5.5-5 4.5 1.5 6.5L12 16l-5.5 3.5L8 13 3 8.5l6.5-.5z"/></svg>
+          Нейросети для работы
+        </span>
+        <span class="hero2-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4zm0 8.5c-.6 1-1.7 1.7-3 1.7-2 0-3.5-1.6-3.5-3.5S7 5.2 9 5.2c1.3 0 2.4.7 3 1.7.6-1 1.7-1.7 3-1.7 2 0 3.5 1.6 3.5 3.5s-1.5 3.5-3.5 3.5c-1.3 0-2.4-.7-3-1.7z"/></svg>
+          Лицензия Департамента образования и науки
+          <span class="info">i</span>
+        </span>
+      </div>
 
-          <div class="hero2-visual">
-            <div class="placeholder-photo placeholder-photo--landscape"></div>
-            <span class="badge-discount hero2-discount">−60%<small>до 11 мая</small></span>
-            <div class="hero2-rating">
-              <b>4.8</b><div><div class="stars">★★★★★</div><span style="color: var(--color-text-muted)">3700 студентов</span></div>
+      <!-- 1. 3-колоночный hero -->
+      <div class="hero2-row">
+
+        <!-- 1a. Info -->
+        <div class="hero2-card hero2-card--info">
+          <span class="eyebrow">Онлайн-курс</span>
+          <h1>Менеджер<br>проектов</h1>
+          <span class="hero2-pill">С нуля за 3 месяца</span>
+          <p class="lead">Зарабатывайте <b>от 100 000 ₽</b> на удалённой работе, где не нужно писать код</p>
+
+          <div class="hero2-gift">
+            <span class="ico">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6h-3.5a3.5 3.5 0 0 0-4.5-4.5A3.5 3.5 0 0 0 7.5 6H4a2 2 0 0 0-2 2v3h9V8h2v3h9V8a2 2 0 0 0-2-2zM9 4.5A1.5 1.5 0 0 1 10.5 6H9V4.5zM13.5 6V4.5A1.5 1.5 0 0 1 15 6h-1.5zM2 13v7a2 2 0 0 0 2 2h7v-9H2zm11 9h7a2 2 0 0 0 2-2v-7h-9v9z"/>
+              </svg>
+            </span>
+            <div class="txt">
+              <strong>Оставьте заявку и получите подарок</strong>
+              <small>Личная консультация с экспертом курса</small>
             </div>
           </div>
 
-          <div class="hero2-cta-row">
-            <button class="btn btn--primary btn--lg">Записаться со скидкой
-              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-            </button>
-            <button class="btn btn--ghost btn--lg">Получить консультацию</button>
+          <button class="hero2-cta-dark">Записаться со скидкой</button>
+        </div>
+
+        <!-- 1b. Photo -->
+        <div class="hero2-card hero2-card--photo">
+          <div class="placeholder-photo placeholder-photo--landscape"></div>
+          <div class="hero2-discount">
+            <span class="pct">−60%</span>
+            <span class="until">до 12 мая</span>
+          </div>
+          <div class="hero2-rating">
+            <b>4.8</b>
+            <div class="hero2-rating-right">
+              <span class="stars">★★★★★</span>
+              <span class="meta">по отзывам более 3700 студентов</span>
+            </div>
           </div>
         </div>
 
-        <aside class="form-card">
-          <h3>Получите бесплатную консультацию</h3>
-          <p class="note">Расскажем о программе, тарифах и трудоустройстве.</p>
-          <form data-cta-form>
-            <div class="field"><input type="text" placeholder="Имя"></div>
-            <div class="field"><input type="tel" placeholder="+7 (000) 000-00-00"></div>
-            <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
-            <button class="btn btn--primary">Получить консультацию</button>
-            <p data-cta-success hidden style="color: var(--color-success); font-size:14px;">✓ Заявка отправлена</p>
-          </form>
-        </aside>
+        <!-- 1c. Form -->
+        <div class="hero2-card hero2-card--form">
+          <h3>Получить бесплатную консультацию</h3>
+          <div class="field"><input type="text" placeholder="Имя"></div>
+          <div class="field-phone">
+            <span class="flag"></span>
+            <input type="tel" placeholder="+7 (000) 000-00-00">
+          </div>
+          <div class="field"><input type="email" placeholder="Электронная почта"></div>
+          <label class="checkbox"><input type="checkbox" checked> Я соглашаюсь на обработку персональных данных</label>
+          <button type="button" class="promo">У меня есть промокод</button>
+          <button class="cta-secondary">Получить консультацию</button>
+        </div>
       </div>
 
+      <!-- 2. 6 карточек преимуществ 3×2 -->
       <div class="hero2-bottom">
-        <div class="card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v3H4zM4 9h7v11H4zm9 0h7v5h-7zm0 7h7v4h-7z"/></svg></span>
           <h4>Учитесь у экспертов</h4>
-          <p>Преподаватели — практики из крупных компаний</p>
+          <p>Преподаватели с реальным опытом управления проектами в топ-компаниях: <b>Сбере, VK, Ozon, Альфа-банке, Газпромбанке, Авито</b></p>
         </div>
-        <div class="card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
-          <h4>2 диплома в портфолио</h4>
-          <p>Сможете работать в крупных и средних компаниях</p>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4zM7 7v10h2V7zm4 0v10h2V7zm4 0v10h2V7z"/></svg></span>
+          <h4>Добавьте в портфолио <b>7 кейсов</b></h4>
+          <p>Сможете работать в цифровой сфере <b>(digital)</b>, ритейле, финансах, услугах, ИТ, корпоративном сегменте, маркетинге и связях с общественностью <b>(PR)</b></p>
         </div>
-        <div class="card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></span>
-          <h4>Получите удостоверение</h4>
-          <p>О повышении квалификации государственного образца</p>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l3 5 5 1-4 4 1 6-5-2-5 2 1-6-4-4 5-1z"/></svg></span>
+          <h4>Получите удостоверение о повышении квалификации</h4>
+          <p>Учим на основании государственной лицензии</p>
         </div>
-        <div class="card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <h4>Отработаете навыки</h4>
-          <p>На задачах из реальных проектов</p>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5zM5 15l1 3 3 1-3 1-1 3-1-3-3-1 3-1zM19 15l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/></svg></span>
+          <h4>Программа построена на <b>PMBoK</b></h4>
+          <p>Больше практики, меньше теории</p>
+        </div>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3.7A4.5 4.5 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span>
+          <h4>С 2013 года учим и устраиваем выпускников на работу</h4>
+          <p>Нам доверяют обучение сотрудников <b>Авито, РЖД, BOSCH, Открытие, ВТБ</b></p>
+        </div>
+        <div class="hero2-bcard">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 4v2h10V7zm0 4v2h10v-2zm0 4v2h6v-2z"/></svg></span>
+          <h4>Отработаете навыки на практике</h4>
+          <p>Бизнес-симуляторы и тренажёры основаны на актуальных задачах бизнеса</p>
         </div>
       </div>
     </div>
   </section>
-
   <script src="../js/components.js" defer></script>
 </body>
 </html>
