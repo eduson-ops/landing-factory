@@ -16,18 +16,25 @@
   <style>
     .text-narrative { padding: 64px 0 72px; }
     .text-narrative-inner {
-      max-width: 880px;
+      max-width: 940px;
       margin: 0 auto;
+      text-align: left;
     }
     .text-narrative h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      margin-bottom: 28px;
+      font-size: clamp(32px, 4.4vw, 52px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      margin: 0 0 32px;
+      max-width: 880px;
     }
     .text-narrative p {
-      font-size: 17px;
-      line-height: 1.65;
+      font-size: 16px;
+      line-height: 1.7;
       color: var(--color-text);
-      margin-bottom: 18px;
+      margin: 0 0 18px;
+      max-width: 880px;
     }
     .text-narrative p:last-child { margin-bottom: 0; }
     .text-narrative p b { font-weight: var(--fw-bold); }
