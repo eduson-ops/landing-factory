@@ -1,8 +1,8 @@
 <!doctype html>
 <!-- ratings-01-aggregators: «Студенты любят наши курсы» — белые карточки
-     с логотипами агрегаторов (Яндекс, Сравни, Хабр, 2GIS, tutortop), оценкой
-     и количеством отзывов.
-     Ref: refrences/Снимок экрана 2026-05-11 145302.png (верх) -->
+     с brand-mark (SVG letter в брендовом фоне) + оценкой + кол-вом отзывов.
+     Реальные SVG-лого брендов вставляются продактом перед публикацией;
+     здесь — letter-mark в брендовых цветах для визуальной близости. -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -15,36 +15,53 @@
   <link rel="stylesheet" href="../css/components.css">
   <style>
     .rate { padding: 56px 0 64px; }
-    .rate-head { text-align: center; margin-bottom: 24px; }
-    .rate-head h2 { font-size: clamp(26px, 3.6vw, 40px); }
-    .rate-head p { color: var(--color-text-muted); margin-top: 6px; font-size: 14px; }
+    .rate-head { text-align: center; margin-bottom: 28px; }
+    .rate-head h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: var(--fw-extrabold); }
+    .rate-head p { color: var(--color-text-muted); margin-top: 8px; font-size: 14px; }
 
     .rate-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 14px;
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
     }
     .rate-card {
       background: var(--color-surface);
       border-radius: var(--radius-md);
-      padding: 18px;
+      padding: 20px;
       box-shadow: var(--shadow-card);
-      text-align: center;
+      display: flex; flex-direction: column;
+      gap: 10px;
     }
     .rate-logo {
-      height: 26px;
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 6px;
-      margin-bottom: 10px;
+      display: inline-flex; align-items: center;
+      gap: 8px;
       font-weight: var(--fw-bold);
       font-size: 14px;
+      color: var(--color-text);
     }
-    .rate-logo .dot { width: 12px; height: 12px; border-radius: 3px; }
-    .rate-card .rating-line { color: var(--color-text-muted); font-size: 12px; }
-    .rate-card .rating-line b { color: var(--color-text); font-weight: var(--fw-bold); font-size: 14px; }
-    .rate-card .rating-num { color: var(--color-text-muted); font-size: 11px; margin-top: 4px; }
+    .brand-mark {
+      flex: 0 0 auto;
+      display: inline-flex; width: 24px; height: 24px;
+    }
+    .brand-mark svg { width: 100%; height: 100%; display: block; }
+
+    .rate-card .rating-line {
+      color: var(--color-primary);
+      font-size: 12px;
+      font-weight: var(--fw-medium);
+    }
+    .rate-card .rating-line b {
+      color: var(--color-text);
+      font-weight: var(--fw-bold);
+      font-size: 18px;
+      margin-left: 4px;
+    }
+    .rate-card .rating-num {
+      color: var(--color-text-muted);
+      font-size: 12px;
+    }
 
     @media (max-width: 768px) { .rate-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 420px) { .rate-grid { grid-template-columns: 1fr; } }
@@ -57,12 +74,52 @@
         <h2>Студенты любят наши курсы</h2>
         <p>Средний рейтинг 4.8</p>
       </div>
+
       <div class="rate-grid">
-        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#FFD600"></span>Яндекс Карты</div><div class="rating-line">Рейтинг: <b>5</b></div><div class="rating-num">160 отзывов</div></div>
-        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#33C25E"></span>Сравни</div><div class="rating-line">Рейтинг: <b>4.85</b></div><div class="rating-num">740 отзывов</div></div>
-        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#212121"></span>Хабр Курсы</div><div class="rating-line">Рейтинг: <b>4.97</b></div><div class="rating-num">320 отзывов</div></div>
-        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#26A569"></span>2GIS</div><div class="rating-line">Рейтинг: <b>4.9</b></div><div class="rating-num">195 отзывов</div></div>
-        <div class="rate-card"><div class="rate-logo"><span class="dot" style="background:#7B61FF"></span>tutortop</div><div class="rating-line">Рейтинг: <b>4.89</b></div><div class="rating-num">560 отзывов</div></div>
+        <div class="rate-card">
+          <div class="rate-logo">
+            <span class="brand-mark"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#FFCC00"/><text x="12" y="17" font-size="13" font-weight="900" fill="#000" text-anchor="middle" font-family="Inter,Arial">Я</text></svg></span>
+            Яндекс Карты
+          </div>
+          <div class="rating-line">Рейтинг:<b>5</b></div>
+          <div class="rating-num">160 отзывов</div>
+        </div>
+
+        <div class="rate-card">
+          <div class="rate-logo">
+            <span class="brand-mark"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#33C25E"/><text x="12" y="17" font-size="13" font-weight="900" fill="#fff" text-anchor="middle" font-family="Inter,Arial">С</text></svg></span>
+            Сравни
+          </div>
+          <div class="rating-line">Рейтинг:<b>4.85</b></div>
+          <div class="rating-num">740 отзывов</div>
+        </div>
+
+        <div class="rate-card">
+          <div class="rate-logo">
+            <span class="brand-mark"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0A0A0F"/><text x="12" y="17" font-size="13" font-weight="900" fill="#fff" text-anchor="middle" font-family="Inter,Arial">h</text></svg></span>
+            Хабр Курсы
+          </div>
+          <div class="rating-line">Рейтинг:<b>4.97</b></div>
+          <div class="rating-num">320 отзывов</div>
+        </div>
+
+        <div class="rate-card">
+          <div class="rate-logo">
+            <span class="brand-mark"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#26A569"/><text x="12" y="17" font-size="11" font-weight="900" fill="#fff" text-anchor="middle" font-family="Inter,Arial">2GIS</text></svg></span>
+            2GIS
+          </div>
+          <div class="rating-line">Рейтинг:<b>4.9</b></div>
+          <div class="rating-num">195 отзывов</div>
+        </div>
+
+        <div class="rate-card">
+          <div class="rate-logo">
+            <span class="brand-mark"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#7B61FF"/><text x="12" y="17" font-size="13" font-weight="900" fill="#fff" text-anchor="middle" font-family="Inter,Arial">t</text></svg></span>
+            tutortop
+          </div>
+          <div class="rating-line">Рейтинг:<b>4.89</b></div>
+          <div class="rating-num">560 отзывов</div>
+        </div>
       </div>
     </div>
   </section>
