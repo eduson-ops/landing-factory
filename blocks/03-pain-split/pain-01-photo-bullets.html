@@ -1,105 +1,201 @@
 <!doctype html>
-<!-- pain-01-photo-bullets: split — текст слева + фото справа сверху, 3 карточки-буллета снизу,
-     фиолетовая плашка с инсайтом внизу.
-     Ref: refrences/Снимок экрана 2026-05-11 143434.png -->
+<!-- pain-01-photo-bullets: pixel-target — скрин Eduson «Руководитель мед.организации».
+     Состав:
+       – h2 с accent (вторая часть фиолетом, с переноса)
+       – Большая белая карта 2-кол:
+         · Left col (~62%): 2 параграфа описания + 3 мини-карточки 3×1
+           (тонированный серый bg, фиолетовая 3D-иконка сверху-слева)
+         · Right col (~38%): портретное фото на всю высоту карты
+       – Внизу — широкая stat-плашка с фиолетовой 3D-иконкой папки+чек
+         и многострочным текстом справа (lavender-tint bg). -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Боли · split</title>
+  <title>Проблемы и решения</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/themes.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <style>
-    .pain { padding: 64px 0 80px; }
+    .pain { padding: 56px 0 64px; }
+
     .pain h2 {
-      text-align: center; max-width: 880px; margin: 0 auto 40px;
-      font-size: clamp(30px, 4vw, 48px);
-    }
-    .pain h2 .accent { color: var(--color-primary); }
-
-    .pain-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-      gap: 32px;
-      align-items: stretch;
-      margin-bottom: 22px;
-    }
-    .pain-text { display: flex; flex-direction: column; gap: 18px; }
-    .pain-text p { font-size: 16px; line-height: 1.55; }
-    .pain-text p b { font-weight: var(--fw-bold); color: var(--color-text); }
-    .pain-photo {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
-    }
-    .pain-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
-
-    .pain-bullets {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-    .pain-card { padding: 22px; border-radius: var(--radius-md); }
-    .pain-card .icon-circle { margin-bottom: 12px; }
-    .pain-card h4 { font-size: 16px; margin-bottom: 6px; }
-    .pain-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
-
-    .pain-insight {
-      background: var(--color-surface-soft);
-      border-radius: var(--radius-md);
-      padding: 22px 24px;
-      display: flex; gap: 16px;
-      align-items: flex-start;
-      font-size: 14px;
+      text-align: center;
+      max-width: 920px;
+      margin: 0 auto 36px;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
       color: var(--color-text);
     }
-    .pain-insight .icon-circle { background: var(--color-primary); color: #fff; }
-    .pain-insight b { font-weight: var(--fw-bold); }
+    .pain h2 .accent {
+      display: inline;
+      color: var(--color-primary);
+    }
 
+    /* ── 1. Главная карта 2-кол ───────────────────────────────────────── */
+    .pain-main {
+      background: var(--color-surface);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .pain-text {
+      padding: 36px 36px 32px;
+      display: flex; flex-direction: column;
+      gap: 22px;
+    }
+    .pain-text p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--color-text);
+    }
+    .pain-text p b { font-weight: var(--fw-bold); }
+
+    .pain-minigrid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .pain-mini {
+      background: #F5F4F8;
+      border-radius: 20px;
+      padding: 24px 20px 22px;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+    .pain-mini .ico {
+      width: 44px; height: 44px;
+      background:
+        radial-gradient(circle at 30% 25%, #FFFFFF 0%, transparent 50%),
+        linear-gradient(135deg, #E7E0FF 0%, #BFB1FF 70%, #9683E6 100%);
+      border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-primary);
+      box-shadow:
+        0 6px 14px rgba(107, 94, 236, 0.28),
+        inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    }
+    .pain-mini .ico svg { width: 22px; height: 22px; }
+    .pain-mini h4 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: var(--fw-bold);
+      line-height: 1.3;
+      color: var(--color-text);
+    }
+    .pain-mini p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--color-text);
+    }
+
+    .pain-photo {
+      position: relative;
+      background: #2A2A30;
+      min-height: 100%;
+      overflow: hidden;
+    }
+    .pain-photo .placeholder-photo {
+      width: 100%; height: 100%;
+      min-height: 540px;
+      border-radius: 0;
+    }
+
+    /* ── 2. Bottom stat-плашка ────────────────────────────────────────── */
+    .pain-stat {
+      margin-top: 14px;
+      background: #F0EEF6;
+      border-radius: 26px;
+      padding: 22px 28px;
+      display: flex; align-items: center; gap: 22px;
+    }
+    .pain-stat .ico {
+      flex: 0 0 auto;
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 25%, #FFFFFF 0%, transparent 50%),
+        linear-gradient(135deg, #C9BCFF 0%, #8C7BEB 100%);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #fff;
+      box-shadow:
+        0 8px 16px rgba(107, 94, 236, 0.32),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+    .pain-stat .ico svg { width: 28px; height: 28px; }
+    .pain-stat p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--color-text);
+    }
+    .pain-stat p b { font-weight: var(--fw-bold); }
+
+    /* ── Адаптив ──────────────────────────────────────────────────────── */
     @media (max-width: 992px) {
-      .pain-top { grid-template-columns: 1fr; }
-      .pain-bullets { grid-template-columns: 1fr; }
+      .pain-main { grid-template-columns: 1fr; }
+      .pain-photo { min-height: 320px; order: -1; }
+      .pain-photo .placeholder-photo { min-height: 320px; }
+      .pain-minigrid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .pain-text { padding: 24px; gap: 16px; }
+      .pain-stat { flex-direction: column; align-items: flex-start; padding: 22px 24px; }
     }
   </style>
 </head>
 <body class="theme-light-violet">
   <section class="pain">
     <div class="container">
-      <h2>Вместо общей теории менеджмента — <span class="accent">реальные задачи медбизнеса</span></h2>
+      <h2>
+        Вместо общей теории менеджмента —
+        <span class="accent">реальные задачи медбизнеса</span>
+      </h2>
 
-      <div class="pain-top">
+      <div class="pain-main">
         <div class="pain-text">
-          <p>Вы освоите профессию руководителя медорганизации — <b>системно, с упором на актуальные инструменты 2026 года</b>.</p>
-          <p>Будете учиться без расплывчатой и ограниченной теории: открываете нужную тему, берёте готовое решение — и сразу применяете в своей клинике.</p>
+          <p>Вы освоите профессию руководителя медорганизации — системно, с упором на актуальные инструменты 2026 года.</p>
+          <p><b>Будете учиться без расписаний и ограничений:</b> открываете нужную тему, берёте готовое решение — и сразу применяете в своей клинике.</p>
+
+          <div class="pain-minigrid">
+            <div class="pain-mini">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V5l-8-3zm0 5l4 2v3c0 2.5-1.7 4.7-4 5-2.3-.3-4-2.5-4-5V9z"/></svg></span>
+              <h4>Защита от реальных рисков</h4>
+              <p>Вы решите задачи из практики клиник: как получить лицензию, без потерь пройти проверку, избежать юридических ловушек или сократить расходы</p>
+            </div>
+            <div class="pain-mini">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8z"/></svg></span>
+              <h4>Опыт практиков</h4>
+              <p>Получите проверенные решения: программа разработана совместно с владельцами клиник, топ-менеджерами и медицинскими юристами</p>
+            </div>
+            <div class="pain-mini">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 9h10v2H7zm0 4h7v2H7z"/></svg></span>
+              <h4>Личная консультация</h4>
+              <p>Созвонитесь с экспертом один на один, обсудите свой вопрос и заберёте пошаговый план действий</p>
+            </div>
+          </div>
         </div>
-        <div class="pain-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
+
+        <div class="pain-photo">
+          <div class="placeholder-photo placeholder-photo--portrait"></div>
+        </div>
       </div>
 
-      <div class="pain-bullets">
-        <div class="card pain-card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6z"/></svg></span>
-          <h4>Защита от реальных рисков</h4>
-          <p>Вы знаете заранее, на практике медбизнеса, как закрывать кассовые разрывы, налоговые проверки и претензии пациентов</p>
-        </div>
-        <div class="card pain-card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
-          <h4>Опыт практиков</h4>
-          <p>Получите проверенные советы от практикующих главврачей и владельцев медицинских клиник, которые делятся ошибками и находками</p>
-        </div>
-        <div class="card pain-card">
-          <span class="icon-circle--sm icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 4V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
-          <h4>Личная консультация</h4>
-          <p>Созвонитесь с экспертом курса и получите ответы на вопросы по вашей ситуации</p>
-        </div>
-      </div>
-
-      <div class="pain-insight">
-        <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
-          <p><b>Профессиональный руководитель не допускает управленческих ошибок — их цена слишком высока.</b> Только в 2025 году закрылось 5400 медорганизаций — на 23% больше, чем в 2024. Частые причины: кассовые разрывы, юридическая неувязка и штрафы от надзорных органов.</p>
+      <div class="pain-stat">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm6 8.5l-1.4 1.4L11 16.3l5-5-1.4-1.4-3.6 3.6z"/></svg></span>
+        <p><b>Профессиональный руководитель не допускает управленческих ошибок — их цена слишком высока.</b> Только в 2025 было закрыто 5400 медорганизаций — это на 7,5% больше, чем в 2024. Частые причины: кассовые разрывы, юридические нюансы и штрафы от надзорных органов.</p>
       </div>
     </div>
   </section>
