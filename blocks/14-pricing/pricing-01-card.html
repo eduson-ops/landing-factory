@@ -1,77 +1,370 @@
 <!doctype html>
-<!-- pricing-01-card: блок стоимости — карточка тарифа с зачёркнутой ценой,
-     актуальной ценой, рассрочкой, бейджем -60% и кнопкой записаться. -->
+<!-- pricing-01-card: pixel-target — скрин Eduson «Стоимость курса» (1 тариф).
+     Состав: фиолетовая outer-карта 2 кол:
+       Left:
+         – h2 «Стоимость курса» + lead с bold
+         – Pricing-карточка: зачёркнутая цена + актуальная + жёлтый -60% бейдж
+           + 2 grey-pill (старт / места)
+         – «До конца скидки» + 2 pill (дни / часы)
+         – 6 benefit-rows 2×3 с фиолетовыми иконками
+       Right:
+         – h3 центрированный
+         – 2 radio: бесплатная конс. (active с жёлтой точкой) / оплата сразу
+           (с -5% жёлтой pill)
+         – 3 поля + флаг РФ
+         – чекбокс с жёлтым check
+         – линк «У меня есть промокод»
+         – Big yellow CTA «Оставить заявку» -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Стоимость · карточка</title>
+  <title>Стоимость · 1 тариф</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/themes.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <style>
-    .pricing { padding: 64px 0 80px; }
-    .pricing h2 { text-align: center; margin-bottom: 32px; font-size: clamp(28px, 4vw, 44px); }
+    .pricing { padding: 56px 0 64px; }
 
     .pricing-card {
-      background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      max-width: 760px;
-      margin: 0 auto;
-      box-shadow: var(--shadow-card);
+      background: var(--color-primary);
+      border-radius: 24px;
+      padding: 32px;
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: center;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;
     }
 
-    .pricing-meta { display: flex; flex-direction: column; gap: 14px; }
-    .pricing-meta h3 { font-size: 22px; margin-bottom: 4px; }
-    .pricing-meta p { font-size: 14px; color: var(--color-text-muted); line-height: 1.5; }
-    .pricing-points { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
-    .pricing-point { display: flex; gap: 10px; align-items: center; font-size: 14px; }
-    .pricing-point svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; }
+    /* ── Left col ─────────────────────────────────────────────────────── */
+    .pricing-left {
+      color: #fff;
+      display: flex; flex-direction: column;
+      gap: 22px;
+    }
+    .pricing-left h2 {
+      margin: 0;
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1.1;
+      color: #fff;
+    }
+    .pricing-left .lead {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 460px;
+    }
+    .pricing-left .lead b { font-weight: var(--fw-bold); color: #fff; }
 
-    .pricing-prices { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-    .pricing-old { color: var(--color-text-muted); text-decoration: line-through; font-size: 18px; }
-    .pricing-now { font-size: 40px; font-weight: var(--fw-extrabold); line-height: 1; }
-    .pricing-rassrochka { font-size: 14px; color: var(--color-text-muted); }
-    .pricing-rassrochka b { font-weight: var(--fw-bold); color: var(--color-text); }
-    .pricing-prices .badge-yellow { font-size: 14px; padding: 8px 14px; }
-    .pricing-prices .btn { width: 100%; }
+    /* Price box (white) */
+    .price-box {
+      position: relative;
+      background: #fff;
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+    .price-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .price-old {
+      font-size: 17px;
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+      font-weight: var(--fw-medium);
+    }
+    .price-new {
+      font-size: clamp(26px, 3.2vw, 34px);
+      font-weight: var(--fw-extrabold);
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+    .price-discount {
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      padding: 6px 12px;
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: var(--fw-black);
+      transform: rotate(8deg);
+    }
+    .price-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+    .price-meta-pill {
+      padding: 7px 14px;
+      background: var(--color-bg);
+      border-radius: 100px;
+      font-size: 12px;
+      color: var(--color-text);
+    }
 
-    @media (max-width: 768px) {
-      .pricing-card { grid-template-columns: 1fr; padding: 28px; }
-      .pricing-now { font-size: 32px; }
+    .countdown {
+      display: flex; align-items: center; gap: 10px;
+      color: #fff;
+      font-size: 14px;
+    }
+    .countdown .pill {
+      padding: 8px 14px;
+      background: #fff;
+      color: var(--color-text);
+      border-radius: 100px;
+      font-weight: var(--fw-bold);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    /* 6 benefits 2x3 */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
+    }
+    .benefit-row { display: flex; gap: 10px; align-items: flex-start; }
+    .benefit-row .ico {
+      flex: 0 0 auto;
+      width: 22px; height: 22px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #fff;
+      margin-top: 1px;
+    }
+    .benefit-row .ico svg { width: 18px; height: 18px; }
+    .benefit-row p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #fff;
+    }
+
+    /* ── Right col — form ─────────────────────────────────────────────── */
+    .pricing-form {
+      background: #fff;
+      border-radius: 18px;
+      padding: 26px 24px;
+      display: flex; flex-direction: column;
+      gap: 12px;
+    }
+    .pricing-form h3 {
+      margin: 0 0 6px;
+      font-size: clamp(18px, 1.8vw, 22px);
+      font-weight: var(--fw-bold);
+      line-height: 1.25;
+      text-align: center;
+      color: var(--color-text);
+    }
+    .radio-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px;
+      padding: 14px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: var(--fw-medium);
+      cursor: pointer;
+    }
+    .radio-row.active { border-color: var(--color-primary); background: #FAF9FF; }
+    .radio-row .dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid #C9C9CE;
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .radio-row.active .dot {
+      border-color: var(--color-accent-yellow);
+      background: var(--color-accent-yellow);
+    }
+    .radio-row.active .dot::after {
+      content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%;
+    }
+    .radio-row .label-text { flex: 1; }
+    .discount-pill {
+      padding: 4px 10px;
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: var(--fw-bold);
+    }
+
+    .form-field input,
+    .form-field-phone input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--color-text);
+      background: #fff;
+    }
+    .form-field input:focus { outline: none; border-color: var(--color-primary); }
+    .form-field-phone {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .form-field-phone .flag {
+      flex: 0 0 auto;
+      padding: 0 10px;
+      display: inline-flex; align-items: center;
+      background: #fff;
+      border-right: 1px solid var(--color-border);
+    }
+    .form-field-phone .flag::before {
+      content: '';
+      display: inline-block;
+      width: 18px; height: 12px;
+      background: linear-gradient(180deg, #fff 0%, #fff 33%, #0A4FBA 33%, #0A4FBA 66%, #D8211D 66%, #D8211D 100%);
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+    .form-field-phone .flag::after {
+      content: '▾';
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .form-field-phone input { border: 0; flex: 1; }
+
+    .form-checkbox {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .form-checkbox input {
+      width: 18px; height: 18px;
+      margin-top: 1px;
+      accent-color: var(--color-accent-yellow);
+    }
+
+    .promo-link {
+      text-align: center;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      background: none; border: 0; font-family: inherit;
+    }
+
+    .cta-yellow {
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--color-accent-yellow);
+      color: var(--color-cta-dark);
+      border: 0;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+      transition: filter var(--tr-base), transform var(--tr-base);
+    }
+    .cta-yellow:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+    /* ── Адаптив ──────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .pricing-card { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .pricing-card { padding: 20px; }
+      .pricing-left { gap: 16px; }
     }
   </style>
 </head>
 <body class="theme-light-violet">
   <section class="pricing">
     <div class="container">
-      <h2>Стоимость курса</h2>
-
       <div class="pricing-card">
-        <div class="pricing-meta">
-          <span class="badge-yellow">−60% до 11 мая</span>
-          <h3>Тариф «ПРО»</h3>
-          <p>6 месяцев обучения с куратором, диплом о профпереподготовке, бессрочный доступ.</p>
-          <div class="pricing-points">
-            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Личный куратор и проверка домашних</div>
-            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>6 индивидуальных встреч с ментором</div>
-            <div class="pricing-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Карьерное сопровождение и помощь с трудоустройством</div>
+
+        <!-- Left -->
+        <div class="pricing-left">
+          <h2>Стоимость курса</h2>
+          <p class="lead">Обучение можно оплатить сразу или воспользоваться <b>беспроцентной рассрочкой на 24 месяца</b></p>
+
+          <div class="price-box">
+            <div class="price-row">
+              <span class="price-old">9 313 ₽ / мес</span>
+              <span class="price-new">3 725 ₽ / мес</span>
+            </div>
+            <div class="price-meta">
+              <span class="price-meta-pill">Старт обучения: 14 мая</span>
+              <span class="price-meta-pill">Осталось мест: 7</span>
+            </div>
+            <span class="price-discount">−60%</span>
+          </div>
+
+          <div class="countdown">
+            <span>До конца скидки</span>
+            <span class="pill">0 дней</span>
+            <span class="pill">01:24:36</span>
+          </div>
+
+          <div class="benefits-grid">
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3V5a2 2 0 0 1 2-2zm0 2v1h6V5z"/></svg></span>
+              <p>Найдёте работу, или вернём деньги</p>
+            </div>
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h12l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm12 1v4h4z"/></svg></span>
+              <p>Удостоверение о повышении квалификации</p>
+            </div>
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></span>
+              <p>Личная консультация с экспертом в подарок при оформлении заявки сегодня</p>
+            </div>
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3.7A4.5 4.5 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span>
+              <p>Доступ к курсу навсегда. Обновления бесплатны!</p>
+            </div>
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-4 4z"/></svg></span>
+              <p>7 кейсов в портфолио</p>
+            </div>
+            <div class="benefit-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11h-2V6h2v6h4v2z"/></svg></span>
+              <p>1 год поддержки куратора</p>
+            </div>
           </div>
         </div>
 
-        <div class="pricing-prices">
-          <span class="pricing-old">137 500 ₽</span>
-          <span class="pricing-now">55 000 ₽</span>
-          <div class="pricing-rassrochka">или <b>от 5 850 ₽/мес</b><br>в рассрочку без переплат</div>
-          <button class="btn btn--primary btn--lg">Записаться на курс</button>
+        <!-- Right form -->
+        <div class="pricing-form">
+          <h3>Записаться на курс или<br>получить бесплатную консультацию</h3>
+
+          <label class="radio-row active">
+            <span class="dot"></span>
+            <span class="label-text">Записаться на бесплатную консультацию</span>
+          </label>
+          <label class="radio-row">
+            <span class="dot"></span>
+            <span class="label-text">Оплатить сразу с доп. скидкой</span>
+            <span class="discount-pill">−5%</span>
+          </label>
+
+          <div class="form-field"><input type="text" placeholder="Имя"></div>
+          <div class="form-field-phone">
+            <span class="flag"></span>
+            <input type="tel" placeholder="+7 (000) 000-00-00">
+          </div>
+          <div class="form-field"><input type="email" placeholder="Электронная почта"></div>
+
+          <label class="form-checkbox">
+            <input type="checkbox" checked>
+            <span>Я соглашаюсь на обработку персональных данных</span>
+          </label>
+
+          <button type="button" class="promo-link">У меня есть промокод</button>
+
+          <button class="cta-yellow">Оставить заявку</button>
         </div>
+
       </div>
     </div>
   </section>

@@ -653,10 +653,8 @@
       ]},
       { group: 'Навыки и карьера', items: [
         { path: 'blocks/19-skills/skills-01-table.html',           name: 'Навыки и инструменты',                slug: 'skills-01', tags: ['навыки','инструменты','стек'] },
-        { path: 'blocks/24-skills-group/skills-group-01.html',     name: 'Навыки — три группы (методологии/инструменты/soft)', slug: 'skills-group-01', tags: ['навыки','группы','методологии','инструменты'] },
         { path: 'blocks/23-ai-tools/ai-tools-01-grid.html',        name: 'Нейросети-помощники в работе',        slug: 'ai-tools-01', tags: ['нейросети','ai','инструменты','grid','chatgpt','copilot'] },
         { path: 'blocks/08-projects/projects-01-slider.html',           name: 'Проекты — слайдер с фото',     slug: 'projects-01', tags: ['проекты','слайдер','портфолио'] },
-        { path: 'blocks/08-projects/projects-02-list.html',             name: 'Проекты — нумерованный список', slug: 'projects-02', tags: ['проекты','список','портфолио'] },
         { path: 'blocks/25-portfolio-gallery/portfolio-gallery-01.html', name: 'Портфолио — masonry-галерея работ', slug: 'portfolio-gallery-01', tags: ['портфолио','галерея','работы','дизайн','креатив'] },
         { path: 'blocks/09-result-stats/stats-01-dark.html',     name: 'Результаты обучения (тёмный)', slug: 'stats-01', tags: ['результат','статистика','dark','тёмный'], themed: 'dark' },
         { path: 'blocks/09-result-stats/stats-02-salary.html',   name: 'Уровни зарплат',               slug: 'stats-02', tags: ['зарплата','доход','уровни','hh'] },
@@ -736,9 +734,6 @@
       // 7. Навыки и инструменты
       'skills-01': { type: 'universal', canonicalOrder: 7,
         notes: 'Таблица навыков и инструментов. Источник не верифицирован — нужен скрин.' },
-      'skills-group-01': { type: 'universal', canonicalOrder: 7,
-        sourceUrl: 'https://eduson.academy/project-manager',
-        notes: 'Многогрупповые навыки (методологии + инструменты + soft). Гипотеза по research project-manager — пришли скрин для верификации.' },
       'ai-tools-01': { type: 'universal', canonicalOrder: 7,
         sourceUrl: 'https://eduson.academy/python',
         notes: 'Сетка нейросетей-помощников. Подтверждён grep-ом по python.html (31 упоминание). Пришли скрин для финальной верификации композиции.' },
@@ -754,8 +749,6 @@
       // 10. Проекты / портфолио
       'projects-01': { type: 'universal', canonicalOrder: 10,
         notes: 'Горизонтальный слайдер портфолио — каноничный паттерн Eduson. Источник: refrences/Снимок_145200.png. Возможно operations-director или python.' },
-      'projects-02': { type: 'universal', canonicalOrder: 10,
-        notes: '⚠ По голосовой ОС "херня полная" — вертикальный список НЕ соответствует канону Eduson. Рекомендуется projects-01.' },
       'portfolio-gallery-01': { type: 'universal', canonicalOrder: 10,
         sourceUrl: 'https://eduson.academy/web-designer',
         notes: 'Masonry-сетка работ студентов. Гипотеза по research web-designer (type-215, 3 упоминания). Пришли скрин для верификации.' },
@@ -850,7 +843,6 @@
       'mentor-02': '### Личный ментор\n• Тариф, в котором ментор доступен: \n• Главный заголовок: \n• 5 тегов (короткие фразы): \n• 5 типов встреч с ментором (название + краткое описание).',
       'skills-01': '### Навыки и инструменты\n• Роль выпускника: \n• 8-12 буллетов «Что умею»: \n  – \n  – \n• Инструменты (через запятую, тегами): ',
       'projects-01':'### Проекты\n• Количество проектов: \n• 5-7 проектов слайдером (название + 1-2 предложения).',
-      'projects-02':'### Проекты (списком)\n• 9 проектов, по каждому:\n  – Название проекта\n  – 1-2 предложения чем будет полезен',
       'stats-01':  '### Результаты обучения\n• 3 крупных процента/числа + подпись к каждому: \n• 5-6 пунктов карьерной поддержки (короткие тезисы).',
       'stats-02':  '### Зарплаты\n• Средняя зарплата + год: \n• 3 уровня: Начинающий / Специалист / Старший — суммы.\n• Источник данных: ',
       'experts-01':'### Преподаватели\n• 4-6 экспертов, по каждому:\n  – ФИО\n  – Опыт + текущая должность\n  – Регалии (2-3 строки)',
