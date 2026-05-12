@@ -75,11 +75,16 @@
 
     .hero4-left {
       display: flex; flex-direction: column;
-      justify-content: space-between;
       gap: 28px;
-      padding: 4px 0;
+      padding: 8px 0;
     }
-    .hero4-bullets { display: flex; flex-direction: column; gap: 24px; }
+    .hero4-bullets {
+      flex: 1 1 auto;
+      display: flex; flex-direction: column;
+      justify-content: space-around;
+      gap: 16px;
+      min-height: 0;
+    }
     .hero4-bullet { display: flex; gap: 16px; align-items: center; }
     .hero4-bullet .ico {
       flex: 0 0 auto;
