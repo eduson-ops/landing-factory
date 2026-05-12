@@ -1,6 +1,10 @@
 <!doctype html>
-<!-- target-01-cards-photo: 3 карточки "Для кого" с фото, заголовком, описанием.
-     Ref: refrences/Снимок экрана 2026-05-11 143407.png -->
+<!-- target-01-cards-photo: pixel-target — скрин Eduson «Руководитель мед.организации».
+     Состав:
+       – h2: «Обучение для всех, кто хочет» + accent-фиолет вторая часть
+         с переносом, занимает 2-3 строки
+       – 3 карточки в ряд: белая, radius 30px, внутри сверху белая рамка
+         (~12px) вокруг фото с radius 20px; заголовок + большой текст под фото -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -12,61 +16,101 @@
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <style>
-    .target { padding: 64px 0 80px; }
+    .target { padding: 56px 0 72px; }
+
     .target h2 {
       text-align: center;
-      max-width: 880px;
-      margin: 0 auto 48px;
-      font-size: clamp(30px, 4.2vw, 52px);
+      max-width: 920px;
+      margin: 0 auto 40px;
+      font-size: clamp(30px, 4.4vw, 52px);
+      font-weight: var(--fw-extrabold);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
     }
-    .target h2 .accent { color: var(--color-primary); }
+    .target h2 .accent {
+      display: block;
+      color: var(--color-primary);
+    }
 
     .target-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
     .target-card {
       background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
+      border-radius: 30px;
+      padding: 12px 12px 0;
       box-shadow: var(--shadow-card);
       display: flex; flex-direction: column;
     }
-    .target-photo { aspect-ratio: 4 / 3; }
-    .target-photo .placeholder-photo { width: 100%; height: 100%; border-radius: 0; }
-    .target-body { padding: 22px 24px 26px; }
-    .target-body h3 { font-size: 19px; margin-bottom: 10px; }
-    .target-body p { font-size: 14px; color: var(--color-text-muted); line-height: 1.55; }
+    .target-photo {
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .target-photo .placeholder-photo {
+      width: 100%; height: 100%;
+      border-radius: 0;
+    }
+    .target-body {
+      padding: 28px 16px 28px;
+      display: flex; flex-direction: column;
+      gap: 18px;
+    }
+    .target-body h3 {
+      margin: 0;
+      font-size: clamp(20px, 1.6vw, 24px);
+      font-weight: var(--fw-bold);
+      line-height: 1.25;
+      color: var(--color-text);
+    }
+    .target-body p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+    }
 
     @media (max-width: 992px) { .target-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .target-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .target-grid { grid-template-columns: 1fr; }
+      .target { padding: 40px 0 48px; }
+      .target h2 { font-size: clamp(24px, 7vw, 36px); }
+    }
   </style>
 </head>
 <body class="theme-light-violet">
   <section class="target">
     <div class="container">
-      <h2>Обучение для всех, кто хочет <span class="accent">профессионально управлять медорганизацией</span></h2>
+      <h2>
+        Обучение для всех, кто хочет
+        <span class="accent">профессионально управлять медорганизацией</span>
+      </h2>
+
       <div class="target-grid">
         <div class="target-card">
           <div class="target-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
           <div class="target-body">
             <h3>Врачи частной практики</h3>
-            <p>Освоите инструменты управления медбизнесом и выйдете из найма в собственное дело. Получите чек-лист по запуску клиники с нуля и шаблоны финансовых, юридических и маркетинговых документов.</p>
+            <p>Освоите инструменты управления медбизнесом и защитите себя от ошибок и убытков на старте. Получите лицензию с первого раза, посчитаете финмодель, наймёте сильную команду и привлечёте новых клиентов.</p>
           </div>
         </div>
+
         <div class="target-card">
           <div class="target-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
           <div class="target-body">
             <h3>Наёмные управленцы и главврачи</h3>
-            <p>Систематизируете опыт и закроете пробелы в знаниях. Научитесь грамотно проводить операционные изменения, выстроить процессы и нанимать команду. Вырастете в зарплате и должности.</p>
+            <p>Систематизируете опыт и закроете пробелы в знаниях. Наведёте порядок в процессах медорганизации и научитесь говорить с собственником на языке цифр. Сможете мотивировать персонал и спокойно проходить проверки надзорных органов. Диплом установленного образца подтвердит ваши навыки и поможет в карьерном росте.</p>
           </div>
         </div>
+
         <div class="target-card">
           <div class="target-photo"><div class="placeholder-photo placeholder-photo--landscape"></div></div>
           <div class="target-body">
             <h3>Владельцы медцентров</h3>
-            <p>Перейдёте от интуитивного управления бизнесом к системному. Быстрее проверите гипотезы и масштабируете медцентр. Оцените прибыль, по подразделениям, поймёте, где зарабатывает компания, а где теряет.</p>
+            <p>Перейдёте от интуитивного ведения бизнеса к системному управлению. Выстроите прозрачные процессы и увеличите маржинальность. Оцените прибыль по направлениям, поймёте, где теряете деньги, снизите издержки и риски.</p>
           </div>
         </div>
       </div>
