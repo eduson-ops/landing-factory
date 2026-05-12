@@ -274,6 +274,8 @@
     .ctr-card .flag.dark { background: #2A2A30; color: #fff; }
     .ctr-card .flag.exact { background: #1E1E20; color: #fff; }
     .ctr-card .flag.warn { background: #FFF4D6; color: #8A6300; }
+    .ctr-card .flag.unverified { background: #FFE3E3; color: #B23A3A; cursor: help; }
+    .ctr-card .flag { cursor: help; }
     .ctr-card .order-pill {
       position: absolute;
       top: 8px; left: 8px;
@@ -628,7 +630,6 @@
         { path: 'blocks/01-hero/hero-02-with-form.html',   name: 'Заголовок и форма консультации',         slug: 'hero-02', tags: ['hero','форма','консультация','шапка'] },
         { path: 'blocks/01-hero/hero-03-dark.html',        name: 'Тёмный заголовок (для IT-курсов)',       slug: 'hero-03', tags: ['hero','тёмный','dark','оранжевый','python','шапка'], themed: 'dark' },
         { path: 'blocks/01-hero/hero-04-centered.html',    name: 'Заголовок по центру с большой карточкой', slug: 'hero-04', tags: ['hero','центр','центрированный','карточка','шапка'] },
-        { path: 'blocks/01-hero/hero-05-bg-photo.html',    name: 'Фото на фон + текст поверх',              slug: 'hero-05', tags: ['hero','фон','bg-photo','overlay','тёмный','шапка'] },
       ]},
       { group: 'Кому подходит и зачем учиться', items: [
         { path: 'blocks/02-target-audience/target-01-cards-photo.html', name: 'Для кого курс — с фото',     slug: 'target-01', tags: ['для кого','аудитория','фото'] },
@@ -680,7 +681,7 @@
     ];
 
     const PRESETS = {
-      'ai-engineer': ['hero-05','text-01','stats-02','target-02','ai-tools-01','skills-01','program-02','projects-01','diploma-02','experts-01','ratings-01','partners-01','trust-01','employer-01','pricing-02','faq-01','cta-01'],
+      'ai-engineer': ['hero-04','text-01','stats-02','target-02','ai-tools-01','skills-01','program-02','projects-01','diploma-02','experts-01','ratings-01','partners-01','trust-01','employer-01','pricing-02','faq-01','cta-01'],
       'soft-skills': ['hero-01','target-01','pain-01','benefits-01','program-01','mentor-01','graduates-01','graduates-02','diploma-01','pricing-01','faq-01','cta-01'],
       'minimal':     ['hero-01','program-01','faq-01','pricing-01','cta-01'],
       'full':        ['hero-02','target-01','pain-01','benefits-01','program-01','format-01','mentor-01','mentor-02','projects-01','stats-01','experts-01','graduates-01','graduates-02','ratings-01','diploma-01','pricing-01','faq-01','cta-01','sticky-01'],
@@ -696,76 +697,122 @@
     // признак brand-плейсхолдеров, источник (для UI-ссылки «оригинал ↗»).
     // sourceUrl/sourceScreenshot заполняются по ходу gap-analysis (Этап 3+).
     const BLOCK_META = {
-      // Порядок калиброван по реальной структуре 11 курсов на eduson.academy (Tilda):
-      // hero → CTA-форма #1 → benefits → target → описание/зарплаты → навыки → формат →
-      // программа → проекты → ментор/трудоустройство → диплом → эксперты → отзывы →
-      // CTA-форма #2 → FAQ → рейтинги → партнёры → trust → pricing → employer → sticky.
+      // Порядок калиброван по реальной структуре 11 курсов на eduson.academy (Tilda).
+      // sourceUrl: подтверждённый источник эталона (если есть — в карточке появится «оригинал ↗»).
+      // notes: что я знаю про блок + если источник не верифицирован — подсказка где искать.
 
       // 1. Hero
-      'hero-01': { type: 'universal', canonicalOrder: 1 },
-      'hero-02': { type: 'universal', canonicalOrder: 1 },
-      'hero-03': { type: 'universal', canonicalOrder: 1 },
-      'hero-04': { type: 'universal', canonicalOrder: 1 },
-      'hero-05': { type: 'universal', canonicalOrder: 1, notes: 'Фото на фон + контент поверх — паттерн для управленческих курсов Eduson.' },
-      // 2. CTA-форма #1 — сразу после hero (часто как mentor-01/cta-01 в исходниках Eduson)
-      // (если выбран hero-02 с формой — этот блок не нужен; иначе ставится здесь)
+      'hero-01': { type: 'universal', canonicalOrder: 1,
+        notes: 'Split-hero classic (h1 слева, фото-карточка справа). Источник не верифицирован — нужен скрин-эталон конкретного курса (возможно ИИ-инженер / python / data-analyst).' },
+      'hero-02': { type: 'universal', canonicalOrder: 1,
+        sourceUrl: 'https://eduson.academy/project-manager',
+        notes: '3-кол hero (info + photo + form) + trust-bar + 6 преимуществ. Эталон от 12.05.2026 — менеджер проектов.' },
+      'hero-03': { type: 'universal', canonicalOrder: 1,
+        sourceUrl: 'https://eduson.academy/python',
+        notes: 'Тёмная тема + оранжевый primary. Использовался на python-курсе (старая версия). Перепроверь актуальность.' },
+      'hero-04': { type: 'universal', canonicalOrder: 1,
+        sourceUrl: 'https://eduson.academy/medical-director',
+        notes: 'Centered title + big card (bullets+CTA / photo) + 4 преимуществ. Эталон от 12.05.2026 — руководитель мед.организации.' },
+
       // 3. Ключевые преимущества
-      'benefits-01': { type: 'universal', canonicalOrder: 3 },
+      'benefits-01': { type: 'universal', canonicalOrder: 3,
+        notes: 'Сетка 4 преимуществ под hero. Источник НЕ верифицирован — обычно встроено в hero-04 нижними карточками. Пришли скрин если это отдельный блок.' },
       // 4. Кому подходит
-      'target-01': { type: 'universal', canonicalOrder: 4 },
-      'target-02': { type: 'universal', canonicalOrder: 4 },
-      // 5. Описание профессии / о рынке (text-section)
-      'text-01': { type: 'universal', canonicalOrder: 5 },
-      // 5.5. «Боли» — у Eduson отсутствует, ставим рядом с описанием как опциональный
-      'pain-01': { type: 'universal', canonicalOrder: 5, notes: 'У Eduson обычно нет блока «болей» — opt-in, ставится рядом с описанием.' },
-      // 6. Статистика зарплат / результатов
-      'stats-02': { type: 'universal', canonicalOrder: 6 },
+      'target-01': { type: 'universal', canonicalOrder: 4,
+        notes: 'Карточки с фото "для кого курс". Источник не верифицирован — пришли скрин эталона.' },
+      'target-02': { type: 'universal', canonicalOrder: 4,
+        notes: 'Карточки без фото "для кого курс" (3-4 категории). Возможный источник — operations-director или hr-manager. Перепроверь.' },
+      // 5. Описание профессии / о рынке
+      'text-01': { type: 'universal', canonicalOrder: 5,
+        notes: 'Narrative-блок "о рынке профессии". Источник НЕ верифицирован — нужен скрин-эталон.' },
+      'pain-01': { type: 'universal', canonicalOrder: 5,
+        notes: '⚠ У Eduson НЕТ блока «боли» — это мой собственный паттерн (не из эталона). Можно удалить или заменить на benefits.' },
+      // 6. Статистика зарплат
+      'stats-02': { type: 'universal', canonicalOrder: 6,
+        notes: 'Зарплата в индустрии (hh.ru). Источник не верифицирован — встречается на python/project-manager, пришли скрин.' },
       // 7. Навыки и инструменты
-      'skills-01': { type: 'universal', canonicalOrder: 7 },
-      'skills-group-01': { type: 'universal', canonicalOrder: 7, notes: 'Многогрупповые навыки (методологии + инструменты + soft) — паттерн PM/менеджерских курсов.' },
-      'ai-tools-01': { type: 'universal', canonicalOrder: 7, notes: 'Сетка нейросетей-помощников — паттерн IT/AI-курсов (python, ai-engineer).' },
-      'portfolio-gallery-01': { type: 'universal', canonicalOrder: 10, notes: 'Masonry-галерея работ — паттерн web-designer / creative.' },
-      'program-cards-01': { type: 'universal', canonicalOrder: 19, notes: 'Каталог нескольких программ — паттерн MBA-агрегатора (mba-all).' },
-      'expert-quote-01': { type: 'universal', canonicalOrder: 14, notes: 'Цитата авторитета (не выпускника) — паттерн MBA / gen-dir.' },
-      // 8. Формат обучения / методы
-      'format-01': { type: 'universal', canonicalOrder: 8 },
+      'skills-01': { type: 'universal', canonicalOrder: 7,
+        notes: 'Таблица навыков и инструментов. Источник не верифицирован — нужен скрин.' },
+      'skills-group-01': { type: 'universal', canonicalOrder: 7,
+        sourceUrl: 'https://eduson.academy/project-manager',
+        notes: 'Многогрупповые навыки (методологии + инструменты + soft). Гипотеза по research project-manager — пришли скрин для верификации.' },
+      'ai-tools-01': { type: 'universal', canonicalOrder: 7,
+        sourceUrl: 'https://eduson.academy/python',
+        notes: 'Сетка нейросетей-помощников. Подтверждён grep-ом по python.html (31 упоминание). Пришли скрин для финальной верификации композиции.' },
+      // 8. Формат обучения
+      'format-01': { type: 'universal', canonicalOrder: 8,
+        notes: 'Mosaic-формат обучения (тренажёры / задания / видео). Источник НЕ верифицирован — нужен скрин.' },
       // 9. Программа
-      'program-01': { type: 'universal', canonicalOrder: 9 },
-      'program-02': { type: 'universal', canonicalOrder: 9 },
-      // 10. Проекты / портфолио — у Eduson всегда горизонтальный слайдер (projects-01),
-      // вертикальный список (projects-02) не соответствует канону, оставлен для backward-compat.
-      'projects-01': { type: 'universal', canonicalOrder: 10 },
-      'projects-02': { type: 'universal', canonicalOrder: 10, notes: 'Не соответствует канону Eduson — у них всегда горизонтальный слайдер. Рекомендуется projects-01.' },
-      // 11. Стажировка / куратор / поддержка
-      'mentor-01': { type: 'universal', canonicalOrder: 11 },
-      'mentor-02': { type: 'universal', canonicalOrder: 11 },
-      // 12. Stats-dark (результаты обучения, тёмный hero-style)
-      'stats-01': { type: 'universal', canonicalOrder: 12 },
+      'program-01': { type: 'universal', canonicalOrder: 9,
+        notes: 'Аккордеон со счётчиками уроков. Встречается у всех курсов. По голосовой ОС — выглядит хорошо. Если хочешь верифицировать — пришли скрин с любого.' },
+      'program-02': { type: 'universal', canonicalOrder: 9,
+        sourceUrl: 'https://eduson.academy/operations-director',
+        notes: 'Аккордеон с раскрытыми темами + PDF-кнопкой. По голосовой ОС — выглядит хорошо.' },
+      // 10. Проекты / портфолио
+      'projects-01': { type: 'universal', canonicalOrder: 10,
+        notes: 'Горизонтальный слайдер портфолио — каноничный паттерн Eduson. Источник: refrences/Снимок_145200.png. Возможно operations-director или python.' },
+      'projects-02': { type: 'universal', canonicalOrder: 10,
+        notes: '⚠ По голосовой ОС "херня полная" — вертикальный список НЕ соответствует канону Eduson. Рекомендуется projects-01.' },
+      'portfolio-gallery-01': { type: 'universal', canonicalOrder: 10,
+        sourceUrl: 'https://eduson.academy/web-designer',
+        notes: 'Masonry-сетка работ студентов. Гипотеза по research web-designer (type-215, 3 упоминания). Пришли скрин для верификации.' },
+      // 11. Стажировка / куратор
+      'mentor-01': { type: 'universal', canonicalOrder: 11,
+        notes: 'Куратор-чат с формой заявки. Источник НЕ верифицирован. Возможно operations-director.' },
+      'mentor-02': { type: 'universal', canonicalOrder: 11,
+        sourceUrl: 'https://eduson.academy/python',
+        notes: 'Личный ментор + тэги-встречи. По первому research — паттерн python (6 индивидуальных встреч). Пришли скрин для верификации.' },
+      // 12. Stats-dark
+      'stats-01': { type: 'universal', canonicalOrder: 12,
+        notes: 'Тёмные результаты обучения. Источник НЕ верифицирован — нужен скрин.' },
       // 13. Диплом
-      'diploma-01': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true, notes: 'Фото диплома Eduson — продакт заменяет на реальное изображение.' },
-      'diploma-02': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true, notes: 'Фото диплома + удостоверения.' },
+      'diploma-01': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true,
+        sourceUrl: 'https://eduson.academy/operations-director',
+        notes: 'Split: фото диплома слева + список преимуществ справа. Продакт заменяет фото-плейсхолдер на реальный диплом Eduson перед публикацией.' },
+      'diploma-02': { type: 'exact', canonicalOrder: 13, hasBrandPlaceholders: true,
+        notes: 'Два документа (диплом + удостоверение). Источник НЕ верифицирован — пришли скрин курса где это встречается.' },
       // 14. Преподаватели
-      'experts-01': { type: 'universal', canonicalOrder: 14 },
+      'experts-01': { type: 'universal', canonicalOrder: 14,
+        notes: 'Слайдер преподавателей (фото + имя + должность + компания). Встречается у всех. Пришли скрин если нужна верификация композиции.' },
+      'expert-quote-01': { type: 'universal', canonicalOrder: 14,
+        notes: '⚠ Создан по гипотезе агента (цитата авторитета, например Адизес для MBA). Grep по gen-dir.html НЕ нашёл «Адизес» — источник под вопросом. Пришли скрин если действительно есть.' },
       // 15. Отзывы / выпускники
-      'graduates-01': { type: 'universal', canonicalOrder: 15 },
-      'graduates-02': { type: 'universal', canonicalOrder: 15 },
+      'graduates-01': { type: 'universal', canonicalOrder: 15,
+        notes: 'Истории выпускников цитатами. Источник НЕ верифицирован — пришли скрин.' },
+      'graduates-02': { type: 'universal', canonicalOrder: 15,
+        notes: 'Отзывы со звёздами/рейтингом. Источник НЕ верифицирован — пришли скрин.' },
       // 16. Рейтинги-агрегаторы
-      'ratings-01': { type: 'exact', canonicalOrder: 16, hasBrandPlaceholders: true, notes: 'Логотипы Яндекс/Сравни/Хабр — продакт заменяет на реальные SVG.' },
+      'ratings-01': { type: 'exact', canonicalOrder: 16, hasBrandPlaceholders: true,
+        sourceUrl: 'https://eduson.academy/operations-director',
+        notes: 'Полоса логотипов Яндекс/Сравни/Хабр/2GIS/tutortop. Источник: refrences/Снимок_145302.png. Продакт заменяет brand-плейсхолдеры на реальные SVG перед публикацией.' },
       // 17. Партнёры
-      'partners-01': { type: 'exact', canonicalOrder: 17, hasBrandPlaceholders: true, notes: 'Логотипы компаний-партнёров — продакт заменяет на реальные SVG.' },
-      // 18. Trust (цифры о компании)
-      'trust-01': { type: 'exact', canonicalOrder: 18, notes: 'Цифры о Eduson — фиксированные, не адаптируются под курс.' },
+      'partners-01': { type: 'exact', canonicalOrder: 17, hasBrandPlaceholders: true,
+        sourceUrl: 'https://eduson.academy/operations-director',
+        notes: 'Полоса логотипов компаний-партнёров (Сбер, VK, Ozon, X5 и т.п.). Brand-placeholders — продакт меняет на реальные SVG.' },
+      // 18. Trust
+      'trust-01': { type: 'exact', canonicalOrder: 18,
+        notes: 'Цифры о Eduson (750K студентов, лицензия, годы). Источник НЕ верифицирован отдельным скрином — встречается в trust-bar многих курсов. Пришли скрин если нужна композиция.' },
       // 19. Pricing
-      'pricing-01': { type: 'universal', canonicalOrder: 19 },
-      'pricing-02': { type: 'universal', canonicalOrder: 19 },
-      'employer-01': { type: 'universal', canonicalOrder: 20 },
-      // 21. CTA-форма #2
-      'cta-01': { type: 'universal', canonicalOrder: 21 },
-      'cta-02': { type: 'universal', canonicalOrder: 21 },
-      // 22. FAQ — у Eduson часто в самом конце
-      'faq-01': { type: 'universal', canonicalOrder: 22 },
-      // 99. Sticky-footer (всегда поверх)
-      'sticky-01': { type: 'universal', canonicalOrder: 99 },
+      'pricing-01': { type: 'universal', canonicalOrder: 19,
+        notes: 'Один тариф карточкой. По голосовой ОС "по ценам ОК". Источник не верифицирован отдельным скрином.' },
+      'pricing-02': { type: 'universal', canonicalOrder: 19,
+        notes: 'Сравнение двух тарифов. По голосовой ОС "по ценам ОК". Источник не верифицирован.' },
+      'program-cards-01': { type: 'universal', canonicalOrder: 19,
+        sourceUrl: 'https://eduson.academy/mba-all',
+        notes: 'Каталог нескольких программ карточками. Гипотеза по research mba-all (type-331, 7 упоминаний). Пришли скрин для верификации.' },
+      // 20-21. Employer / CTA
+      'employer-01': { type: 'universal', canonicalOrder: 20,
+        notes: 'CTA "оплата от работодателя" (B2B/юрлицо). Источник НЕ верифицирован — пришли скрин.' },
+      'cta-01': { type: 'universal', canonicalOrder: 21,
+        notes: 'Inline-форма заявки в один ряд. Источник НЕ верифицирован — пришли скрин.' },
+      'cta-02': { type: 'universal', canonicalOrder: 21,
+        notes: 'Форма обратного звонка. Источник НЕ верифицирован — пришли скрин.' },
+      // 22. FAQ
+      'faq-01': { type: 'universal', canonicalOrder: 22,
+        notes: 'FAQ-аккордеон. По голосовой ОС "по FAQ нет вопросов" — выглядит хорошо. Композиция выверена.' },
+      // 99. Sticky-footer
+      'sticky-01': { type: 'universal', canonicalOrder: 99,
+        notes: 'Sticky-footer с ценой внизу экрана. Источник НЕ верифицирован — пришли скрин курса где это есть (часто на длинных лендингах).' },
     };
     function meta(slug) { return BLOCK_META[slug] || { type: 'universal', canonicalOrder: 50 }; }
 
@@ -968,15 +1015,19 @@
       const m = meta(it.slug);
       const orderLabel = m.canonicalOrder === 99 ? '∞' : m.canonicalOrder;
       const orderPill = `<span class="order-pill" title="Позиция в каноничном порядке Eduson">${orderLabel} •</span>`;
+      const notesAttr = m.notes ? ` title="${m.notes.replace(/"/g, '&quot;')}"` : '';
       const extLink = m.sourceUrl
-        ? `<a class="ext-link" href="${m.sourceUrl}" target="_blank" rel="noopener" title="Оригинал на eduson.academy" data-action="ext"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg></a>`
+        ? `<a class="ext-link" href="${m.sourceUrl}" target="_blank" rel="noopener" title="Оригинал: ${m.sourceUrl}${m.notes ? '\n\n' + m.notes : ''}" data-action="ext"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg></a>`
         : '';
       const flagType = m.type === 'exact'
-        ? '<span class="flag exact" title="Копируется из оригинала Eduson без правок">Точный</span>'
-        : '<span class="flag">Универсальный</span>';
+        ? `<span class="flag exact"${notesAttr}>Точный</span>`
+        : `<span class="flag"${notesAttr}>Универсальный</span>`;
       const flagDark = it.themed === 'dark' ? '<span class="flag dark">Dark theme</span>' : '';
       const flagWarn = m.hasBrandPlaceholders
-        ? '<span class="flag warn" title="Содержит brand-плейсхолдеры — продакт заменяет реальными ассетами перед публикацией">⚠ замена ассетов</span>'
+        ? `<span class="flag warn" title="Содержит brand-плейсхолдеры — продакт заменяет реальными ассетами перед публикацией${m.notes ? '\n\n' + m.notes : ''}">⚠ замена ассетов</span>`
+        : '';
+      const flagUnverified = !m.sourceUrl
+        ? `<span class="flag unverified" title="Источник эталона НЕ верифицирован${m.notes ? '\n\n' + m.notes : ''}">? нужен референс</span>`
         : '';
 
       card.innerHTML = `
@@ -992,7 +1043,7 @@
         </div>
         <div class="label">
           <div class="label-title">${it.name}</div>
-          <div class="label-flags">${flagType}${flagDark}${flagWarn}</div>
+          <div class="label-flags">${flagType}${flagDark}${flagWarn}${flagUnverified}</div>
         </div>
       `;
 
